@@ -1,0 +1,19 @@
+<svg class="w-5 h-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+    <defs>
+        <linearGradient id="half">
+            <stop offset="50%" stop-color="currentColor" />
+            <stop offset="50%" stop-color="white" stop-opacity="1"/>
+        </linearGradient>
+    </defs>
+    <path fill="url(#half)" d="M9.049 2.927c.3-.921 1.603-.921 1.902 
+        0l1.178 3.63h3.813c.969 0 1.371 
+        1.24.588 1.81l-3.087 2.245 
+        1.18 3.631c.3.92-.755 
+        1.688-1.54 1.117L10 
+        13.348l-3.083 2.242c
+        -.784.571-1.838
+        -.197-1.54-1.117l1.18
+        -3.63-3.088-2.246c
+        -.782-.57-.38
+        -1.81.588-1.81h3.813l1.179-3.63z"/>
+</svg>
