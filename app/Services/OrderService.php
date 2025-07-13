@@ -96,4 +96,19 @@ class OrderService
 
         return $this->simulatePayment($order, $validatedData);
     }
+
+    public function getOrders(Request $request)
+    {
+        $query = Order::with('customer')->latest();
+
+        if ($request->has('search')) {
+            $query->where('id', 'like', '%' . $request->input('search') . '%');
+        }
+
+        if ($request->has('status')) {
+            $query->where('status', $request->input('status'));
+        }
+
+        return $query->paginate(10);
+    }
 }

@@ -6,11 +6,19 @@ use App\DataTransferObjects\StoreData;
 use App\Models\Store;
 use Illuminate\Support\Facades\Storage;
 
+use Illuminate\Http\Request;
+
 class StoreService
 {
-    public function getAllStores()
+    public function getAllStores(Request $request)
     {
-        return Store::all();
+        $query = Store::query();
+
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $request->input('search') . '%');
+        }
+
+        return $query->paginate(10);
     }
 
     public function createStore(StoreData $data): Store

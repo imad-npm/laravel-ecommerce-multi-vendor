@@ -30,7 +30,7 @@ class ChatService
      * @param Product|null $product
      * @return Message
      */
-    public function sendMessage(User $sender, User $receiver, string $content, ?Product $product = null): Message
+    public function sendMessage(User $sender, User $receiver, string $content, ?Product $product = null): Conversation
     {
         // Ensure user_one_id is always the smaller ID to maintain uniqueness
         $userOneId = min($sender->id, $receiver->id);
@@ -44,10 +44,12 @@ class ChatService
             ]
         );
 
-        return $conversation->messages()->create([
+        $conversation->messages()->create([
             'sender_id' => $sender->id,
             'message' => $content,
         ]);
+
+        return $conversation;
     }
 
     /**
@@ -58,33 +60,16 @@ class ChatService
      */
     public function getUserConversations(User $user): Collection
     {
-        return Conversation::where('user_one_id', $user->id)
-            ->orWhere('user_two_id', $user->id)
-            ->with(['userOne', 'userTwo', 'product', 'messages' => function($query) {
-                $query->latest()->take(1); // Get the last message for each conversation
-            }])
-            ->get();
+        return Conversation::where(function ($query) use ($user) {
+            $query->where('user_one_id', $user->id)
+                  ->orWhere('user_two_id', $user->id);
+        })
+        ->whereHas('messages') // Ensure the conversation has at least one message
+        ->with(['userOne', 'userTwo', 'product', 'messages' => function($query) {
+            $query->latest()->take(1); // Get the last message for each conversation
+        }])
+        ->get();
     }
 
-    /**
-     * Find or create a conversation.
-     *
-     * @param User $user1
-     * @param User $user2
-     * @param Product|null $product
-     * @return Conversation
-     */
-    public function findOrCreateConversation(User $user1, User $user2, ?Product $product = null): Conversation
-    {
-        $userOneId = min($user1->id, $user2->id);
-        $userTwoId = max($user1->id, $user2->id);
-
-        return Conversation::firstOrCreate(
-            [
-                'user_one_id' => $userOneId,
-                'user_two_id' => $userTwoId,
-                'product_id' => $product ? $product->id : null,
-            ]
-        );
-    }
+    
 }

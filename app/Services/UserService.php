@@ -11,10 +11,15 @@ class UserService
     public function getUsers(Request $request)
     {
         $search = $request->input('search');
+        $role = $request->input('role');
+
         return User::query()
             ->when($search, function($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
                   ->orWhere('email', 'like', "%{$search}%");
+            })
+            ->when($role, function($q) use ($role) {
+                $q->where('role', $role);
             })
             ->latest()->paginate(15)->withQueryString();
     }

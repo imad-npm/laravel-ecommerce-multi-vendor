@@ -65,9 +65,7 @@ class ChatController extends Controller
         $receiver = User::findOrFail($request->receiver_id);
         $product = $request->product_id ? Product::findOrFail($request->product_id) : null;
 
-        $conversation = $this->chatService->findOrCreateConversation($sender, $receiver, $product);
-
-        $this->chatService->sendMessage($sender, $receiver, $request->message, $product);
+        $conversation = $this->chatService->sendMessage($sender, $receiver, $request->message, $product);
 
         // Redirect back to the conversation view
         return redirect()->route('chat.show', [
