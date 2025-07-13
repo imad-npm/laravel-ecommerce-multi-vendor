@@ -14,6 +14,12 @@
         </div>
         <form method="GET" action="{{ route('admin.users.index') }}" class="mb-4 w-full max-w-2xl flex flex-wrap gap-2 items-center bg-gray-50 p-3 rounded shadow-sm">
           <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by name or email..." class="flex-1 min-w-0 px-4 py-2 border border-gray-300 rounded-lg" />
+          <select name="role" class="px-4 py-2 w-36 border border-gray-300 rounded-lg">
+            <option value="">All Roles</option>
+            <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+            <option value="vendor" {{ request('role') == 'vendor' ? 'selected' : '' }}>Vendor</option>
+            <option value="customer" {{ request('role') == 'customer' ? 'selected' : '' }}>Customer</option>
+          </select>
           <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg"> Search</button>
         </form>
         <div class="overflow-x-auto">

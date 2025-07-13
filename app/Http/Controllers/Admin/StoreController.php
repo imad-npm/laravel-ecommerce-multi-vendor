@@ -8,14 +8,16 @@ use App\Http\Requests\StoreRequest;
 use App\Models\Store;
 use App\Services\StoreService;
 
+use Illuminate\Http\Request;
+
 class StoreController extends Controller
 {
     public function __construct(protected StoreService $storeService)
     {}
 
-    public function index()
+    public function index(Request $request)
     {
-        $stores = $this->storeService->getAllStores();
+        $stores = $this->storeService->getAllStores($request);
         return view('admin.store.index', compact('stores'));
     }
 
