@@ -81,4 +81,18 @@ class ChatService
             ->where('product_id', $product ? $product->id : null)
             ->first();
     }
+
+    public function findOrCreateConversation(User $user1, User $user2, ?Product $product = null): Conversation
+    {
+        $userOneId = min($user1->id, $user2->id);
+        $userTwoId = max($user1->id, $user2->id);
+
+        return Conversation::firstOrCreate(
+            [
+                'user_one_id' => $userOneId,
+                'user_two_id' => $userTwoId,
+                'product_id' => $product ? $product->id : null,
+            ]
+        );
+    }
 }
