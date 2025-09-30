@@ -18,7 +18,7 @@ class PayoutController extends Controller
     public function index()
     {
         $vendor = auth()->user();
-        $earnings = $vendor->vendorEarnings()->latest()->paginate(10);
+        $payouts = $vendor->payouts()->latest()->paginate(10);
         $unpaidEarnings = $vendor->vendorEarnings()->where('is_paid', false)->sum('net_earnings');
         return view('vendor.payouts.index', compact('payouts', 'unpaidEarnings'));
     }
