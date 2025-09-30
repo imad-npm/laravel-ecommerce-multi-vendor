@@ -122,9 +122,11 @@
                                             @endif
                                         </td>
                                         <td class="px-4 py-4 whitespace-nowrap text-right">
+                                            <a href="{{ route('customer.orders.show', $order->id) }}"
+                                                class="inline-block px-4 py-2 bg-indigo-600 text-white text-xs rounded shadow hover:bg-indigo-700 transition">Show</a>
                                             @if ($order->status === 'pending')
                                                 <a href="{{ route('customer.orders.payment.retry', $order->id) }}"
-                                                    class="inline-block px-4 py-2 bg-indigo-600 text-white text-xs rounded shadow hover:bg-indigo-700 transition">Pay</a>
+                                                    class="inline-block px-4 py-2 bg-indigo-600 text-white text-xs rounded shadow hover:bg-indigo-700 transition ml-2">Pay</a>
                                                 <form action="{{ route('customer.orders.cancel', $order->id) }}"
                                                     method="POST" class="inline-block ml-2"
                                                     onsubmit="return confirm('Are you sure you want to cancel this order?')">
@@ -133,8 +135,6 @@
                                                     <button type="submit"
                                                         class="inline-block px-4 py-2 bg-red-100 text-red-700 text-xs rounded shadow hover:bg-red-200 transition">Cancel</button>
                                                 </form>
-                                            @else
-                                                <span class="text-gray-400 text-xs">—</span>
                                             @endif
                                         </td>
                                     </tr>

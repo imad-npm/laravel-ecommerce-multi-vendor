@@ -57,6 +57,7 @@
                         ],
                     [
                         ['label' => 'Reviews', 'route' => route('vendor.reviews.index'), 'active' => request()->routeIs('vendor.reviews.*')],
+                        ['label' => 'Payouts', 'route' => route('vendor.payouts.index'), 'active' => request()->routeIs('vendor.payouts.*')],
                     ]
                 ),
                 'customer' => [

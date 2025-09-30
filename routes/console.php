@@ -9,3 +9,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('orders:cancel-stale')->hourly();
+Schedule::job(new App\Jobs\DispatchVendorPayouts)->daily();

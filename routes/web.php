@@ -33,6 +33,12 @@ Route::get('/stores/{store}', [StoreController::class, 'show'])->name('stores.sh
 
 
 require __DIR__.'/auth.php';
+
+Route::post('/webhooks/{gatewayType}', [App\Http\Controllers\WebhookController::class, 'handle'])->name('webhooks.handle');
+
+Route::get('orders/{order}/retry-payment', [App\Http\Controllers\Payment\PaymentController::class,'showRetry'])->name('customer.orders.payment.retry');
+Route::post('orders/{order}/retry-payment', [App\Http\Controllers\Payment\PaymentController::class,'retry'])->name('customer.orders.payment.retry.process');
+
 require __DIR__.'/admin.php';
 require __DIR__.'/customer.php';
 require __DIR__.'/vendor.php';

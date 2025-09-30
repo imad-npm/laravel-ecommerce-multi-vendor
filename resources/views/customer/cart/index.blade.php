@@ -120,7 +120,7 @@
                         </div>
 
                         @auth
-                            <a href="{{ route('customer.orders.create') }}"
+                            <a href="{{ route('customer.checkout.shipping') }}"
                                class="mt-6 block w-full text-center px-6 py-3 bg-indigo-600 text-white text-sm font-medium rounded-lg shadow hover:bg-indigo-700 transition">
                                 Proceed to Checkout
                             </a>
