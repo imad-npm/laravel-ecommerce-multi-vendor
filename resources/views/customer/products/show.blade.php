@@ -34,22 +34,28 @@
                         <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
                             @php
                                 $rating = round($product->rating ?? 0, 1);
-                                $full = floor($rating);
-                                $half = ($rating - $full) >= 0.5;
                             @endphp
 
-                            <div class="flex gap-0.5 text-yellow-400">
-                                @for($i = 1; $i <= 5; $i++)
-                                    @if($i <= $full)
-                                        <x-icon.star solid class="w-4 h-4"/>
-                                    @elseif($i === $full + 1 && $half)
-                                        <x-icon.star-half class="w-4 h-4 text-yellow-400"/>
-                                    @else
-                                        <x-icon.star class="w-4 h-4 text-gray-300"/>
-                                    @endif
-                                @endfor
-                            </div>
-                            <span>({{ number_format($rating, 1) }})</span>
+                            @if ($rating > 0)
+                                @php
+                                    $full = floor($rating);
+                                    $half = ($rating - $full) >= 0.5;
+                                @endphp
+                                <div class="flex gap-0.5 text-yellow-400">
+                                    @for($i = 1; $i <= 5; $i++)
+                                        @if($i <= $full)
+                                            <x-icon.star solid class="w-4 h-4"/>
+                                        @elseif($i === $full + 1 && $half)
+                                            <x-icon.star-half class="w-4 h-4 text-yellow-400"/>
+                                        @else
+                                            <x-icon.star class="w-4 h-4 text-gray-300"/>
+                                        @endif
+                                    @endfor
+                                </div>
+                                <span>({{ number_format($rating, 1) }})</span>
+                            @else
+                                <div class="text-gray-500">No reviews yet</div>
+                            @endif
 
                             <span class="ml-4">{{ $product->sold_count }} sold</span>
                         </div>
