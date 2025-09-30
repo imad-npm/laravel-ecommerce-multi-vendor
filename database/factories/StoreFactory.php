@@ -27,7 +27,7 @@ class StoreFactory extends Factory
             'user_id' => $user->id,
             'name' => $this->faker->company,
             'description' => $this->faker->paragraph,
-            'logo' => $this->faker->imageUrl(200, 200, 'business', true, 'store'),
+            'logo' => 'logos/store.avif',
         ];
     }
 }
