@@ -7,14 +7,18 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Services\ProductService;
+use App\Services\ChatService;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
     protected $productService;
+    protected $chatService;
 
-    public function __construct(ProductService $productService)
+    public function __construct(ProductService $productService, ChatService $chatService)
     {
         $this->productService = $productService;
+        $this->chatService = $chatService;
     }
 
     public function index(Request $request)
@@ -26,9 +30,15 @@ class ProductController extends Controller
     }
     
 
-public function show(Product $product)
-{
-    $reviews = $product->reviews()->latest()->get(); // or whatever logic you want
-    return view('customer.products.show', compact('product', 'reviews'));
-}
+    public function show(Product $product)
+    {
+        $reviews = $product->reviews()->latest()->get();
+        $conversation = null;
+
+        if (Auth::check() && Auth::id() !== $product->store->user->id) {
+            $conversation = $this->chatService->findConversation(Auth::user(), $product->store->user, $product);
+        }
+
+        return view('customer.products.show', compact('product', 'reviews', 'conversation'));
+    }
 }

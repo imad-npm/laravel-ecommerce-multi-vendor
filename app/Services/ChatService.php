@@ -71,5 +71,14 @@ class ChatService
         ->get();
     }
 
-    
+    public function findConversation(User $user1, User $user2, ?Product $product = null): ?Conversation
+    {
+        $userOneId = min($user1->id, $user2->id);
+        $userTwoId = max($user1->id, $user2->id);
+
+        return Conversation::where('user_one_id', $userOneId)
+            ->where('user_two_id', $userTwoId)
+            ->where('product_id', $product ? $product->id : null)
+            ->first();
+    }
 }

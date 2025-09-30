@@ -7,36 +7,36 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\OrderService;
+use App\Services\PaymentService;
+use App\Http\Requests\StoreOrderRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class OrderController extends Controller
 {
+    use AuthorizesRequests;
     protected $orderService;
+    protected $paymentService;
 
-    public function __construct(OrderService $orderService)
+    public function __construct(OrderService $orderService, PaymentService $paymentService)
     {
         $this->orderService = $orderService;
+        $this->paymentService = $paymentService;
     }
 
     public function create()
     {
         $cart = Auth::user()->cart;
 
-        if ($cart->items->isEmpty()) {
-            return redirect()->route('customer.cart.index')->with('error', 'Your cart is empty.');
+       /* if ($cart->items->isEmpty()) {
+            return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
         }
-
+*/
         return view('customer.orders.create', compact('cart'));
     }
 
-    public function store(Request $request)
+    public function store(StoreOrderRequest $request)
     {
-        $validated = $request->validate([
-            'address' => 'required|string|max:255',
-            'payment_method' => 'required|in:cod,card,paypal,stripe',
-            'card_number' => 'nullable|required_if:payment_method,card|numeric|digits:16',
-            'expiry_date' => 'nullable|required_if:payment_method,card|date_format:m/y',
-            'cvv' => 'nullable|required_if:payment_method,card|numeric|digits:3',
-        ]);
+        $validated = $request->validated();
 
         $user = Auth::user();
         $order = $this->orderService->createOrderFromCart($user, $validated);
@@ -45,41 +45,22 @@ class OrderController extends Controller
             return redirect()->back()->with('error', 'Your cart is empty.');
         }
 
-        $redirect = $this->orderService->simulatePayment($order, $validated);
-        if ($redirect) return $redirect;
+        try {
+            $result = $this->paymentService->process($order, $validated);
 
-        return redirect()->route('customer.orders.index')->with('success', 'Order placed successfully!');
-    }
+            if (isset($result['redirect'])) {
+                return redirect($result['redirect']);
+            }
 
-    public function retryPayment(Order $order)
-    {
-        if ($order->status !== 'pending') {
-            return redirect()->route('customer.orders.index')->with('error', 'This order is already processed.');
+            return redirect()->route('customer.orders.index')->with('success', 'Order placed successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to process payment: ' . $e->getMessage());
         }
-
-        return view('customer.orders.retry-payment', compact('order'));
-    }
-
-    public function processRetryPayment(Request $request, Order $order)
-    {
-        $validated = $request->validate([
-            'payment_method' => 'required|in:cod,card,paypal,stripe',
-            'card_number' => 'nullable|required_if:payment_method,card|numeric|digits:16',
-            'expiry_date' => 'nullable|required_if:payment_method,card|date_format:m/y',
-            'cvv' => 'nullable|required_if:payment_method,card|numeric|digits:3',
-        ]);
-
-        $redirect = $this->orderService->processRetryPayment($order, $validated);
-        if ($redirect) return $redirect;
-
-        return redirect()->route('customer.orders.index')->with('success', 'Payment retried successfully!');
     }
 
     public function cancel(Order $order)
     {
-        if (auth()->id() !== $order->user_id) {
-            abort(403, 'Unauthorized');
-        }
+        $this->authorize('cancel', $order);
 
         if (!$this->orderService->cancelOrder($order)) {
             return redirect()->route('customer.orders.index')->with('error', 'Only pending orders can be cancelled.');
@@ -93,4 +74,12 @@ class OrderController extends Controller
         $orders = $this->orderService->getUserOrders(Auth::user());
         return view('customer.orders.index', compact('orders'));
     }
+
+    public function show(Order $order)
+    {
+        $this->authorize('view', $order);
+        return view('customer.orders.show', compact('order'));
+    }
+
+  
 }

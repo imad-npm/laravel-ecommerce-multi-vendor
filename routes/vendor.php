@@ -31,4 +31,7 @@ Route::prefix('vendor')->middleware(['auth','verified', 'role:vendor'])->name('v
    Route::delete('/profile', [VendorProfile::class, 'destroy'])->name('profile.destroy');
 
    Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+
+    // Payouts
+    Route::resource('payouts', App\Http\Controllers\Vendor\PayoutController::class)->only(['index']);
 });

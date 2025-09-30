@@ -78,4 +78,19 @@ public function orders()
 {
     return $this->hasMany(Order::class);
 }
+
+public function shippingAddresses()
+{
+    return $this->hasMany(ShippingAddress::class);
+}
+
+public function vendorEarnings()
+{
+    return $this->hasMany(VendorEarning::class, 'vendor_id');
+}
+
+public function payouts()
+{
+    return $this->hasMany(Payout::class, 'vendor_id');
+}
 }

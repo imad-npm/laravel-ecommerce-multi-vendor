@@ -7,10 +7,19 @@ use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Contracts\PaymentGateway;
+
+use App\Services\VendorEarningService;
 
 class OrderService
 {
-    public function createOrderFromCart(User $user, array $validatedData)
+    protected $vendorEarningService;
+
+    public function __construct(VendorEarningService $vendorEarningService)
+    {
+        $this->vendorEarningService = $vendorEarningService;
+    }
+    public function createOrderFromCart(User $user, array $validatedData, int $shippingAddressId)
     {
         $cart = $user->cart;
 
@@ -22,7 +31,7 @@ class OrderService
 
         $order = Order::create([
             'user_id' => $user->id,
-            'address' => $validatedData['address'],
+            'shipping_address_id' => $shippingAddressId,
             'payment_method' => $validatedData['payment_method'],
             'total' => $total,
             'status' => 'pending',
@@ -36,42 +45,11 @@ class OrderService
             ]);
         }
 
+        $this->vendorEarningService->createVendorEarnings($order);
+
         $cart->items()->delete();
 
         return $order;
-    }
-
-    public function simulatePayment(Order $order, array $validatedData): \Illuminate\Http\RedirectResponse|null
-    {
-        switch ($validatedData['payment_method']) {
-            case 'card':
-                if (!$this->validateCardDetails($validatedData)) {
-                    return back()->with('error', 'Invalid card details.');
-                }
-                $order->status = 'paid';
-                break;
-
-            case 'paypal':
-                return redirect()->route('payment.paypal')->with('order_id', $order->id);
-
-            case 'stripe':
-                return redirect()->route('payment.stripe')->with('order_id', $order->id);
-
-            case 'cod':
-                $order->status = 'pending';
-                break;
-        }
-
-        $order->payment_method = $validatedData['payment_method'];
-        $order->save();
-
-        return null;
-    }
-
-    private function validateCardDetails(array $data): bool
-    {
-        // Simulate card validation
-        return true;
     }
 
     public function cancelOrder(Order $order): bool
@@ -88,13 +66,16 @@ class OrderService
         return $user->orders()->with('items.product')->latest()->get();
     }
 
-    public function processRetryPayment(Order $order, array $validatedData): \Illuminate\Http\RedirectResponse|null
+    public function processPayment(Order $order, array $validatedData, PaymentGateway $paymentGateway): ?\Illuminate\Http\RedirectResponse
     {
         if ($order->status !== 'pending' || $order->user_id !== auth()->id()) {
             return back()->with('error', 'Unauthorized or already processed.');
         }
 
-        return $this->simulatePayment($order, $validatedData);
+        $order->payment_method = $validatedData['payment_method'];
+        $order->save();
+
+        return $paymentGateway->process($order, $validatedData);
     }
 
     public function getOrders(Request $request)

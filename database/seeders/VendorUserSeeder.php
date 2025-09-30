@@ -13,9 +13,13 @@ class VendorUserSeeder extends Seeder
      */
     public function run(): void
     {
-        //
-           // Example: 3 vendors
-           User::factory()->count(150)->create([
+        User::factory()->create([
+            'name' => 'Test Vendor',
+            'email' => 'vendor@example.com',
+            'role' => 'vendor',
+        ]);
+
+        User::factory()->count(50)->create([
             'role' => 'vendor',
         ]);
     }

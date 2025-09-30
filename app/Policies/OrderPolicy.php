@@ -18,5 +18,15 @@ class OrderPolicy
         return $order->user_id === $user->id;
     }
 
+    public function retry(User $user, Order $order): bool
+    {
+        return $order->user_id === $user->id && $order->status === 'pending';
+    }
+
+    public function cancel(User $user, Order $order): bool
+    {
+        return $order->user_id === $user->id && $order->status === 'pending';
+    }
+
     // Tu peux aussi ajouter d'autres méthodes plus tard (create, update, delete...)
 }
