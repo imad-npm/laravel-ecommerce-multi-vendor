@@ -25,10 +25,9 @@ class CartService
     {
         if ($user) {
             $cart = $user->cart ?? $user->cart()->create();
-            $cart->items()->updateOrCreate(
-                ['product_id' => $product->id],
-                ['quantity' => DB::raw("quantity + $quantity")]
-            );
+            $cartItem = $cart->items()->firstOrNew(['product_id' => $product->id]);
+            $cartItem->quantity += $quantity;
+            $cartItem->save();
         } else {
             $cart = Session::get('guest_cart', []);
             $key  = $product->id;
