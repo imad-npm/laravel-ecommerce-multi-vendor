@@ -14,7 +14,6 @@
                     <div>
                         <p class="text-lg"><strong class="font-semibold">Status:</strong> <span class="ml-2 px-3 py-1 rounded-full text-sm font-medium {{ $order->status === 'paid' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">{{ ucfirst($order->status) }}</span></p>
                         <p class="text-lg mt-2"><strong class="font-semibold">Total:</strong> <span class="text-green-600 text-xl font-bold">${{ number_format($order->total, 2) }}</span></p>
-                        <p class="text-lg mt-2"><strong class="font-semibold">Payment Method:</strong> {{ ucfirst($order->payment_method) }}</p>
                     </div>
                     <div>
                         <p class="text-lg"><strong class="font-semibold">Address:</strong> {{ $order->shippingAddress->address_line_1 ?? 'N/A' }}</p>
@@ -43,8 +42,8 @@
                         Back to Orders
                     </a>
                     @if($order->status === 'pending')
-                        <a href="{{ route('customer.orders.payment.retry', $order) }}" class="inline-flex items-center px-6 py-3 bg-green-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-green-500 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                            Retry Payment
+                        <a href="{{ route('customer.orders.payments.create', $order) }}" class="inline-flex items-center px-6 py-3 bg-green-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-green-500 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                            Pay Now
                         </a>
                     @endif
                 </div>

@@ -5,6 +5,8 @@ use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\OrderController;
 use App\Http\Controllers\Customer\ProductController;
 use App\Http\Controllers\Customer\ProfileController;
+use App\Http\Controllers\Customer\ShippingAddressController;
+use App\Http\Controllers\Customer\PaymentController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Payment\PaymentCallbackController;
 use Illuminate\Support\Facades\Route;
@@ -33,34 +35,17 @@ Route::middleware(['auth','verified', 'role:customer'])->name('customer.')->grou
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Shipping Addresses Management
-    Route::prefix('profile/addresses')->name('profile.addresses.')->group(function () {
-        Route::get('/', [ProfileController::class, 'showAddresses'])->name('index');
-        Route::get('/create', [ProfileController::class, 'createAddress'])->name('create');
-        Route::post('/', [ProfileController::class, 'storeAddress'])->name('store');
-        Route::get('/{address}/edit', [ProfileController::class, 'editAddress'])->name('edit');
-        Route::patch('/{address}', [ProfileController::class, 'updateAddress'])->name('update');
-        Route::delete('/{address}', [ProfileController::class, 'destroyAddress'])->name('destroy');
-    });
+    Route::resource('addresses', ShippingAddressController::class)->except(['show']);
 
-    // New Multi-Step Checkout Routes
-    Route::get('checkout/shipping', [\App\Http\Controllers\Customer\CheckoutController::class, 'showShippingStep'])->name('checkout.shipping');
-    Route::post('checkout/shipping', [\App\Http\Controllers\Customer\CheckoutController::class, 'processShippingStep'])->name('checkout.shipping.process');
+    // Order management & Checkout
+    Route::get('orders/create', [OrderController::class, 'create'])->name('orders.create');
+    Route::post('orders', [OrderController::class, 'store'])->name('orders.store');
+    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::patch('orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
 
-    Route::get('checkout/payment', [\App\Http\Controllers\Customer\CheckoutController::class, 'showPaymentStep'])->name('checkout.payment');
-    Route::post('checkout/payment', [\App\Http\Controllers\Customer\CheckoutController::class, 'processPaymentStep'])->name('checkout.payment.process');
-
-
-    // Order creation (checkout)
-    // Route::get('/orders/create', [OrderController::class, 'create'])->name('orders.create');
-    // Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
-    
-    // Order management
-    Route::prefix('orders')->name('orders.')->group(function () {
-        Route::get('/', [OrderController::class, 'index'])->name('index');
-        Route::get('/{order}', [OrderController::class, 'show'])->name('show');
-        
-        Route::patch('/{order}/cancel', [OrderController::class, 'cancel'])->name('cancel');
-    });
+    // Nested Payment Resource
+    Route::resource('orders.payments', PaymentController::class)->only(['create', 'store']);
 
     // Generic Payment Routes
     Route::get('/payment/{order}/{gatewayType}', [\App\Http\Controllers\Payment\PaymentController::class, 'processPayment'])->name('payment.process');

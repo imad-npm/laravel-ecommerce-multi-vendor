@@ -2,60 +2,66 @@
 
 namespace App\Http\Controllers\Customer;
 
-use App\Models\Order;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Order;
+use App\Models\ShippingAddress;
 use App\Services\OrderService;
-use App\Services\PaymentService;
-use App\Http\Requests\StoreOrderRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
     use AuthorizesRequests;
-    protected $orderService;
-    protected $paymentService;
 
-    public function __construct(OrderService $orderService, PaymentService $paymentService)
+    protected $orderService;
+
+    public function __construct(OrderService $orderService)
     {
         $this->orderService = $orderService;
-        $this->paymentService = $paymentService;
+    }
+
+    public function index()
+    {
+        $orders = $this->orderService->getUserOrders(Auth::user());
+        return view('customer.orders.index', compact('orders'));
+    }
+
+    public function show(Order $order)
+    {
+        $this->authorize('view', $order);
+        $order->load('shippingAddress') ;
+        return view('customer.orders.show', compact('order'));
     }
 
     public function create()
     {
-        $cart = Auth::user()->cart;
+        $user = Auth::user();
+        $cart = $user->cart;
 
-       /* if ($cart->items->isEmpty()) {
+        if ($cart->items->isEmpty()) {
             return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
         }
-*/
-        return view('customer.orders.create', compact('cart'));
+
+        $shippingAddresses = $user->shippingAddresses;
+
+        return view('customer.checkout.create', compact('cart', 'shippingAddresses'));
     }
 
-    public function store(StoreOrderRequest $request)
+    public function store(Request $request)
     {
-        $validated = $request->validated();
-
         $user = Auth::user();
-        $order = $this->orderService->createOrderFromCart($user, $validated);
 
+        $validated = $request->validate([
+            'shipping_address_id' => 'required|exists:shipping_addresses,id,user_id,' . $user->id,
+        ]);
+
+        $order = $this->orderService->createPendingOrder($user, $validated['shipping_address_id']);
         if (!$order) {
-            return redirect()->back()->with('error', 'Your cart is empty.');
+            return redirect()->route('cart.index')->with('error', 'Could not create order. Your cart might be empty.');
         }
 
-        try {
-            $result = $this->paymentService->process($order, $validated);
-
-            if (isset($result['redirect'])) {
-                return redirect($result['redirect']);
-            }
-
-            return redirect()->route('customer.orders.index')->with('success', 'Order placed successfully!');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to process payment: ' . $e->getMessage());
-        }
+        return redirect()->route('customer.orders.payments.create', $order);
     }
 
     public function cancel(Order $order)
@@ -68,18 +74,4 @@ class OrderController extends Controller
 
         return redirect()->route('customer.orders.index')->with('success', 'Order has been cancelled.');
     }
-
-    public function index()
-    {
-        $orders = $this->orderService->getUserOrders(Auth::user());
-        return view('customer.orders.index', compact('orders'));
-    }
-
-    public function show(Order $order)
-    {
-        $this->authorize('view', $order);
-        return view('customer.orders.show', compact('order'));
-    }
-
-  
 }

@@ -28,5 +28,10 @@ class OrderPolicy
         return $order->user_id === $user->id && $order->status === 'pending';
     }
 
+    public function update(User $user, Order $order): bool
+    {
+        return $order->user_id === $user->id;
+    }
+
     // Tu peux aussi ajouter d'autres méthodes plus tard (create, update, delete...)
 }
