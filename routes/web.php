@@ -5,9 +5,9 @@ use App\Http\Controllers\Admin\ProfileController as AdminProfile;
 use App\Http\Controllers\Customer\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\ChatController;
-use App\Http\Controllers\Guest\CartItemController as GuestCartItemController;
 use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\Customer\PaymentController;
+use App\Http\Controllers\CartItemController;
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->group(function () {
     Route::get('/profile', [AdminProfile::class, 'edit'])->name('profile.edit');
@@ -40,8 +40,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/chat', [ChatController::class, 'store'])->name('chat.store');
 });
 
-// Guest Cart Routes
-Route::get('/cart-items', [GuestCartItemController::class, 'index'])->name('cart-items.index');
-Route::post('/cart-items', [GuestCartItemController::class, 'store'])->name('cart-items.store');
-Route::patch('/cart-items/{productId}', [GuestCartItemController::class, 'update'])->name('cart-items.update');
-Route::delete('/cart-items/{productId}', [GuestCartItemController::class, 'destroy'])->name('cart-items.destroy');
+// Cart Routes (for both guests and authenticated users)
+Route::get('/cart-items', [CartItemController::class, 'index'])->name('cart-items.index');
+Route::post('/cart-items', [CartItemController::class, 'store'])->name('cart-items.store');
+Route::patch('/cart-items/{productId}', [CartItemController::class, 'update'])->name('cart-items.update');
+Route::delete('/cart-items/{productId}', [CartItemController::class, 'destroy'])->name('cart-items.destroy');

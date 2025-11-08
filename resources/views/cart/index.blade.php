@@ -6,20 +6,7 @@
     </x-slot>
 
     @php
-        $items = $cart->items ?? collect(); // $cart is now always an object with an items property
-
-        function getProduct($item) {
-            return $item->product;
-        }
-
-        function getQuantity($item) {
-            return $item->quantity;
-        }
-
-        function itemTotal($item) {
-            $product = getProduct($item);
-            return ($product?->price ?? 0) * getQuantity($item);
-        }
+        $items = $cart->items ?? collect();
     @endphp
 
     <div class="py-12 bg-gray-50">
@@ -36,35 +23,30 @@
                     {{-- Liste des articles --}}
                     <div class="lg:col-span-2 bg-white rounded-2xl shadow-lg p-6 space-y-6">
                         @foreach($items as $item)
-                            @php
-                                $product = getProduct($item);
-                                $qty = getQuantity($item);
-                            @endphp
-
                             <div class="flex flex-col md:flex-row items-center justify-between border-b border-gray-200 pb-6 gap-4">
                                 <div class="flex items-center gap-5 w-full md:w-auto">
-                                    <img src="{{ asset('storage/' . $product->image) }}"
-                                         alt="{{ $product->name }}"
+                                    <img src="{{ asset('storage/' . $item->product->image) }}"
+                                         alt="{{ $item->product->name }}"
                                          class="w-24 h-24 object-cover rounded-lg shadow-sm">
                                     <div>
-                                        <h3 class="text-lg font-semibold text-gray-800">{{ $product->name }}</h3>
+                                        <h3 class="text-lg font-semibold text-gray-800">{{ $item->product->name }}</h3>
                                         <p class="text-sm text-gray-600 mt-1">
-                                            ${{ number_format($product->price, 2) }} × {{ $qty }}
-                                            <span class="ml-2 text-gray-500">= ${{ number_format($product->price * $qty, 2) }}</span>
+                                            ${{ number_format($item->product->price, 2) }} × {{ $item->quantity }}
+                                            <span class="ml-2 text-gray-500">= ${{ number_format($item->product->price * $item->quantity, 2) }}</span>
                                         </p>
                                     </div>
                                 </div>
 
                                 {{-- Actions : update/remove --}}
                                 <div class="flex flex-col sm:flex-row items-center gap-3">
-                                    <form action="{{ route('customer.cart-items.update', getProduct($item)->id) }}" method="POST" class="flex items-center gap-2">
+                                    <form action="{{ route('cart-items.update', $item->product->id) }}" method="POST" class="flex items-center gap-2">
                                         @csrf @method('PATCH')
-                                        <input type="number" name="quantity" value="{{ $qty }}" min="1"
+                                        <input type="number" name="quantity" value="{{ $item->quantity }}" min="1"
                                                class="w-20 border-gray-300 rounded-lg p-2 text-center shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
                                         <button class="text-indigo-600 hover:underline text-sm transition">Update</button>
                                     </form>
 
-                                    <form action="{{ route('customer.cart-items.destroy', getProduct($item)->id) }}" method="POST">
+                                    <form action="{{ route('cart-items.destroy', $item->product->id) }}" method="POST">
                                         @csrf @method('DELETE')
                                         <button class="text-red-600 hover:underline text-sm transition">Remove</button>
                                     </form>
@@ -79,13 +61,9 @@
 
                         <div class="space-y-2 text-sm text-gray-700">
                             @foreach($items as $item)
-                                @php
-                                    $product = getProduct($item);
-                                    $qty = getQuantity($item);
-                                @endphp
                                 <div class="flex justify-between">
-                                    <span>{{ $product->name }} × {{ $qty }}</span>
-                                    <span>${{ number_format($product->price * $qty, 2) }}</span>
+                                    <span>{{ $item->product->name }} × {{ $item->quantity }}</span>
+                                    <span>${{ number_format($item->product->price * $item->quantity, 2) }}</span>
                                 </div>
                             @endforeach
                         </div>
@@ -97,10 +75,16 @@
                             </div>
                         </div>
 
-                        <a href="{{ route('customer.orders.create') }}"
-                           class="mt-6 block w-full text-center px-6 py-3 bg-indigo-600 text-white text-sm font-medium rounded-lg shadow hover:bg-indigo-700 transition">
-                            Proceed to Checkout
-                        </a>
+                        @auth
+                            <a href="{{ route('customer.orders.create') }}"
+                               class="mt-6 block w-full text-center px-6 py-3 bg-indigo-600 text-white text-sm font-medium rounded-lg shadow hover:bg-indigo-700 transition">
+                                Proceed to Checkout
+                            </a>
+                        @else
+                            <div class="mt-6 text-sm text-center text-gray-500">
+                                <a href="{{ route('login') }}" class="text-indigo-600 hover:underline">Login</a> to checkout.
+                            </div>
+                        @endauth
                     </div>
                 </div>
             @endif
