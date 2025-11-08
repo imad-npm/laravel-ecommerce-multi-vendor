@@ -14,7 +14,8 @@ class ShippingAddressFactory extends Factory
         return [
             'address_line_1' => $this->faker->streetAddress(),
             'city' => $this->faker->city(),
-            'postal_code' => $this->faker->postcode(),
+                        'postal_code' => $this->faker->postcode(),
+            'shipping_country' => $this->faker->country(),
             'user_id' => \App\Models\User::inRandomOrder()->first()->id ?? null, // Assign to a random user, or null
         ];
     }

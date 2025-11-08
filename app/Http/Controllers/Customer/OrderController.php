@@ -30,7 +30,6 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         $this->authorize('view', $order);
-        $order->load('shippingAddress') ;
         return view('customer.orders.show', compact('order'));
     }
 
@@ -58,7 +57,7 @@ class OrderController extends Controller
 
         $order = $this->orderService->createPendingOrder($user, $validated['shipping_address_id']);
         if (!$order) {
-            return redirect()->route('cart.index')->with('error', 'Could not create order. Your cart might be empty.');
+            return redirect()->route('cart-items.index')->with('error', 'Could not create order. Your cart might be empty.');
         }
         $user->cart->items()->delete() ;
 
