@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Vendor;
 
 use App\Http\Requests\ProfileUpdateRequest;
-use App\Services\VendorProfileService;
+use App\Services\ProfileService; // Modified
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +13,7 @@ use  App\Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {
-    public function __construct(protected VendorProfileService $vendorProfileService)
+    public function __construct(protected ProfileService $profileService) // Modified
     {}
 
     /**
@@ -31,7 +31,7 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $this->vendorProfileService->updateProfile($request->user(), $request->toUserData());
+        $this->profileService->updateProfile($request->user(), $request->toUserData()); // Modified
 
         return Redirect::route('vendor.profile.edit')->with('status', 'profile-updated');
     }
@@ -45,7 +45,7 @@ class ProfileController extends Controller
             'password' => ['required', 'current_password'],
         ]);
 
-        $this->vendorProfileService->deleteAccount($request->user(), $request);
+        $this->profileService->deleteAccount($request->user(), $request); // Modified
 
         return Redirect::to('/');
     }
