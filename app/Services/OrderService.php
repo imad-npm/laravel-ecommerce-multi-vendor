@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Order;
+use App\Models\OrderItem; // Added
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\VendorEarningService;
@@ -83,5 +84,21 @@ class OrderService
         }
 
         return $query->paginate(10);
+    }
+
+    public function getVendorOrderItems(User $vendor) // Added
+    {
+        $store = $vendor->store;
+
+        if (!$store) {
+            return collect(); // Return an empty collection if no store is found
+        }
+
+        return OrderItem::with(['order', 'product', 'order.customer'])
+            ->whereHas('product', function ($query) use ($store) {
+                $query->where('store_id', $store->id);
+            })
+            ->orderByDesc('created_at')
+            ->get();
     }
 }

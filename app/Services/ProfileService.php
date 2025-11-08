@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class VendorProfileService
+class ProfileService
 {
     public function updateProfile(User $user, UserData $userData): void
     {
