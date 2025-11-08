@@ -82,8 +82,9 @@
 
                     {{-- Boutons --}}
                     <div class="flex gap-4 mt-6">
-                        <form method="POST" action="{{ route('cart-items.store', $product) }}">
+                        <form method="POST" action="{{ route('cart-items.store') }}">
                             @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
                             <button type="submit"
                                     class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg text-sm shadow">
                                 🛒 Add to Cart

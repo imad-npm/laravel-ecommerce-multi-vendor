@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Customer\CartItemController;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\OrderController;
 use App\Http\Controllers\Customer\ProductController;
@@ -15,12 +14,6 @@ use Illuminate\Support\Facades\Route;
 // === Authenticated Customer Routes === //
 Route::middleware(['auth','verified', 'role:customer'])->name('customer.')->group(function () {
     Route::post('/products/{product}/review', [ReviewController::class, 'store'])->name('products.review');
-
-    // Authenticated Cart Routes (within customer. prefix)
-    Route::get('/cart-items', [CartItemController::class, 'index'])->name('cart-items.index');
-    Route::post('/cart-items', [CartItemController::class, 'store'])->name('cart-items.store');
-    Route::patch('/cart-items/{productId}', [CartItemController::class, 'update'])->name('cart-items.update');
-    Route::delete('/cart-items/{productId}', [CartItemController::class, 'destroy'])->name('cart-items.destroy');
 
     // Dashboard home
     Route::get('/home', [HomeController::class, 'index'])->name('home');
