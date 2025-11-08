@@ -17,7 +17,7 @@ class CustomerUserSeeder extends Seeder
         ]);
 
         // Example: 5 customers
-        User::factory()->count(100)->create([
+        User::factory()->count(20)->create([
             'role' => 'customer',
         ]);
   

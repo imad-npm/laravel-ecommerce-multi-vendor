@@ -19,7 +19,7 @@ class VendorUserSeeder extends Seeder
             'role' => 'vendor',
         ]);
 
-        User::factory()->count(50)->create([
+        User::factory()->count(20)->create([
             'role' => 'vendor',
         ]);
     }
