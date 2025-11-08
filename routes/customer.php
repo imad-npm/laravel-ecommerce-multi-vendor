@@ -19,9 +19,7 @@ Route::middleware(['auth','verified', 'role:customer'])->name('customer.')->grou
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     // Profile
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::singleton('profile', ProfileController::class)->only(['edit', 'update', 'destroy']);
 
     // Shipping Addresses Management
     Route::resource('addresses', ShippingAddressController::class)->except(['show']);

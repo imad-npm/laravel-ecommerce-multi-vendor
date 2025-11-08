@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\ProfileController as AdminProfile;
 use App\Http\Controllers\Customer\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\ChatController;
@@ -9,11 +8,7 @@ use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\Customer\PaymentController;
 use App\Http\Controllers\CartItemController;
 
-Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->group(function () {
-    Route::get('/profile', [AdminProfile::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [AdminProfile::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [AdminProfile::class, 'destroy'])->name('profile.destroy');
-});
+
 
 Route::get('/', function () {
     return view('welcome');
