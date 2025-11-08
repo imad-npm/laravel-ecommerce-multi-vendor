@@ -4,8 +4,8 @@ namespace App\Services;
 
 use App\DataTransferObjects\StoreData;
 use App\Models\Store;
+use App\Models\User; // Added
 use Illuminate\Support\Facades\Storage;
-
 use Illuminate\Http\Request;
 
 class StoreService
@@ -21,13 +21,16 @@ class StoreService
         return $query->paginate(10);
     }
 
-    public function createStore(StoreData $data): Store
+    // Unified createStore method
+    public function createStore(StoreData $data, User $user): Store
     {
         $storeData = $data->toArray();
 
         if ($data->logo) {
-            $storeData['logo'] = $data->logo->store('store_logos', 'public');
+            $storeData['logo'] = $data->logo->store('stores', 'public'); // Unified path
         }
+
+        $storeData['user_id'] = $user->id; // Assign user_id
 
         return Store::create($storeData);
     }
@@ -40,7 +43,7 @@ class StoreService
             if ($store->logo) {
                 Storage::disk('public')->delete($store->logo);
             }
-            $storeData['logo'] = $data->logo->store('store_logos', 'public');
+            $storeData['logo'] = $data->logo->store('stores', 'public'); // Unified path
         }
 
         return $store->update($storeData);

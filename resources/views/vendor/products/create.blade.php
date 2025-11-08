@@ -46,19 +46,33 @@
                             <x-input-error :messages="$errors->get('stock')" class="mt-1" />
                         </div>
 
-                        <!-- Image -->
+                        <!-- Category -->
                         <div>
-                            <x-input-label for="image" :value="__('Product Image')" />
-                            <input id="image" name="image" type="file"
-                                class="mt-1 block w-full text-sm text-gray-500
-                                       file:mr-4 file:py-2 file:px-4
-                                       file:rounded-md file:border-0
-                                       file:text-sm file:font-semibold
-                                       file:bg-indigo-50 file:text-indigo-700
-                                       hover:file:bg-indigo-100"
-                            />
-                            <x-input-error :messages="$errors->get('image')" class="mt-1" />
+                            <x-input-label for="category_id" :value="__('Category')" />
+                            <select id="category_id" name="category_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+                                <option value="">Select a Category</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('category_id')" class="mt-1" />
                         </div>
+                    </div>
+
+                    <!-- Image -->
+                    <div>
+                        <x-input-label for="image" :value="__('Product Image')" />
+                        <input id="image" name="image" type="file"
+                            class="mt-1 block w-full text-sm text-gray-500
+                                   file:mr-4 file:py-2 file:px-4
+                                   file:rounded-md file:border-0
+                                   file:text-sm file:font-semibold
+                                   file:bg-indigo-50 file:text-indigo-700
+                                   hover:file:bg-indigo-100"
+                        />
+                        <x-input-error :messages="$errors->get('image')" class="mt-1" />
                     </div>
 
                     <!-- Submit Button -->
