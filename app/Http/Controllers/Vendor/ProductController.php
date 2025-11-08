@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Vendor;
 
-use App\DataTransferObjects\VendorProductData;
+use App\DataTransferObjects\ProductData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VendorProductRequest;
 use App\Models\Product;
-use App\Services\VendorProductService;
+use App\Models\Category; // Added
+use App\Services\ProductService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\View\View; // Added for return type hinting
 
 class ProductController extends Controller
 {
-    public function __construct(protected VendorProductService $vendorProductService)
+    public function __construct(protected ProductService $productService)
     {}
 
     /**
@@ -24,20 +26,21 @@ class ProductController extends Controller
         if (!$store) {
             return redirect()->route('vendor.store.create')->with('error', 'You need to create a store first to manage products.');
         }
-        $products = $this->vendorProductService->getProductsForAuthenticatedStore($store);
+        $products = $this->productService->getProductsForStore($store);
         return view('vendor.products.index', compact('products'));
     }
 
     /**
      * Affiche le formulaire de création d’un produit.
      */
-    public function create()
+    public function create() // Added return type
     {
         $store = Auth::user()->store;
         if (!$store) {
             return redirect()->route('vendor.store.create')->with('error', 'You need to create a store first to create products.');
         }
-        return view('vendor.products.create');
+        $categories = Category::all(); // Added
+        return view('vendor.products.create', compact('categories')); // Modified
     }
 
     /**
@@ -49,8 +52,8 @@ class ProductController extends Controller
         if (!$store) {
             return redirect()->route('vendor.store.create')->with('error', 'You need to create a store first to add products.');
         }
-        $productData = VendorProductData::fromRequest($request);
-        $this->vendorProductService->createProduct($store, $productData);
+        $productData = ProductData::fromRequest($request);
+        $this->productService->createProduct($store, $productData);
 
         return redirect()->route('vendor.dashboard')->with('success', 'Product added.');
     }
@@ -58,10 +61,11 @@ class ProductController extends Controller
     /**
      * Affiche le formulaire d’édition d’un produit.
      */
-    public function edit(Product $product)
+    public function edit(Product $product): View // Added return type
     {
         Gate::authorize('update', $product);
-        return view('vendor.products.edit', compact('product'));
+        $categories = Category::all(); // Added
+        return view('vendor.products.edit', compact('product', 'categories')); // Modified
     }
 
     /**
@@ -70,8 +74,8 @@ class ProductController extends Controller
     public function update(VendorProductRequest $request, Product $product)
     {
         Gate::authorize('update', $product);
-        $productData = VendorProductData::fromRequest($request);
-        $this->vendorProductService->updateProduct($product, $productData);
+        $productData = ProductData::fromRequest($request);
+        $this->productService->updateProduct($product, $productData);
 
         return redirect()->route('vendor.dashboard')->with('success', 'Product updated.');
     }
@@ -89,7 +93,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         Gate::authorize('delete', $product);
-        $this->vendorProductService->deleteProduct($product);
+        $this->productService->deleteProduct($product);
 
         return redirect()->route('vendor.dashboard')->with('success', 'Product deleted.');
     }

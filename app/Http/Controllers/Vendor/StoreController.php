@@ -1,15 +1,15 @@
 <?php
 namespace App\Http\Controllers\Vendor;
 
-use App\DataTransferObjects\VendorStoreData;
+use App\DataTransferObjects\StoreData; // Modified
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VendorStoreRequest;
-use App\Services\VendorStoreService;
+use App\Services\StoreService; // Modified
 use Illuminate\Support\Facades\Auth;
 
 class StoreController extends Controller
 {
-    public function __construct(protected VendorStoreService $vendorStoreService)
+    public function __construct(protected StoreService $storeService) // Modified
     {}
 
     public function create()
@@ -30,8 +30,8 @@ class StoreController extends Controller
             return redirect()->route('vendor.dashboard')->with('error', 'Store already exists.');
         }
 
-        $storeData = VendorStoreData::fromRequest($request);
-        $this->vendorStoreService->createStore($storeData);
+        $storeData = StoreData::fromRequest($request); // Modified
+        $this->storeService->createStore($storeData, $user); // Modified
 
         return redirect()->route('vendor.dashboard')->with('success', 'Store created.');
     }
@@ -62,8 +62,8 @@ class StoreController extends Controller
     {
         $store = Auth::user()->store;
 
-        $storeData = VendorStoreData::fromRequest($request);
-        $this->vendorStoreService->updateStore($store, $storeData);
+        $storeData = StoreData::fromRequest($request); // Modified
+        $this->storeService->updateStore($store, $storeData); // Modified
 
         return redirect()->route('vendor.dashboard')->with('success', 'Store updated.');
     }
@@ -77,7 +77,7 @@ class StoreController extends Controller
             return redirect()->route('vendor.dashboard')->with('error', 'No store to delete.');
         }
 
-        $this->vendorStoreService->deleteStore($store);
+        $this->storeService->deleteStore($store); // Modified
 
         return redirect()->route('vendor.dashboard')->with('success', 'Store deleted.');
     }

@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\DataTransferObjects\ProductData;
 use App\Models\Product;
+use App\Models\Store; // Added
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage; // Added
 
 class ProductService
 {
@@ -67,8 +69,49 @@ class ProductService
         return $query->with('reviews')->paginate(12)->withQueryString();
     }
 
+    // New method for vendor-specific product listing
+    public function getProductsForStore(Store $store)
+    {
+        return $store->products()->withAvg('reviews', 'stars')->latest()->get();
+    }
+
+    // Unified createProduct method
+    public function createProduct(Store $store, ProductData $data): Product
+    {
+        $productData = $data->toArray();
+
+        if ($data->image) {
+            $productData['image'] = $data->image->store('products', 'public');
+        }
+
+        $productData['store_id'] = $store->id;
+
+
+        return Product::create($productData);
+    }
+
+    // Unified updateProduct method
     public function updateProduct(Product $product, ProductData $data): bool
     {
-        return $product->update($data->toArray());
+        $productData = $data->toArray();
+
+        if ($data->image) {
+            if ($product->image) {
+                Storage::disk('public')->delete($product->image);
+            }
+            $productData['image'] = $data->image->store('products', 'public');
+        }
+
+        return $product->update($productData);
+    }
+
+    // Unified deleteProduct method
+    public function deleteProduct(Product $product): bool
+    {
+        if ($product->image) {
+            Storage::disk('public')->delete($product->image);
+        }
+
+        return $product->delete();
     }
 }

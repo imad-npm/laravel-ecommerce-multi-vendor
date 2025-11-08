@@ -17,6 +17,7 @@ class Product extends Model
         'price',
         'stock',
         'image',
+        'category_id'
     ];
 
     // App\Models\Product.php

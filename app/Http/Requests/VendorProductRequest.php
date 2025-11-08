@@ -27,6 +27,7 @@ class VendorProductRequest extends FormRequest
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'image' => 'nullable|image|max:2048',
+            'category_id' => 'required|integer|exists:categories,id', // Added
         ];
     }
 }

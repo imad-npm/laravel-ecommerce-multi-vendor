@@ -3,6 +3,7 @@
 namespace App\DataTransferObjects;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile; // Added
 
 class ProductData
 {
@@ -12,6 +13,7 @@ class ProductData
         public readonly float $price,
         public readonly int $stock,
         public readonly int $category_id,
+        public readonly ?UploadedFile $image = null, // Added
     ) {}
 
     public static function fromRequest(Request $request): self
@@ -22,6 +24,7 @@ class ProductData
             price: $request->input('price'),
             stock: $request->input('stock'),
             category_id: $request->input('category_id'),
+            image: $request->file('image'), // Added
         );
     }
 
