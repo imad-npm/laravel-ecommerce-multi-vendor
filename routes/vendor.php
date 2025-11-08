@@ -19,7 +19,7 @@ Route::prefix('vendor')
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // Store (single instance → use singleton)
-        Route::singleton('store', StoreController::class);
+        Route::singleton('store', StoreController::class)->destroyable();
 
         // Orders
         Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
@@ -28,7 +28,7 @@ Route::prefix('vendor')
         Route::resource('products', ProductController::class);
 
         // Profile (single instance → singleton)
-        Route::singleton('profile', VendorProfile::class)->only(['edit', 'update', 'destroy']);
+        Route::singleton('profile', VendorProfile::class)->only(['edit', 'update', 'destroy'])->destroyable();
 
         // Reviews
         Route::get('reviews', [ReviewController::class, 'index'])->name('reviews.index');
