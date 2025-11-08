@@ -63,14 +63,14 @@
                 'customer' => [
                     ['label' => 'Browse Products', 'route' => route('products.index'), 'active' => request()->routeIs('products.*')],
                     ['label' => 'My Orders', 'route' => route('customer.orders.index'), 'active' => request()->routeIs('customer.orders.*')],
-                    ['label' => 'Shopping Cart', 'route' => route('cart.index'), 'active' => request()->routeIs('customer.cart.*')],
+                    ['label' => 'Shopping Cart', 'route' => route('customer.cart-items.index'), 'active' => request()->routeIs('customer.cart-items.*')], // Updated
                     ['label' => 'Conversations', 'route' => route('chat.index'), 'active' => request()->routeIs('chat.*')],
                 ],
                 default => [ // guest
                     ['label' => 'Browse Products', 'route' => route('products.index'), 'active' => request()->routeIs('products.index')],
                     ['label' => 'Login', 'route' => route('login'), 'active' => request()->routeIs('login')],
                     ['label' => 'Register', 'route' => route('register'), 'active' => request()->routeIs('register')],
-                    ['label' => 'Shopping Cart', 'route' => route('cart.index'), 'active' => request()->routeIs('cart.*')],
+                    ['label' => 'Shopping Cart', 'route' => route('cart-items.index'), 'active' => request()->routeIs('cart-items.*')], // Updated
                     ],
             };
         }

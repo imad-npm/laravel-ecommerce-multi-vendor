@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Customer\CartController;
+use App\Http\Controllers\Customer\CartItemController;
 use App\Http\Controllers\Customer\HomeController;
 use App\Http\Controllers\Customer\OrderController;
 use App\Http\Controllers\Customer\ProductController;
@@ -11,20 +11,16 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Payment\PaymentCallbackController;
 use Illuminate\Support\Facades\Route;
 
-// === Accessible à tous (guests + clients connectés) === //
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
-Route::patch('/cart/update/{item}', [CartController::class, 'update'])->name('cart.update');
-Route::delete('/cart/remove/{item}', [CartController::class, 'destroy'])->name('cart.destroy');
-Route::post('/guest-cart/update/{id}', [CartController::class, 'updateGuest'])->name('guest.cart.update');
-    Route::post('/guest-cart/remove/{id}', [CartController::class, 'removeGuest'])->name('guest.cart.remove');
-    
-// === Routes protégées pour les clients authentifiés === //
+// === Authenticated Customer Routes === //
 Route::middleware(['auth','verified', 'role:customer'])->name('customer.')->group(function () {
     Route::post('/products/{product}/review', [ReviewController::class, 'store'])->name('products.review');
+
+    // Authenticated Cart Routes (within customer. prefix)
+    Route::get('/cart-items', [CartItemController::class, 'index'])->name('cart-items.index');
+    Route::post('/cart-items', [CartItemController::class, 'store'])->name('cart-items.store');
+    Route::patch('/cart-items/{productId}', [CartItemController::class, 'update'])->name('cart-items.update');
+    Route::delete('/cart-items/{productId}', [CartItemController::class, 'destroy'])->name('cart-items.destroy');
 
     // Dashboard home
     Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -48,9 +44,9 @@ Route::middleware(['auth','verified', 'role:customer'])->name('customer.')->grou
     Route::resource('orders.payments', PaymentController::class)->only(['create', 'store']);
 
     // Generic Payment Routes
-    Route::get('/payment/{order}/{gatewayType}', [\App\Http\Controllers\Payment\PaymentController::class, 'processPayment'])->name('payment.process');
+    /*Route::get('/payment/{order}/{gatewayType}', [\App\Http\Controllers\Payment\PaymentController::class, 'processPayment'])->name('payment.process');
     Route::get('/payment/{order}/{gatewayType}/callback', [\App\Http\Controllers\Payment\PaymentController::class, 'handleCallback'])->name('payment.callback');
-
+*/
     // Remove old specific payment routes
     
     // Route::get('/payment/stripe/{order}', [\App\Http\Controllers\Payment\PaymentController::class, 'create'])->name('payment.stripe.create');
