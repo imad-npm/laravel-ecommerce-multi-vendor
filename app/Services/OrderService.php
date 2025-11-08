@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Order;
 use App\Models\OrderItem; // Added
+use App\Models\ShippingAddress;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Services\VendorEarningService;
@@ -25,11 +26,15 @@ class OrderService
             return null;
         }
 
-        $total = $cart->items->sum(fn($item) => $item->product->price * $item->quantity);
+        $shippingAddress = ShippingAddress::findOrFail($shippingAddressId);
 
+        $total = $cart->items->sum(fn($item) => $item->product->price * $item->quantity);
         $order = Order::create([
             'user_id' => $user->id,
-            'shipping_address_id' => $shippingAddressId,
+            'shipping_address_line_1' => $shippingAddress->address_line_1,
+            'shipping_city' => $shippingAddress->city,
+            'shipping_postal_code' => $shippingAddress->postal_code,
+            'shipping_country' => $shippingAddress->shipping_country,
             'total' => $total,
             'status' => 'pending',
         ]);

@@ -20,7 +20,11 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div>
                     <div class="text-sm text-gray-500">Shipping Address</div>
-                    <div class="text-gray-800 font-medium">{{ $order->address }}</div>
+                                        <div class="text-gray-800 font-medium">
+                        {{ $order->shipping_address_line_1 }}<br>
+                        {{ $order->shipping_city }}, {{ $order->shipping_postal_code }}<br>
+                        {{ $order->shipping_country }}
+                    </div>
                 </div>
                 <div>
                     <div class="text-sm text-gray-500">Payment Method</div>

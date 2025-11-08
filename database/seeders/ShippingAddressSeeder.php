@@ -19,13 +19,12 @@ class ShippingAddressSeeder extends Seeder
         foreach ($users as $user) {
             ShippingAddress::factory()->create([
                 'user_id' => $user->id,
-                'address_line_1' => fake()->streetAddress(),
-                'city' => fake()->city(),
-                'postal_code' => fake()->postcode(),
             ]);
         }
 
         // Create some generic addresses without a user_id (if applicable for your app)
-        ShippingAddress::factory()->count(5)->create();
+        ShippingAddress::factory()->count(5)->create([
+            'user_id' => null,
+        ]);
     }
 }

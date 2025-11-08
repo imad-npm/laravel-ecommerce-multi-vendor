@@ -16,9 +16,10 @@
                         <p class="text-lg mt-2"><strong class="font-semibold">Total:</strong> <span class="text-green-600 text-xl font-bold">${{ number_format($order->total, 2) }}</span></p>
                     </div>
                     <div>
-                        <p class="text-lg"><strong class="font-semibold">Address:</strong> {{ $order->shippingAddress->address_line_1 ?? 'N/A' }}</p>
-                        <p class="text-lg mt-2"><strong class="font-semibold">City:</strong> {{ $order->shippingAddress->city ?? 'N/A' }}</p>
-                        <p class="text-lg mt-2"><strong class="font-semibold">Postal Code:</strong> {{ $order->shippingAddress->postal_code ?? 'N/A' }}</p>
+                        <p class="text-lg"><strong class="font-semibold">Address:</strong> {{ $order->shipping_address_line_1 ?? 'N/A' }}</p>
+                        <p class="text-lg mt-2"><strong class="font-semibold">City:</strong> {{ $order->shipping_city ?? 'N/A' }}</p>
+                        <p class="text-lg mt-2"><strong class="font-semibold">Postal Code:</strong> {{ $order->shipping_postal_code ?? 'N/A' }}</p>
+                        <p class="text-lg mt-2"><strong class="font-semibold">Country:</strong> {{ $order->shipping_country ?? 'N/A' }}</p>
                         <p class="text-lg mt-2"><strong class="font-semibold">Order Date:</strong> {{ $order->created_at->format('M d, Y H:i') }}</p>
                     </div>
                 </div>

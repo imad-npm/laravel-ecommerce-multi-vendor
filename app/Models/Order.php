@@ -9,7 +9,15 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'total', 'status', 'shipping_address_id', 'payment_method'];
+        protected $fillable = [
+        'user_id',
+        'total',
+        'status',
+        'shipping_address_line_1',
+        'shipping_city',
+        'shipping_postal_code',
+        'shipping_country',
+    ];
 
     public function customer()
     {
@@ -21,8 +29,5 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
-    public function shippingAddress()
-    {
-        return $this->belongsTo(ShippingAddress::class);
-    }
+    
 }
