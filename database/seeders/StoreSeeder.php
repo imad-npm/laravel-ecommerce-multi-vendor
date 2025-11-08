@@ -9,6 +9,6 @@ class StoreSeeder extends Seeder
 {
     public function run(): void
     {
-        Store::factory(50)->create();
+        Store::factory(20)->create();
     }
 }

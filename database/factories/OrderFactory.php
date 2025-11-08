@@ -20,8 +20,9 @@ class OrderFactory extends Factory
             'user_id' => $user ? $user->id : User::factory(),
             'total' => $this->faker->randomFloat(2, 10, 1000),
             'status' => $this->faker->randomElement(['pending', 'paid', 'shipped', 'cancelled']),
-            'shipping_address_id' => \App\Models\ShippingAddress::inRandomOrder()->first()->id,
-            'payment_method' => $this->faker->randomElement(['credit_card', 'paypal', 'bank_transfer']),
+                        'shipping_address_line_1' => $this->faker->streetAddress,
+            'shipping_city' => $this->faker->city,
+            'shipping_postal_code' => $this->faker->postcode,
         ];
     }
 
