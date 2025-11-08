@@ -57,14 +57,14 @@
 
                                 {{-- Actions : update/remove --}}
                                 <div class="flex flex-col sm:flex-row items-center gap-3">
-                                    <form action="{{ route('customer.cart-items.update', getProduct($item)->id) }}" method="POST" class="flex items-center gap-2">
+                                    <form action="{{ route('cart-items.update', getProduct($item)->id) }}" method="POST" class="flex items-center gap-2">
                                         @csrf @method('PATCH')
                                         <input type="number" name="quantity" value="{{ $qty }}" min="1"
                                                class="w-20 border-gray-300 rounded-lg p-2 text-center shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
                                         <button class="text-indigo-600 hover:underline text-sm transition">Update</button>
                                     </form>
 
-                                    <form action="{{ route('customer.cart-items.destroy', getProduct($item)->id) }}" method="POST">
+                                    <form action="{{ route('cart-items.destroy', getProduct($item)->id) }}" method="POST">
                                         @csrf @method('DELETE')
                                         <button class="text-red-600 hover:underline text-sm transition">Remove</button>
                                     </form>
@@ -97,10 +97,16 @@
                             </div>
                         </div>
 
-                        <a href="{{ route('customer.orders.create') }}"
-                           class="mt-6 block w-full text-center px-6 py-3 bg-indigo-600 text-white text-sm font-medium rounded-lg shadow hover:bg-indigo-700 transition">
-                            Proceed to Checkout
-                        </a>
+                        @auth
+                            <a href="{{ route('customer.orders.create') }}"
+                               class="mt-6 block w-full text-center px-6 py-3 bg-indigo-600 text-white text-sm font-medium rounded-lg shadow hover:bg-indigo-700 transition">
+                                Proceed to Checkout
+                            </a>
+                        @else
+                            <div class="mt-6 text-sm text-center text-gray-500">
+                                <a href="{{ route('login') }}" class="text-indigo-600 hover:underline">Login</a> to checkout.
+                            </div>
+                        @endauth
                     </div>
                 </div>
             @endif

@@ -82,7 +82,7 @@
 
                     {{-- Boutons --}}
                     <div class="flex gap-4 mt-6">
-                        <form method="POST" action="{{ route('cart.add', $product) }}">
+                        <form method="POST" action="{{ route('cart-items.store', $product) }}">
                             @csrf
                             <button type="submit"
                                     class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg text-sm shadow">

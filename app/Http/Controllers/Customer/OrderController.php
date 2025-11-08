@@ -60,6 +60,7 @@ class OrderController extends Controller
         if (!$order) {
             return redirect()->route('cart.index')->with('error', 'Could not create order. Your cart might be empty.');
         }
+        $user->cart->items()->delete() ;
 
         return redirect()->route('customer.orders.payments.create', $order);
     }

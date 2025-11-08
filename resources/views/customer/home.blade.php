@@ -89,7 +89,7 @@
                     </div>
                     <p class="text-sm text-gray-500 mt-2">Change name, email or password securely.</p>
                 </a>
-                <a href="{{ route('cart.index') }}"
+                <a href="{{ route('cart-items.index') }}"
                    class="bg-white border border-yellow-200 p-6 rounded-xl shadow hover:shadow-lg transition group">
                     <div class="flex items-center justify-between">
                         <h4 class="text-lg font-semibold text-yellow-700 group-hover:underline">🛒 View Cart</h4>
