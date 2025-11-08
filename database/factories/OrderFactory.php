@@ -22,7 +22,8 @@ class OrderFactory extends Factory
             'status' => $this->faker->randomElement(['pending', 'paid', 'shipped', 'cancelled']),
                         'shipping_address_line_1' => $this->faker->streetAddress,
             'shipping_city' => $this->faker->city,
-            'shipping_postal_code' => $this->faker->postcode,
+                        'shipping_postal_code' => $this->faker->postcode,
+            'shipping_country' => $this->faker->country,
         ];
     }
 
