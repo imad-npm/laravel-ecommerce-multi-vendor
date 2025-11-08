@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::table('orders', function (Blueprint $table) {
             $table->string('shipping_address_line_1')->nullable()->after('status');
             $table->string('shipping_city')->nullable()->after('shipping_address_line_1');
-            $table->string('shipping_postal_code')->nullable()->after('shipping_city');
+                        $table->string('shipping_postal_code')->nullable()->after('shipping_city');
+            $table->string('shipping_country')->nullable()->after('shipping_postal_code');
         });
     }
 
@@ -24,7 +25,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->dropColumn(['shipping_address_line_1', 'shipping_city', 'shipping_postal_code']);
+            $table->dropColumn(['shipping_address_line_1', 'shipping_city', 'shipping_postal_code', 'shipping_country']);
         });
     }
 };
