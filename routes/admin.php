@@ -18,7 +18,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 Route::resource('products', ProductController::class);
 Route::resource('stores', StoreController::class);
 Route::resource('categories', CategoryController::class);
-Route::singleton('profile', ProfileController::class)->only(['edit', 'update', 'destroy']);
+Route::singleton('profile', ProfileController::class)
+->only(['edit', 'update', 'destroy'])->destroyable();
 
     // Route pour annuler la commande (PATCH)
     Route::patch('orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
