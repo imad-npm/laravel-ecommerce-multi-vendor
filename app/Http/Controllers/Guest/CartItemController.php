@@ -52,7 +52,7 @@ class CartItemController extends Controller
 
         $cartItemData = UpdateCartItemData::from(['productId' => $productId, 'quantity' => $validated['quantity']]);
 
-        $this->guestCartService->updateItemQuantity($cartItemData);
+        $this->guestCartService->updateItemQuantity($productId,$cartItemData);
 
         return redirect()
             ->route('cart-items.index')
