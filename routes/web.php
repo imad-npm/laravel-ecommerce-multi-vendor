@@ -6,7 +6,7 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\Customer\PaymentController;
-use App\Http\Controllers\Guest\GuestCartItemController;
+use App\Http\Controllers\Guest\CartItemController;
 
 
 
@@ -37,8 +37,8 @@ Route::middleware(['auth'])->group(function () {
 
 // Guest Cart Routes
 Route::prefix('cart-items')->name('guest.cart.')->group(function () {
-    Route::get('/', [GuestCartItemController::class, 'index'])->name('index');
-    Route::post('/', [GuestCartItemController::class, 'store'])->name('store');
-    Route::patch('/{productId}', [GuestCartItemController::class, 'update'])->name('update');
-    Route::delete('/{productId}', [GuestCartItemController::class, 'destroy'])->name('destroy');
+    Route::get('/', [CartItemController::class, 'index'])->name('index');
+    Route::post('/', [CartItemController::class, 'store'])->name('store');
+    Route::patch('/{productId}', [CartItemController::class, 'update'])->name('update');
+    Route::delete('/{productId}', [CartItemController::class, 'destroy'])->name('destroy');
 });
