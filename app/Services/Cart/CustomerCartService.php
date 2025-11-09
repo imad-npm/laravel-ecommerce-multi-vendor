@@ -10,8 +10,9 @@ use App\Models\User;
 
 class CustomerCartService
 {
-    public function getCartDetails(User $user): object
+    public function getCartDetails(): object
     {
+        $user=auth()->user() ;
         $cart = Cart::with('items.product')->where('user_id', $user->id)->first();
 
         if (!$cart) {
@@ -38,9 +39,10 @@ class CustomerCartService
         ];
     }
 
-public function addItemToCart(User $user, CartItemData $data): void
+public function addItemToCart( CartItemData $data): void
 {
-    
+    $user=auth()->user() ;
+
     $cart = $user->cart ?? $user->cart()->create();
     $cartItem = $cart->items()->firstOrNew(['product_id' => $data->productId]);
     $cartItem->quantity += $data->quantity;
