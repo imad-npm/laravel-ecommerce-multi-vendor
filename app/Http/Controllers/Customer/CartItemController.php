@@ -22,7 +22,7 @@ class CartItemController extends Controller
      */
     public function index(): View
     {
-        $cart = $this->customerCartService->getCartDetails(auth()->user());
+        $cart = $this->customerCartService->getCartDetails();
 
         return view('customer.cart.index', compact('cart'));
     }
@@ -37,7 +37,7 @@ class CartItemController extends Controller
             'quantity' => 'required|integer|min:1',
         ]);
 
-        $this->customerCartService->addItemToCart(auth()->user(), CartItemData::from($validated));
+        $this->customerCartService->addItemToCart( CartItemData::from($validated));
 
         return redirect()
             ->route('customer.cart.index')
