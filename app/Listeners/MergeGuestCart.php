@@ -1,29 +1,38 @@
-<?php // app/Listeners/MergeGuestCart.php
+<?php
 
 namespace App\Listeners;
 
+use App\DataTransferObjects\CartItem\CreateCartItemData;
 use Illuminate\Auth\Events\Authenticated;
-use Illuminate\Support\Facades\Session;
-use App\Services\CartService;
+use App\Services\Cart\GuestCartService;
+use App\Services\Cart\CustomerCartService;
 
 class MergeGuestCart
 {
-    protected CartService $cartService;
-
-    public function __construct(CartService $cartService)
-    {
-        $this->cartService = $cartService;
+    public function __construct(
+        protected GuestCartService $guestCartService,
+        protected CustomerCartService $customerCartService
+    ) {
     }
 
     public function handle(Authenticated $event): void
     {
-        $guestCart = Session::pull('guest_cart', []);
+        $guestCart = $this->guestCartService->getCartDetails();
 
-        foreach ($guestCart as $item) {
-            $product = \App\Models\Product::find($item['product_id']);
-            if ($product) {
-                $this->cartService->addProductToCart($product, $item['quantity']);
-            }
+        if ($guestCart->items->isEmpty()) {
+            return;
         }
+
+        foreach ($guestCart->items as $item) {
+          
+            $this->customerCartService->addItemToCart(
+                CreateCartItemData::from([
+                    'product_id' => $item->product->id,
+                    'quantity' => $item->quantity
+                ])
+            );
+        }
+
+        $this->guestCartService->clearAllItems();
     }
 }

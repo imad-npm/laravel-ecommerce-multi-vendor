@@ -33,7 +33,7 @@ public function addItemToCart( CreateCartItemData $data): void
 
     $cart = $user->cart ?? $user->cart()->create();
     $cartItem = $cart->items()->firstOrNew(['product_id' => $data->productId]);
-    $cartItem->quantity += 1;
+    $cartItem->quantity += $data->quantity;
     $cartItem->save();
 }
 

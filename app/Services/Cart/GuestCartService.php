@@ -47,7 +47,7 @@ class GuestCartService
 
     $cart[$key] = [
         'product_id' => $data->productId,
-        'quantity' => ($cart[$key]['quantity'] ?? 0) + 1,
+        'quantity' => ($cart[$key]['quantity'] ?? 0) + $data->quantity,
     ];
 
     Session::put('guest_cart', $cart);
