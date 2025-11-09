@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Guest Cart Routes
-Route::prefix('cart-items')->name('guest.cart.')->group(function () {
+Route::prefix('cart-items')->name('cart-items.')->group(function () {
     Route::get('/', [CartItemController::class, 'index'])->name('index');
     Route::post('/', [CartItemController::class, 'store'])->name('store');
     Route::patch('/{productId}', [CartItemController::class, 'update'])->name('update');

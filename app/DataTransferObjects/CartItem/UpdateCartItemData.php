@@ -1,7 +1,7 @@
 <?php
-namespace App\DataTransferObjects;
+namespace App\DataTransferObjects\CartItem;
 
-class CartItemData
+class UpdateCartItemData
 {
     public ?int $productId;
     public int $quantity;
