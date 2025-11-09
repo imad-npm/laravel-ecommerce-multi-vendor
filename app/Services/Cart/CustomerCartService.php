@@ -10,35 +10,21 @@ use App\Models\CartItem;
 use App\Models\Product;
 use App\Models\User;
 
+use Illuminate\Database\Eloquent\Collection;
+
 class CustomerCartService
 {
-    public function getCartDetails(): object
+    public function getCartDetails(): Collection
     {
-        $user=auth()->user() ;
+        $user = auth()->user();
         $cart = Cart::with('items.product')->where('user_id', $user->id)->first();
 
         if (!$cart) {
-            return (object) [
-                'items' => collect(),
-                'total' => 0,
-            ];
+            return new Collection();
         }
 
-        $items = $cart->items->map(function ($item) {
-            if (!$item->product) {
-                return null;
-            }
-            return (object) [
-                'product' => $item->product,
-                'quantity' => $item->quantity,
-                'product_id' => $item->product_id,
-            ];
-        })->filter()->values();
-
-        return (object) [
-            'items' => $items,
-            'total' => $items->sum(fn($item) => $item->product->price * $item->quantity),
-        ];
+        // Filter out items where the product might have been deleted
+        return $cart->items->filter(fn($item) => $item->product);
     }
 
 public function addItemToCart( CreateCartItemData $data): void

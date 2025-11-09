@@ -22,7 +22,7 @@ class CartItemController extends Controller
     {
         $cart = $this->guestCartService->getCartDetails();
 
-        return view('cart.index', compact('cart'));
+        return view('guest.cart.index', compact('cart'));
     }
 
     /**

@@ -24,9 +24,9 @@ class CartItemController extends Controller
      */
     public function index(): View
     {
-        $cart = $this->customerCartService->getCartDetails();
+        $cartItems = $this->customerCartService->getCartDetails();
 
-        return view('customer.cart.index', compact('cart'));
+        return view('customer.cart.index', compact('cartItems'));
     }
 
     /**
