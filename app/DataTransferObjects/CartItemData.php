@@ -7,7 +7,7 @@ use Spatie\LaravelData\Data;
 class CartItemData extends Data
 {
     public function __construct(
-        public int $product_id,
         public int $quantity,
+        public ?int $productId = null, // Make productId optional
     ) {}
 }

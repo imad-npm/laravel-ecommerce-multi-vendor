@@ -8,6 +8,7 @@ use App\Http\Controllers\Customer\ShippingAddressController;
 use App\Http\Controllers\Customer\PaymentController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Payment\PaymentCallbackController;
+use App\Http\Controllers\Customer\CartItemController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -34,6 +35,9 @@ Route::singleton('profile', ProfileController::class)
 
     // Nested Payment Resource
     Route::resource('orders.payments', PaymentController::class)->only(['create', 'store']);
+
+    // Customer Cart Routes
+    Route::resource('cart-items', CartItemController::class)->except(['create', 'show', 'edit']);
 
     // Generic Payment Routes
     /*Route::get('/payment/{order}/{gatewayType}', [\App\Http\Controllers\Payment\PaymentController::class, 'processPayment'])->name('payment.process');
