@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-class GuestCartItemController extends Controller
+class CartItemController extends Controller
 {
     public function __construct(protected GuestCartService $guestCartService)
     {
