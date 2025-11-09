@@ -23,6 +23,7 @@ class GuestCartService
                     'product' => $product,
                     'quantity' => $itemData['quantity'],
                     'product_id' => $product->id,
+                    'id' => $product->id,
                 ];
             }
             return null;

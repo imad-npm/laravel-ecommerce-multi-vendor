@@ -6,12 +6,14 @@
     </x-slot>
 
     @php
-        $items = $cart->items ?? collect();
+        $total = $cartItems->reduce(function ($total, $item) {
+            return $total + ($item->quantity * $item->product->price);
+        }, 0);
     @endphp
 
     <div class="py-12 bg-gray-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            @if ($items->isEmpty())
+            @if ($cartItems->isEmpty())
                 <div class="bg-white p-10 text-center rounded-2xl shadow-lg text-gray-500 text-lg">
                     <p>Your cart is empty.</p>
                     <a href="{{ route('products.index') }}" class="mt-4 inline-block px-6 py-3 bg-indigo-600 text-white text-sm font-medium rounded-lg shadow hover:bg-indigo-700 transition">
@@ -22,7 +24,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {{-- Liste des articles --}}
                     <div class="lg:col-span-2 bg-white rounded-2xl shadow-lg p-6 space-y-6">
-                        @foreach($items as $item)
+                        @foreach($cartItems as $item)
                             <div class="flex flex-col md:flex-row items-center justify-between border-b border-gray-200 pb-6 gap-4">
                                 <div class="flex items-center gap-5 w-full md:w-auto">
                                     <img src="{{ asset('storage/' . $item->product->image) }}"
@@ -60,7 +62,7 @@
                         <h3 class="text-xl font-semibold text-gray-800 mb-4">Order Summary</h3>
 
                         <div class="space-y-2 text-sm text-gray-700">
-                            @foreach($items as $item)
+                            @foreach($cartItems as $item)
                                 <div class="flex justify-between">
                                     <span>{{ $item->product->name }} × {{ $item->quantity }}</span>
                                     <span>${{ number_format($item->product->price * $item->quantity, 2) }}</span>
@@ -71,7 +73,7 @@
                         <div class="border-t pt-4 mt-4">
                             <div class="flex justify-between text-lg font-bold text-gray-800">
                                 <span>Total</span>
-                                <span>${{ number_format($cart->total, 2) }}</span>
+                                <span>${{ number_format($total, 2) }}</span>
                             </div>
                         </div>
 
