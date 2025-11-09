@@ -3,6 +3,8 @@
 namespace App\Services\Cart;
 
 use App\DataTransferObjects\CartItemData;
+use App\DataTransferObjects\CartItem\CreateCartItemData;
+use App\DataTransferObjects\CartItem\UpdateCartItemData;
 use App\Models\Product;
 use Illuminate\Support\Facades\Session;
 
@@ -36,7 +38,7 @@ class GuestCartService
         ];
     }
 
-  public function addItemToCart(CartItemData $data): void
+  public function addItemToCart(CreateCartItemData $data): void
 {
    
     $cart = Session::get('guest_cart', []);
@@ -44,14 +46,14 @@ class GuestCartService
 
     $cart[$key] = [
         'product_id' => $data->productId,
-        'quantity' => ($cart[$key]['quantity'] ?? 0) + $data->quantity,
+        'quantity' => ($cart[$key]['quantity'] ?? 0) + 1,
     ];
 
     Session::put('guest_cart', $cart);
 }
 
 
-    public function updateItemQuantity(CartItemData $data): void
+    public function updateItemQuantity(UpdateCartItemData $data): void
     {
         $cart = Session::get('guest_cart', []);
         $productId = $data->productId;

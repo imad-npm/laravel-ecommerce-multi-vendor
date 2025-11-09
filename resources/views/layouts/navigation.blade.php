@@ -63,7 +63,7 @@
                 'customer' => [
                     ['label' => 'Browse Products', 'route' => route('products.index'), 'active' => request()->routeIs('products.*')],
                     ['label' => 'My Orders', 'route' => route('customer.orders.index'), 'active' => request()->routeIs('customer.orders.*')],
-                    ['label' => 'Shopping Cart', 'route' => route('cart-items.index'), 'active' => request()->routeIs('cart-items.*')], // Updated
+                    ['label' => 'Shopping Cart', 'route' => route('customer.cart-items.index'), 'active' => request()->routeIs('cart-items.*')], // Updated
                     ['label' => 'Conversations', 'route' => route('chat.index'), 'active' => request()->routeIs('chat.*')],
                 ],
                 default => [ // guest

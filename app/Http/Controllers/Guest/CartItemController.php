@@ -5,16 +5,15 @@ namespace App\Http\Controllers\Guest;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Services\Cart\GuestCartService;
-use App\DataTransferObjects\CartItemData;
+use App\DataTransferObjects\CartItem\CreateCartItemData;
+use App\DataTransferObjects\CartItem\UpdateCartItemData;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class CartItemController extends Controller
 {
-    public function __construct(protected GuestCartService $guestCartService)
-    {
-    }
+    public function __construct(protected GuestCartService $guestCartService) {}
 
     /**
      * Display a listing of the guest cart items.
@@ -33,13 +32,12 @@ class CartItemController extends Controller
     {
         $validated = $request->validate([
             'product_id' => 'required|exists:products,id',
-            'quantity' => 'required|integer|min:1',
         ]);
 
-        $this->guestCartService->addItemToCart( CartItemData::from($validated));
+        $this->guestCartService->addItemToCart(CreateCartItemData::from($validated));
 
         return redirect()
-            ->route('guest.cart.index')
+            ->route('cart-items.index')
             ->with('success', 'Product added to cart!');
     }
 
@@ -52,12 +50,12 @@ class CartItemController extends Controller
             'quantity' => 'required|integer|min:0',
         ]);
 
-        $cartItemData = CartItemData::from(['productId' => $productId, 'quantity' => $validated['quantity']]);
+        $cartItemData = UpdateCartItemData::from(['productId' => $productId, 'quantity' => $validated['quantity']]);
 
         $this->guestCartService->updateItemQuantity($cartItemData);
 
         return redirect()
-            ->route('guest.cart.index')
+            ->route('cart-items.index')
             ->with('success', 'Cart item updated!');
     }
 
@@ -69,7 +67,7 @@ class CartItemController extends Controller
         $this->guestCartService->removeItemFromCart($productId);
 
         return redirect()
-            ->route('guest.cart.index')
+            ->route('cart-items.index')
             ->with('success', 'Product removed from cart!');
     }
 }

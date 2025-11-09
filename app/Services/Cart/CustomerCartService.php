@@ -3,6 +3,8 @@
 namespace App\Services\Cart;
 
 use App\DataTransferObjects\CartItemData;
+use App\DataTransferObjects\CartItem\CreateCartItemData;
+use App\DataTransferObjects\CartItem\UpdateCartItemData;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
@@ -39,18 +41,18 @@ class CustomerCartService
         ];
     }
 
-public function addItemToCart( CartItemData $data): void
+public function addItemToCart( CreateCartItemData $data): void
 {
     $user=auth()->user() ;
 
     $cart = $user->cart ?? $user->cart()->create();
     $cartItem = $cart->items()->firstOrNew(['product_id' => $data->productId]);
-    $cartItem->quantity += $data->quantity;
+    $cartItem->quantity += 1;
     $cartItem->save();
 }
 
 
-    public function updateItemQuantity( CartItem $cartItem, CartItemData $data): void
+    public function updateItemQuantity( CartItem $cartItem, UpdateCartItemData $data): void
     {
       
         if ($data->quantity > 0) {

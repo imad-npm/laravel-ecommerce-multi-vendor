@@ -13,15 +13,15 @@ use Illuminate\Support\Facades\Route;
 
 
 // === Authenticated Customer Routes === //
-Route::middleware(['auth','verified', 'role:customer'])->name('customer.')->group(function () {
+Route::middleware(['auth', 'verified', 'role:customer'])->name('customer.')->prefix('customer')->group(function () {
     Route::post('/products/{product}/review', [ReviewController::class, 'store'])->name('products.review');
 
     // Dashboard home
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     // Profile
-Route::singleton('profile', ProfileController::class)
-->only(['edit', 'update', 'destroy'])->destroyable();
+    Route::singleton('profile', ProfileController::class)
+        ->only(['edit', 'update', 'destroy'])->destroyable();
 
     // Shipping Addresses Management
     Route::resource('addresses', ShippingAddressController::class)->except(['show']);
@@ -44,7 +44,7 @@ Route::singleton('profile', ProfileController::class)
     Route::get('/payment/{order}/{gatewayType}/callback', [\App\Http\Controllers\Payment\PaymentController::class, 'handleCallback'])->name('payment.callback');
 */
     // Remove old specific payment routes
-    
+
     // Route::get('/payment/stripe/{order}', [\App\Http\Controllers\Payment\PaymentController::class, 'create'])->name('payment.stripe.create');
     // Route::get('/payment/stripe/success/{order}', [\App\Http\Controllers\Payment\PaymentController::class, 'success'])->name('payment.stripe.success');
     // Route::get('/payment/card/{order}', [\App\Http\Controllers\Payment\PaymentController::class, 'createCard'])->name('payment.card.create');

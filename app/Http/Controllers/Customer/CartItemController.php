@@ -7,6 +7,8 @@ use App\Models\CartItem;
 use App\Models\Product;
 use App\Services\Cart\CustomerCartService;
 use App\DataTransferObjects\CartItemData;
+use App\DataTransferObjects\CartItem\CreateCartItemData;
+use App\DataTransferObjects\CartItem\UpdateCartItemData;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -34,10 +36,9 @@ class CartItemController extends Controller
     {
         $validated = $request->validate([
             'product_id' => 'required|exists:products,id',
-            'quantity' => 'required|integer|min:1',
         ]);
 
-        $this->customerCartService->addItemToCart( CartItemData::from($validated));
+        $this->customerCartService->addItemToCart( CreateCartItemData::from($validated));
 
         return redirect()
             ->route('customer.cart.index')
@@ -54,7 +55,7 @@ class CartItemController extends Controller
             'quantity' => 'required|integer|min:0',
         ]);
 
-        $this->customerCartService->updateItemQuantity($cartItem, CartItemData::from($validated));
+        $this->customerCartService->updateItemQuantity($cartItem, UpdateCartItemData::from($validated));
 
         return redirect()
             ->route('customer.cart.index')
