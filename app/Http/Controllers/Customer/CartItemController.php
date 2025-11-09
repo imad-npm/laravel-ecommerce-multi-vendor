@@ -41,7 +41,7 @@ class CartItemController extends Controller
         $this->customerCartService->addItemToCart( CreateCartItemData::from($validated));
 
         return redirect()
-            ->route('customer.cart.index')
+            ->route('customer.cart-items.index')
             ->with('success', 'Product added to cart!');
     }
 
@@ -58,7 +58,7 @@ class CartItemController extends Controller
         $this->customerCartService->updateItemQuantity($cartItem, UpdateCartItemData::from($validated));
 
         return redirect()
-            ->route('customer.cart.index')
+            ->route('customer.cart-items.index')
             ->with('success', 'Cart item updated!');
     }
 
@@ -71,7 +71,7 @@ class CartItemController extends Controller
         $this->customerCartService->removeItemFromCart($cartItem);
 
         return redirect()
-            ->route('customer.cart.index')
+            ->route('customer.cart-items.index')
             ->with('success', 'Product removed from cart!');
     }
 
