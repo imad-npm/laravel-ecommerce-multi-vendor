@@ -38,13 +38,15 @@ class CustomerCartService
         ];
     }
 
-    public function addItemToCart(User $user, Product $product, CartItemData $data): void
-    {
-        $cart = $user->cart ?? $user->cart()->create();
-        $cartItem = $cart->items()->firstOrNew(['product_id' => $product->id]);
-        $cartItem->quantity += $data->quantity;
-        $cartItem->save();
-    }
+public function addItemToCart(User $user, CartItemData $data): void
+{
+    
+    $cart = $user->cart ?? $user->cart()->create();
+    $cartItem = $cart->items()->firstOrNew(['product_id' => $data->productId]);
+    $cartItem->quantity += $data->quantity;
+    $cartItem->save();
+}
+
 
     public function updateItemQuantity( CartItem $cartItem, CartItemData $data): void
     {

@@ -37,7 +37,7 @@ class CartItemController extends Controller
             'quantity' => 'required|integer|min:1',
         ]);
 
-        $this->customerCartService->addItemToCart(auth()->user(), Product::findOrFail($validated['product_id']), CartItemData::from($validated));
+        $this->customerCartService->addItemToCart(auth()->user(), CartItemData::from($validated));
 
         return redirect()
             ->route('customer.cart.index')
