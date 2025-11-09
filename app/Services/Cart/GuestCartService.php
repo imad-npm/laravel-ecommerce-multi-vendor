@@ -27,7 +27,7 @@ class GuestCartService
                 ];
             }
             return null;
-        })->filter()->values();
+        })->filter();
 
         Session::put('guest_cart', $validGuestCartData);
 
@@ -54,10 +54,9 @@ class GuestCartService
 }
 
 
-    public function updateItemQuantity(UpdateCartItemData $data): void
+    public function updateItemQuantity(int $productId,UpdateCartItemData $data): void
     {
         $cart = Session::get('guest_cart', []);
-        $productId = $data->productId;
         if (isset($cart[$productId])) {
             if ($data->quantity > 0) {
                 $cart[$productId]['quantity'] = $data->quantity;
