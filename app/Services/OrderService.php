@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\DataTransferObjects\OrderData;
 use App\Models\Order;
 use App\Models\OrderItem; // Added
 use App\Models\ShippingAddress;
@@ -105,5 +106,14 @@ class OrderService
             })
             ->orderByDesc('created_at')
             ->get();
+    }
+
+    public function updateOrder(Order $order, OrderData $orderData): Order
+    {
+        $order->update([
+            'status' => $orderData->status,
+        ]);
+
+        return $order;
     }
 }

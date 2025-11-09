@@ -23,7 +23,6 @@ class OrderRequest extends FormRequest
     {
         return [
             'status' => 'required|in:pending,paid,shipped,cancelled',
-            'address' => 'required|string|max:255',
         ];
     }
 }

@@ -8,14 +8,12 @@ class OrderData
 {
     public function __construct(
         public readonly string $status,
-        public readonly string $address,
     ) {}
 
     public static function fromRequest(Request $request): self
     {
         return new self(
             status: $request->input('status'),
-            address: $request->input('address'),
         );
     }
 
@@ -23,7 +21,6 @@ class OrderData
     {
         return [
             'status' => $this->status,
-            'address' => $this->address,
         ];
     }
 }
