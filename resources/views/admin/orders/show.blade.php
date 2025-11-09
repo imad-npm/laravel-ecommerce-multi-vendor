@@ -26,10 +26,7 @@
                         {{ $order->shipping_country }}
                     </div>
                 </div>
-                <div>
-                    <div class="text-sm text-gray-500">Payment Method</div>
-                    <div class="text-gray-800 font-medium">{{ ucfirst($order->payment_method) }}</div>
-                </div>
+                
             </div>
             <div class="mb-8">
                 <div class="text-sm text-gray-500">Order Total</div>

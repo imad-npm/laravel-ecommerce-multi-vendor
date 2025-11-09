@@ -17,12 +17,14 @@
                            class="mt-1 block w-full border-gray-300 rounded-md p-2 bg-gray-100 text-gray-600">
                 </div>
 
-                <!-- Shipping Address -->
+                <!-- Shipping Address (read only) -->
                 <div class="mb-6">
                     <label class="block text-sm font-medium text-gray-700">Shipping Address</label>
-                    <input type="text" name="address" value="{{ old('address', $order->address) }}" required
-                           class="mt-1 block w-full border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
-                    @error('address')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
+                    <div class="mt-1 block w-full border-gray-300 rounded-md p-2 bg-gray-100 text-gray-600">
+                        {{ $order->shipping_address_line_1 }}<br>
+                        {{ $order->shipping_city }}, {{ $order->shipping_postal_code }}<br>
+                        {{ $order->shipping_country }}
+                    </div>
                 </div>
 
               
