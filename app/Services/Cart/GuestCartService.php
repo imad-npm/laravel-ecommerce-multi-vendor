@@ -36,18 +36,20 @@ class GuestCartService
         ];
     }
 
-    public function addItemToCart(Product $product, CartItemData $data): void
-    {
-        $cart = Session::get('guest_cart', []);
-        $key = $product->id;
+  public function addItemToCart(CartItemData $data): void
+{
+   
+    $cart = Session::get('guest_cart', []);
+    $key = $data->productId;
 
-        $cart[$key] = [
-            'product_id' => $product->id,
-            'quantity' => ($cart[$key]['quantity'] ?? 0) + $data->quantity,
-        ];
+    $cart[$key] = [
+        'product_id' => $data->productId,
+        'quantity' => ($cart[$key]['quantity'] ?? 0) + $data->quantity,
+    ];
 
-        Session::put('guest_cart', $cart);
-    }
+    Session::put('guest_cart', $cart);
+}
+
 
     public function updateItemQuantity(CartItemData $data): void
     {
