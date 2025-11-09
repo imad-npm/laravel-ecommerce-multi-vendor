@@ -1,0 +1,77 @@
+<?php
+
+namespace App\Services\Cart;
+
+use App\DataTransferObjects\CartItemData;
+use App\Models\Product;
+use Illuminate\Support\Facades\Session;
+
+class GuestCartService
+{
+    public function getCartDetails(): object
+    {
+        $guestCartData = Session::get('guest_cart', []);
+        $validGuestCartData = [];
+
+        $items = collect($guestCartData)->map(function ($itemData) use (&$validGuestCartData) {
+            $product = Product::find($itemData['product_id']);
+            if ($product) {
+                $validGuestCartData[$product->id] = $itemData;
+                return (object) [
+                    'product' => $product,
+                    'quantity' => $itemData['quantity'],
+                    'product_id' => $product->id,
+                ];
+            }
+            return null;
+        })->filter()->values();
+
+        Session::put('guest_cart', $validGuestCartData);
+
+        $total = $items->sum(fn($item) => $item->product->price * $item->quantity);
+
+        return (object) [
+            'items' => $items,
+            'total' => $total,
+        ];
+    }
+
+    public function addItemToCart(Product $product, CartItemData $data): void
+    {
+        $cart = Session::get('guest_cart', []);
+        $key = $product->id;
+
+        $cart[$key] = [
+            'product_id' => $product->id,
+            'quantity' => ($cart[$key]['quantity'] ?? 0) + $data->quantity,
+        ];
+
+        Session::put('guest_cart', $cart);
+    }
+
+    public function updateItemQuantity(CartItemData $data): void
+    {
+        $cart = Session::get('guest_cart', []);
+        $productId = $data->productId;
+        if (isset($cart[$productId])) {
+            if ($data->quantity > 0) {
+                $cart[$productId]['quantity'] = $data->quantity;
+            } else {
+                unset($cart[$productId]);
+            }
+        }
+        Session::put('guest_cart', $cart);
+    }
+
+    public function removeItemFromCart(int $productId): void
+    {
+        $cart = Session::get('guest_cart', []);
+        unset($cart[$productId]);
+        Session::put('guest_cart', $cart);
+    }
+
+    public function clearAllItems(): void
+    {
+        Session::forget('guest_cart');
+    }
+}
