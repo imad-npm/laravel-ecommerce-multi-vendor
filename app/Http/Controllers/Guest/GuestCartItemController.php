@@ -36,7 +36,7 @@ class GuestCartItemController extends Controller
             'quantity' => 'required|integer|min:1',
         ]);
 
-        $this->guestCartService->addItemToCart(Product::findOrFail($validated['product_id']), CartItemData::from($validated));
+        $this->guestCartService->addItemToCart( CartItemData::from($validated));
 
         return redirect()
             ->route('guest.cart.index')
