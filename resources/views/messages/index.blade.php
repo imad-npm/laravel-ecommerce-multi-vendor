@@ -20,12 +20,8 @@
                         @endforeach
                     </div>
 
-                    <form action="{{ route('chat.store') }}" method="POST" class="mt-6">
+                    <form action="{{ route('conversations.messages.store', $conversation) }}" method="POST" class="mt-6">
                         @csrf
-                        <input type="hidden" name="receiver_id" value="{{ $otherUser->id }}">
-                        @if($conversation->product)
-                            <input type="hidden" name="product_id" value="{{ $conversation->product->id }}">
-                        @endif
                         <textarea name="message" rows="3" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder="Type your message..."></textarea>
                         <button type="submit" class="mt-2 inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150">
                             Send Message
