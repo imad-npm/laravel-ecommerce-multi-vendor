@@ -43,6 +43,6 @@ class ConversationController extends Controller
 
         $conversation = $this->conversationService->findOrCreateConversation($user1, $user2, $product);
 
-        return redirect()->route('conversations.show', $conversation);
+        return redirect()->route('conversations.messages.index', $conversation);
     }
 }

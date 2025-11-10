@@ -103,7 +103,7 @@
                                 @else
                                     <form action="{{ route('conversations.store') }}" method="POST">
                                         @csrf
-                                        <input type="hidden" name="receiver_id" value="{{ $product->store->user->id }}">
+                                        <input type="hidden" name="user_id" value="{{ $product->store->user->id }}">
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                                         <input type="hidden" name="message" value="Hello, I'm interested in this product: {{ $product->name }}">
                                         <button type="submit"

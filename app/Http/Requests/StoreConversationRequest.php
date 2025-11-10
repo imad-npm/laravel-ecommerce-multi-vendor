@@ -16,6 +16,7 @@ class StoreConversationRequest extends FormRequest
         return [
             'user_id' => 'required|exists:users,id',
             'product_id' => 'nullable|exists:products,id',
+            
         ];
     }
 }
