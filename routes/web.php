@@ -23,8 +23,6 @@ require __DIR__.'/auth.php';
 
 Route::post('/webhooks/{gatewayType}', [WebhookController::class, 'handle'])->name('webhooks.handle');
 
-Route::get('orders/{order}/retry-payment', [PaymentController::class,'showRetry'])->name('customer.orders.payment.retry');
-Route::post('orders/{order}/retry-payment', [PaymentController::class,'retry'])->name('customer.orders.payment.retry.process');
 
 require __DIR__.'/admin.php';
 require __DIR__.'/customer.php';
@@ -46,3 +44,4 @@ Route::prefix('cart-items')->name('cart-items.')->group(function () {
     Route::patch('/{productId}', [CartItemController::class, 'update'])->name('update');
     Route::delete('/{productId}', [CartItemController::class, 'destroy'])->name('destroy');
 });
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
