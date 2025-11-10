@@ -39,14 +39,14 @@
 
                                 {{-- Actions : update/remove --}}
                                 <div class="flex flex-col sm:flex-row items-center gap-3">
-                                    <form action="{{ route('cart-items.update', $item->id) }}" method="POST" class="flex items-center gap-2">
+                                    <form action="{{ route('cart-items.update', $item->product_id) }}" method="POST" class="flex items-center gap-2">
                                         @csrf @method('PATCH')
                                         <input type="number" name="quantity" value="{{ $item->quantity }}" min="1"
                                                class="w-20 border-gray-300 rounded-lg p-2 text-center shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
                                         <button class="text-indigo-600 hover:underline text-sm transition">Update</button>
                                     </form>
 
-                                    <form action="{{ route('cart-items.destroy', $item->id) }}" method="POST">
+                                    <form action="{{ route('cart-items.destroy', $item->product_id) }}" method="POST">
                                         @csrf @method('DELETE')
                                         <button class="text-red-600 hover:underline text-sm transition">Remove</button>
                                     </form>
