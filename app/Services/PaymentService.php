@@ -27,8 +27,6 @@ class PaymentService
                 return ['redirect' => $result->getTargetUrl()];
             }
 
-            $order->update(['status' => 'processing']);
-
             return ['success' => true];
         } catch (\Exception $e) {
             Log::error('Payment processing failed for order ' . $order->id . ': ' . $e->getMessage());
