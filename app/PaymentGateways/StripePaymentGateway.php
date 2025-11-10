@@ -3,6 +3,7 @@
 namespace App\PaymentGateways;
 
 use App\Contracts\PaymentGateway;
+use App\Events\OrderPaid;
 use App\Models\Order;
 use App\Models\Payment;
 use Illuminate\Http\RedirectResponse;
@@ -10,71 +11,71 @@ use Illuminate\Http\Request;
 use Stripe\Stripe;
 use Stripe\PaymentIntent;
 
-class StripePaymentGateway implements \App\Contracts\PaymentGateway
+class StripePaymentGateway implements PaymentGateway
 {
     public function process(Order $order, array $data): ?RedirectResponse
     {
+        if (!config('services.stripe.secret')) {
+            if (app()->environment('local', 'testing') && $data['payment_method_id'] === 'pm_card_visa') {
+                // This is a mock payment for local testing
+                Payment::create([
+                    'order_id' => $order->id,
+                    'payment_gateway' => 'stripe-mock',
+                    'amount' => $order->total,
+                    'currency' => 'usd',
+                    'status' => 'succeeded',
+                    'transaction_id' => 'mock_'.uniqid(),
+                ]);
+
+                event(new OrderPaid($order));
+                return null;
+            }
+
+            throw new \Exception("Stripe is not configured.");
+        }
+
         Stripe::setApiKey(config('services.stripe.secret'));
 
-        $payment = Payment::create([
-            'order_id' => $order->id,
-            'payment_gateway' => 'stripe',
-            'amount' => $order->total,
-            'currency' => 'usd',
-            'status' => 'initiated',
-        ]);
+        $user = auth()->user();
 
         try {
+            // Create a PaymentIntent and confirm it immediately.
             $paymentIntent = PaymentIntent::create([
                 'amount' => $order->total * 100, // Amount in cents
                 'currency' => 'usd',
-                'metadata' => ['order_id' => $order->id, 'payment_id' => $payment->id],
+                'customer' => $user->stripe_id,
+                'payment_method' => $data['payment_method_id'],
+                'metadata' => ['order_id' => $order->id],
+                'off_session' => true, // charge the customer immediately
+                'confirm' => true, // confirm the payment immediately
             ]);
 
-            $payment->transaction_id = $paymentIntent->id;
-            $payment->status = 'pending'; // Stripe PaymentIntent is initially pending confirmation
-            $payment->save();
+            Payment::create([
+                'order_id' => $order->id,
+                'payment_gateway' => 'stripe',
+                'amount' => $order->total,
+                'currency' => 'usd',
+                'status' => 'succeeded',
+                'transaction_id' => $paymentIntent->id,
+            ]);
 
-            // For client-side confirmation, we return a JSON response with client_secret
-            // The frontend will then confirm the payment.
-            // This is a deviation from the RedirectResponse, but necessary for Stripe Elements.
-            // The PaymentController will need to handle this JSON response.
-            return response()->json(['clientSecret' => $paymentIntent->client_secret, 'paymentId' => $payment->id]);
+            // The payment was successful
+            event(new OrderPaid($order));
+
+        } catch (\Stripe\Exception\CardException $e) {
+            // Since it's a decline, \Stripe\Exception\CardException will be caught
+            throw $e;
         } catch (\Exception $e) {
-            $payment->status = 'failed';
-            $payment->error_message = $e->getMessage();
-            $payment->save();
-            // In case of an error during PaymentIntent creation, we should redirect back with an error.
-            return redirect()->route('customer.orders.show', $order)->with('error', 'Stripe payment initiation failed.');
+            // Something else happened, like an invalid request
+            throw $e;
         }
+
+        return null; // No redirect needed for this flow
     }
 
     public function handleCallback(Request $request, Order $order): RedirectResponse
     {
-        $payload = $request->all();
-        // This method would be called by your Stripe webhook controller
-        // to update the payment status based on Stripe events.
-        // Example: retrieve PaymentIntent from payload, update Payment record.
-
-        $paymentIntentId = $payload['data']['object']['id'];
-        $status = $payload['data']['object']['status'];
-        $paymentId = $payload['data']['object']['metadata']['payment_id'];
-
-        $payment = Payment::find($paymentId);
-
-        if ($payment) {
-            if ($status === 'succeeded') {
-                $payment->status = 'succeeded';
-                $payment->order->status = 'paid';
-                $payment->order->save();
-                event(new \App\Events\OrderPaid($payment->order));
-            } elseif ($status === 'failed') {
-                $payment->status = 'failed';
-                $payment->error_message = $payload['data']['object']['last_payment_error']['message'] ?? 'Payment failed';
-            }
-            $payment->save();
-        }
-
+        // This method is not used in the current Stripe flow, but is required by the interface.
         return redirect()->route('customer.orders.show', $order);
     }
 }

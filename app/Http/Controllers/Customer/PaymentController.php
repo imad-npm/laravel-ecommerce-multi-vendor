@@ -7,6 +7,9 @@ use App\Models\Order;
 use App\Services\PaymentService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Stripe\Stripe;
+use Stripe\Customer;
+use Stripe\SetupIntent;
 
 class PaymentController extends Controller
 {
@@ -31,11 +34,24 @@ class PaymentController extends Controller
         $setupIntent = null;
 
         if (config('services.stripe.key')) {
-            // Ensure the user has a Stripe customer ID
+            \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
+
             if (!$user->stripe_id) {
-                $user->createAsStripeCustomer();
+                $customer = \Stripe\Customer::create([
+                    'email' => $user->email,
+                    'name' => $user->name,
+                ]);
+
+                $user->stripe_id = $customer->id;
+                $user->save();
             }
-            $setupIntent = $user->createSetupIntent();
+
+            $setupIntent = \Stripe\SetupIntent::create([
+                'customer' => $user->stripe_id,
+            ]);
+        } else {
+            // Mock for testing if stripe key is not set
+            $setupIntent = (object)['client_secret' => 'mock_secret'];
         }
 
         return view('customer.payments.create', compact('order', 'setupIntent'));
@@ -46,31 +62,29 @@ class PaymentController extends Controller
         $this->authorize('update', $order);
 
         if ($order->status !== 'pending') {
-            return redirect()->route('customer.orders.show', $order)->with('error', 'This order cannot be paid for.');
+            return redirect()->route('customer.orders.show', $order)
+                             ->with('error', 'This order cannot be paid for.');
         }
 
-        $rules = [
-            'payment_method' => 'required|string|in:stripe,paypal',
-        ];
+        $validated = $request->validate([
+            'payment_method_id' => 'required|string',
+        ]);
 
-        if ($request->input('payment_method') === 'stripe') {
-            $rules['payment_method_id'] = 'required|string';
-        } elseif ($request->input('payment_method') === 'paypal') {
-            $rules['paypal_order_id'] = 'required|string';
-        }
-
-        $validated = $request->validate($rules);
+        // Use your PaymentService to process the Stripe payment
+        $paymentData = array_merge($validated, ['payment_method' => 'stripe']);
 
         try {
-            $result = $this->paymentService->process($order, $validated);
+            $result = $this->paymentService->process($order, $paymentData);
 
             if (isset($result['redirect'])) {
                 return redirect($result['redirect']);
             }
 
-            return redirect()->route('customer.orders.show', $order)->with('success', 'Payment successful!');
-        } catch (\Exception | \Stripe\Exception\CardException $e) {
-            return redirect()->route('customer.orders.show', $order)->with('error', 'Failed to process payment: ' . $e->getMessage());
+            return redirect()->route('customer.orders.show', $order)
+                             ->with('success', 'Payment successful!');
+        } catch (\Exception | \Stripe\Exception\ApiErrorException $e) {
+            return redirect()->route('customer.orders.show', $order)
+                             ->with('error', 'Failed to process payment: ' . $e->getMessage());
         }
     }
 }

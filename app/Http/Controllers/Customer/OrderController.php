@@ -39,7 +39,7 @@ class OrderController extends Controller
         $cart = $user->cart;
 
         if ($cart->items->isEmpty()) {
-            return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
+            return redirect()->route('cart-items.index')->with('error', 'Your cart is empty.');
         }
 
         $shippingAddresses = $user->shippingAddresses;
