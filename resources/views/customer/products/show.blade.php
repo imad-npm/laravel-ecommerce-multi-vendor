@@ -105,7 +105,6 @@
                                         @csrf
                                         <input type="hidden" name="user_id" value="{{ $product->store->user->id }}">
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <input type="hidden" name="message" value="Hello, I'm interested in this product: {{ $product->name }}">
                                         <button type="submit"
                                                 class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm shadow flex items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
