@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\ProductController;
 use App\Http\Controllers\StoreController;
-use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ConversationController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\Customer\PaymentController;
 use App\Http\Controllers\Guest\CartItemController;
@@ -30,9 +31,12 @@ require __DIR__.'/customer.php';
 require __DIR__.'/vendor.php';
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
-    Route::get('/chat/{conversation}', [ChatController::class, 'show'])->name('chat.show');
-    Route::post('/chat', [ChatController::class, 'store'])->name('chat.store');
+    Route::get('/conversations', [ConversationController::class, 'index'])->name('conversations.index');
+    Route::get('/conversations/{conversation}', [ConversationController::class, 'show'])->name('conversations.show');
+    Route::post('/conversations', [ConversationController::class, 'store'])->name('conversations.store');
+
+    Route::get('/conversations/{conversation}/messages', [MessageController::class, 'index'])->name('conversations.messages.index');
+    Route::post('/conversations/{conversation}/messages', [MessageController::class, 'store'])->name('conversations.messages.store');
 });
 
 // Guest Cart Routes

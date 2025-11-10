@@ -23,7 +23,7 @@
                                     <div class="flex min-w-0 gap-x-4">
                                         <div class="min-w-0 flex-auto">
                                             <p class="text-sm font-semibold leading-6 text-gray-900">
-                                                <a href="{{ route('chat.show', ['conversation' => $conversation->id]) }}">
+                                                <a href="{{ route('conversations.show', ['conversation' => $conversation->id]) }}">
                                                     {{ $otherUser->name }} {{ $productName }}
                                                 </a>
                                             </p>
