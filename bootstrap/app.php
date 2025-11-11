@@ -12,6 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->validateCsrfTokens(except: [
+            'stripe/webhook',
+        ]);
         // 👉 Enregistre le middleware ici (route middleware)
         $middleware->alias([
             'role' => RoleMiddleware::class,

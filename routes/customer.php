@@ -34,7 +34,7 @@ Route::middleware(['auth', 'verified', 'role:customer'])->name('customer.')->pre
     Route::patch('orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
 
     // Nested Payment Resource
-    Route::resource('orders.payments', PaymentController::class)->only(['create', 'store']);
+    Route::resource('orders.payments', PaymentController::class)->only(['create']);
 
     // Customer Cart Routes
     Route::resource('cart-items', CartItemController::class)->except(['create', 'show', 'edit']);
