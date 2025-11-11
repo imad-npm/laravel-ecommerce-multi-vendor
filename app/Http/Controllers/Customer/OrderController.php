@@ -61,7 +61,7 @@ class OrderController extends Controller
         }
         $user->cart->items()->delete() ;
 
-        return redirect()->route('customer.orders.payments.create', $order);
+        return redirect()->route('customer.orders.checkout', $order);
     }
 
     public function cancel(Order $order)
