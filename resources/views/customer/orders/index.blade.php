@@ -120,7 +120,7 @@
                                                     </div>
                                                 @endif
                                             @endif
-                                        <td class="px-4 py-4 whitespace-nowrap text-right">
+                                        <td class="px-4 py-4 whitespace-nowrap text-right flex">
                                             <a href="{{ route('customer.orders.show', $order->id) }}"
                                                 class="inline-block px-4 py-2 bg-indigo-600 text-white text-xs rounded shadow hover:bg-indigo-700 transition">Show</a>
                                             @if ($order->status === 'pending')

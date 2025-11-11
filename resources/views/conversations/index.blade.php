@@ -15,26 +15,34 @@
                         <ul role="list" class="divide-y divide-gray-100">
                             @foreach ($conversations as $conversation)
                                 @php
-                                    $otherUser = ($conversation->user_one_id === Auth::id()) ? $conversation->userTwo : $conversation->userOne;
-                                    $productName = $conversation->product ? ' about ' . $conversation->product->name : '';
+                                    $otherUser =
+                                        $conversation->user_one_id === Auth::id()
+                                            ? $conversation->userTwo
+                                            : $conversation->userOne;
+                                    $productName = $conversation->product
+                                        ? ' about ' . $conversation->product->name
+                                        : '';
                                     $lastMessage = $conversation->messages->last();
                                 @endphp
                                 <li class="flex justify-between gap-x-6 py-5">
                                     <div class="flex min-w-0 gap-x-4">
                                         <div class="min-w-0 flex-auto">
                                             <p class="text-sm font-semibold leading-6 text-gray-900">
-                                                <a href="{{ route('conversations.show', ['conversation' => $conversation->id]) }}">
+                                                <a
+                                                    href="{{ route('conversations.messages.index', ['conversation' => $conversation->id]) }}">
                                                     {{ $otherUser->name }} {{ $productName }}
                                                 </a>
                                             </p>
-                                            @if($lastMessage)
-                                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{ $lastMessage->message }}</p>
+                                            @if ($lastMessage)
+                                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">
+                                                    {{ $lastMessage->message }}</p>
                                             @endif
                                         </div>
                                     </div>
                                     <div class="hidden sm:flex sm:flex-col sm:items-end">
-                                        @if($lastMessage)
-                                            <p class="text-sm leading-6 text-gray-900">{{ $lastMessage->created_at->diffForHumans() }}</p>
+                                        @if ($lastMessage)
+                                            <p class="text-sm leading-6 text-gray-900">
+                                                {{ $lastMessage->created_at->diffForHumans() }}</p>
                                         @endif
                                     </div>
                                 </li>
