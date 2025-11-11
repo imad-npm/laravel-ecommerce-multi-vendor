@@ -44,4 +44,6 @@ Route::prefix('cart-items')->name('cart-items.')->group(function () {
     Route::patch('/{productId}', [CartItemController::class, 'update'])->name('update');
     Route::delete('/{productId}', [CartItemController::class, 'destroy'])->name('destroy');
 });
+
+Route::post('/stripe/webhook', [\App\Http\Controllers\StripeWebhookController::class, 'handleWebhook'])->name('stripe.webhook');
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        

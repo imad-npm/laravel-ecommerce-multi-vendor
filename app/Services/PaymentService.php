@@ -27,6 +27,10 @@ class PaymentService
                 return ['redirect' => $result->getTargetUrl()];
             }
 
+            if (is_array($result)) {
+                return $result;
+            }
+
             return ['success' => true];
         } catch (\Exception $e) {
             Log::error('Payment processing failed for order ' . $order->id . ': ' . $e->getMessage());
