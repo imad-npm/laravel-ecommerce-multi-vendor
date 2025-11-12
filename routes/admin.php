@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\ProfileController ;
+use App\Http\Controllers\Admin\PayoutController;
+use App\Http\Controllers\Admin\VendorEarningController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +20,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 Route::resource('products', ProductController::class);
 Route::resource('stores', StoreController::class);
 Route::resource('categories', CategoryController::class);
+Route::resource('payouts', PayoutController::class)->only(['index', 'show']);
+Route::post('payouts/pay-all', [PayoutController::class, 'payAll'])->name('payouts.payAll');
+Route::resource('vendor-earnings', VendorEarningController::class);
 Route::singleton('profile', ProfileController::class)
 ->only(['edit', 'update', 'destroy'])->destroyable();
 

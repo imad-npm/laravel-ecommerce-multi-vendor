@@ -2,28 +2,27 @@
 
 namespace App\Services;
 
-use App\Models\Order;
+use App\DataTransferObjects\VendorEarningData;
 use App\Models\VendorEarning;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class VendorEarningService
 {
-    public function createVendorEarnings(Order $order)
+    public function getAllVendorEarnings(): LengthAwarePaginator
     {
-        $commissionRate = config('commission.rate');
+        return VendorEarning::with(['vendor', 'order'])->latest()->paginate(10);
+    }
 
-        foreach ($order->items as $item) {
-            $vendor = $item->product->store->user;
-            $totalAmount = $item->price * $item->quantity;
-            $commission = ($totalAmount * $commissionRate) / 100;
-            $netEarnings = $totalAmount - $commission;
+    public function updateVendorEarning(VendorEarning $vendorEarning, VendorEarningData $vendorEarningData): bool
+    {
+        return $vendorEarning->update($vendorEarningData->all());
+    }
 
-            VendorEarning::create([
-                'vendor_id' => $vendor->id,
-                'order_id' => $order->id,
-                'total_amount' => $totalAmount,
-                'commission' => $commission,
-                'net_earnings' => $netEarnings,
-            ]);
-        }
+    public function getEligibleVendorEarningsForPayout()
+    {
+        return VendorEarning::where('is_paid', false)
+            ->whereNull('payout_id')
+            ->with('vendor')
+            ->get();
     }
 }

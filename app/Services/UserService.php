@@ -38,5 +38,10 @@ class UserService
     {
         return $user->delete();
     }
+
+    public function getAllVendors()
+    {
+        return User::where('role', 'vendor')->get();
+    }
 }
             

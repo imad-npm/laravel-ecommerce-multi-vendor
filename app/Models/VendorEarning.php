@@ -16,6 +16,7 @@ class VendorEarning extends Model
         'commission',
         'net_earnings',
         'is_paid',
+        'payout_id',
     ];
 
     public function vendor()
@@ -26,5 +27,10 @@ class VendorEarning extends Model
     public function order()
     {
         return $this->belongsTo(Order::class);
+    }
+
+    public function payout()
+    {
+        return $this->belongsTo(Payout::class);
     }
 }
