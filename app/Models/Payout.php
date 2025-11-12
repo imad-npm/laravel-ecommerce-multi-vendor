@@ -15,10 +15,16 @@ class Payout extends Model
         'status',
         'payment_method',
         'payment_details',
+        'transaction_id',
     ];
 
     public function vendor()
     {
         return $this->belongsTo(User::class, 'vendor_id');
+    }
+
+    public function vendorEarnings()
+    {
+        return $this->hasMany(VendorEarning::class);
     }
 }

@@ -2,35 +2,34 @@
 
 namespace App\Services;
 
-use App\Models\User;
-use App\Models\VendorEarning;
+use App\DataTransferObjects\PayoutData;
 use App\Models\Payout;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PayoutService
 {
-    public function createPayout(User $vendor, string $paymentMethod, array $paymentDetails)
+    public function getAllPayouts(): LengthAwarePaginator
     {
-        $unpaidEarnings = VendorEarning::where('vendor_id', $vendor->id)->where('is_paid', false)->get();
+        return Payout::with('vendor')->latest()->paginate(10);
+    }
 
-        if ($unpaidEarnings->isEmpty()) {
-            return null;
-        }
+    public function createPayout(PayoutData $payoutData): Payout
+    {
+        return Payout::create($payoutData->all());
+    }
 
-        $payoutAmount = $unpaidEarnings->sum('net_earnings');
+    public function updatePayout(Payout $payout, PayoutData $payoutData): bool
+    {
+        return $payout->update($payoutData->all());
+    }
 
-        return DB::transaction(function () use ($vendor, $payoutAmount, $paymentMethod, $paymentDetails, $unpaidEarnings) {
-            $payout = Payout::create([
-                'vendor_id' => $vendor->id,
-                'amount' => $payoutAmount,
-                'status' => 'pending',
-                'payment_method' => $paymentMethod,
-                'payment_details' => json_encode($paymentDetails),
-            ]);
+    public function deletePayout(Payout $payout): bool
+    {
+        return $payout->delete();
+    }
 
-            VendorEarning::whereIn('id', $unpaidEarnings->pluck('id'))->update(['is_paid' => true]);
-
-            return $payout;
-        });
+    public function getAll()
+    {
+        return Payout::all();
     }
 }

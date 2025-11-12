@@ -40,6 +40,8 @@
                     ['label' => 'Products', 'route' => route('admin.products.index'), 'active' => request()->routeIs('admin.products.*')],
                     ['label' => 'Categories', 'route' => route('admin.categories.index'), 'active' => request()->routeIs('admin.categories.*')],
                     ['label' => 'Orders', 'route' => route('admin.orders.index'), 'active' => request()->routeIs('admin.orders.*')],
+                    ['label' => 'Payouts', 'route' => route('admin.payouts.index'), 'active' => request()->routeIs('admin.payouts.*')],
+                    ['label' => 'Vendor Earnings', 'route' => route('admin.vendor-earnings.index'), 'active' => request()->routeIs('admin.vendor-earnings.*')],
                 ],
                 'vendor' => array_merge(
                     [

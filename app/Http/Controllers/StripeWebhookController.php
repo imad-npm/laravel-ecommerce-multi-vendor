@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\OrderPaid;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Models\Payout; // Added
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Stripe\Stripe;
@@ -25,10 +26,13 @@ class StripeWebhookController extends Controller
         } catch (SignatureVerificationException $e) {
             Log::error("Stripe webhook signature verification failed: " . $e->getMessage());
             return response()->json(['error' => 'Invalid signature'], 400);
+        } catch (\UnexpectedValueException $e) { // Added for completeness
+            Log::error('Stripe Webhook Invalid Payload: ' . $e->getMessage());
+            return response()->json(['error' => 'Invalid payload'], 400);
         }
 
-        switch ($event->type) {
 
+        switch ($event->type) {
             case 'checkout.session.completed':
                 $session = $event->data->object;
 
@@ -41,13 +45,24 @@ class StripeWebhookController extends Controller
                 } catch (\Exception $e) {
                     Log::error("Failed to retrieve PaymentIntent: " . $e->getMessage());
                 }
+                break; // Added break
 
-                return response()->json(['status' => 'ok']);
+            case 'transfer.succeeded':
+                $this->handleTransferSucceeded($event->data->object);
+                break;
+            case 'transfer.failed':
+                $this->handleTransferFailed($event->data->object);
+                break;
+            case 'transfer.reversed':
+                $this->handleTransferReversed($event->data->object);
+                break;
 
             default:
                 Log::info("Ignored Stripe event type: " . $event->type);
-                return response()->json(['status' => 'ignored']);
+                break; // Added break
         }
+
+        return response()->json(['status' => 'ok']); // Moved outside switch
     }
 
     private function handlePaymentIntentSucceeded($paymentIntent)
@@ -78,5 +93,61 @@ class StripeWebhookController extends Controller
         event(new OrderPaid($order));
 
         Log::info("Payment for order {$order->id} processed successfully.");
+    }
+
+    // New methods for transfer events
+    protected function handleTransferSucceeded($transfer)
+    {
+        $payoutId = $transfer->metadata->payout_id ?? null;
+
+        if ($payoutId) {
+            $payout = Payout::find($payoutId);
+            if ($payout) {
+                $payout->status = 'succeeded';
+                $payout->save();
+                Log::info("Payout {$payoutId} status updated to succeeded via webhook.");
+            } else {
+                Log::warning("Payout {$payoutId} not found for transfer.succeeded webhook.");
+            }
+        } else {
+            Log::warning("payout_id not found in metadata for transfer.succeeded webhook.");
+        }
+    }
+
+    protected function handleTransferFailed($transfer)
+    {
+        $payoutId = $transfer->metadata->payout_id ?? null;
+
+        if ($payoutId) {
+            $payout = Payout::find($payoutId);
+            if ($payout) {
+                $payout->status = 'failed';
+                $payout->save();
+                Log::error("Payout {$payoutId} status updated to failed via webhook. Failure code: {$transfer->failure_code}, message: {$transfer->failure_message}");
+            } else {
+                Log::warning("Payout {$payoutId} not found for transfer.failed webhook.");
+            }
+        } else {
+            Log::warning("payout_id not found in metadata for transfer.failed webhook.");
+        }
+    }
+
+    protected function handleTransferReversed($transfer)
+    {
+        $payoutId = $transfer->metadata->payout_id ?? null;
+
+        if ($payoutId) {
+            $payout = Payout::find($payoutId);
+            if ($payout) {
+                $payout->status = 'reversed';
+                $payout->save();
+                $reason = $transfer->reversals?->data[0]?->reason ?? 'N/A';
+                Log::warning("Payout {$payoutId} status updated to reversed via webhook. Reversal reason: {$reason}");
+            } else {
+                Log::warning("Payout {$payoutId} not found for transfer.reversed webhook.");
+            }
+        } else {
+            Log::warning("payout_id not found in metadata for transfer.reversed webhook.");
+        }
     }
 }
