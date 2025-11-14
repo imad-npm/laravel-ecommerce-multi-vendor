@@ -2,25 +2,44 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
+use Stripe\StripeClient;
 
 class VendorUserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run()
     {
-        User::factory()->create([
-            'name' => 'Test Vendor',
-            'email' => 'vendor@example.com',
-            'role' => 'vendor',
-        ]);
+        $stripe = new StripeClient(config('services.stripe.secret'));
 
-        User::factory()->count(20)->create([
-            'role' => 'vendor',
-        ]);
+        $vendors = User::factory()->count(5)->create(['role' => 'vendor']);
+
+        foreach ($vendors as $vendor) {
+            $stripe = new \Stripe\StripeClient(config('services.stripe.secret'));
+
+            $account = $stripe->accounts->create([
+                'type' => 'express',
+                'country' => 'US',
+                'email' => $vendor->email,
+                'capabilities' => [
+                    'card_payments' => ['requested' => true],
+                    'transfers' => ['requested' => true],
+                ],
+            ]);
+
+            // ✅ Correct: testHelpers accounts update
+            $stripe->testHelpers->accounts->updateCapability(
+                $account->id,
+                'transfers',
+                ['requested' => true, 'enabled' => true]
+            );
+
+            $vendor->stripe_account_id = $account->id;
+            $vendor->save();
+        }
     }
 }
