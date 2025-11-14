@@ -15,10 +15,13 @@
         <form method="GET" action="{{ route('admin.users.index') }}" class="mb-4 w-full max-w-2xl flex flex-wrap gap-2 items-center bg-gray-50 p-3 rounded shadow-sm">
           <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by name or email..." class="flex-1 min-w-0 px-4 py-2 border border-gray-300 rounded-lg" />
           <select name="role" class="px-4 py-2 w-36 border border-gray-300 rounded-lg">
+            @php
+                use App\Enums\UserRole;
+            @endphp
             <option value="">All Roles</option>
-            <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-            <option value="vendor" {{ request('role') == 'vendor' ? 'selected' : '' }}>Vendor</option>
-            <option value="customer" {{ request('role') == 'customer' ? 'selected' : '' }}>Customer</option>
+            <option value="{{ UserRole::ADMIN->value }}" {{ request('role') == UserRole::ADMIN->value ? 'selected' : '' }}>Admin</option>
+            <option value="{{ UserRole::VENDOR->value }}" {{ request('role') == UserRole::VENDOR->value ? 'selected' : '' }}>Vendor</option>
+            <option value="{{ UserRole::CUSTOMER->value }}" {{ request('role') == UserRole::CUSTOMER->value ? 'selected' : '' }}>Customer</option>
           </select>
           <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg"> Search</button>
         </form>
@@ -39,7 +42,7 @@
                   <td class="px-4 py-3">{{ $user->id }}</td>
                   <td class="px-4 py-3">{{ $user->name }}</td>
                   <td class="px-4 py-3">{{ $user->email }}</td>
-                  <td class="px-4 py-3">{{ ucfirst($user->role) }}</td>
+                  <td class="px-4 py-3">{{ ucfirst($user->role->value) }}</td>
                   <td class="px-4 py-3 text-right space-x-2">
                     <a href="{{ route('admin.users.show', $user) }}" class="text-indigo-600 hover:underline">View</a>
                     <a href="{{ route('admin.users.edit', $user) }}" class="text-yellow-600 hover:underline">Edit</a>

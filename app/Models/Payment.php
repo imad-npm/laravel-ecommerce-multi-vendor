@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PaymentStatus;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
@@ -19,6 +20,7 @@ class Payment extends Model
 
     protected $casts = [
         'payment_method_details' => 'array',
+        'status' => PaymentStatus::class,
     ];
 
     public function order()

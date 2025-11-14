@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\DataTransferObjects\UserData;
+use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -41,7 +42,7 @@ class UserService
 
     public function getAllVendors()
     {
-        return User::where('role', 'vendor')->get();
+        return User::where('role', UserRole::VENDOR)->get();
     }
 }
             

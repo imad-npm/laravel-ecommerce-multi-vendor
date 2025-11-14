@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Enums\PayoutStatus;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -44,7 +45,7 @@ class DispatchVendorPayouts implements ShouldQueue
                 $payout = Payout::create([
                     'vendor_id' => $vendor->id,
                     'amount' => $totalUnpaid,
-                    'status' => 'pending',
+                    'status' => PayoutStatus::PENDING,
                     'payment_method' => 'stripe',
                 ]);
 
@@ -57,7 +58,7 @@ class DispatchVendorPayouts implements ShouldQueue
                     ]);
 
                     $payout->transaction_id = $transfer->id;
-                    $payout->status = 'success';
+                    $payout->status = PayoutStatus::PAID;
                     $payout->save();
 
                     // Mark earnings as paid
@@ -69,7 +70,7 @@ class DispatchVendorPayouts implements ShouldQueue
                     Log::info("Payout {$payout->id} created for vendor {$vendor->id}");
                 } catch (Throwable $e) {
                     Log::error("Stripe transfer failed for payout {$payout->id}: " . $e->getMessage());
-                    $payout->status = 'failed';
+                    $payout->status = PayoutStatus::FAILED;
                     $payout->payment_details = json_encode(['error' => $e->getMessage()]);
                     $payout->save();
                 }

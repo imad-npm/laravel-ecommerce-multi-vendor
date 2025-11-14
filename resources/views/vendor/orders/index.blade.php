@@ -26,15 +26,19 @@
                             <p><strong>Status:</strong>
                                 <span class="
                                     px-2 py-1 rounded-full text-xs font-semibold
-                                    {{ match($item->order->status) {
-                                        'pending' => 'bg-yellow-100 text-yellow-800',
-                                        'paid' => 'bg-green-100 text-green-800',
-                                        'shipped' => 'bg-blue-100 text-blue-800',
-                                        'cancelled' => 'bg-red-100 text-red-800',
-                                        default => 'bg-gray-100 text-gray-800'
-                                    } }}
+                                    @php
+                                        use App\Enums\OrderStatus;
+                                        $statusClass = match($item->order->status) {
+                                            OrderStatus::PENDING => 'bg-yellow-100 text-yellow-800',
+                                            OrderStatus::PAID => 'bg-green-100 text-green-800',
+                                            OrderStatus::SHIPPED => 'bg-blue-100 text-blue-800',
+                                            OrderStatus::CANCELLED => 'bg-red-100 text-red-800',
+                                            default => 'bg-gray-100 text-gray-800'
+                                        };
+                                    @endphp
+                                    {{ $statusClass }}
                                 ">
-                                    {{ ucfirst($item->order->status) }}
+                                    {{ ucfirst($item->order->status->value) }}
                                 </span>
                             </p>
                             <p><strong>Customer:</strong> {{ $item->order->customer->name }}</p>

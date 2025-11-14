@@ -25,8 +25,11 @@
           <div class="mb-4">
             <label class="block text-sm font-medium">Role</label>
             <select name="role" required class="mt-1 w-full border-gray-300 rounded p-2">
-              @foreach(['admin','vendor','customer'] as $r)
-                <option value="{{ $r }}" {{ old('role')===$r?'selected':'' }}>{{ ucfirst($r) }}</option>
+              @php
+                  use App\Enums\UserRole;
+              @endphp
+              @foreach(UserRole::cases() as $role)
+                <option value="{{ $role->value }}" {{ old('role')===$role->value?'selected':'' }}>{{ ucfirst($role->value) }}</option>
               @endforeach
             </select>
             @error('role')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror

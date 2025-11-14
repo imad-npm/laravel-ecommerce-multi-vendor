@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Enums\OrderStatus;
 use App\Events\OrderPaid;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -21,6 +22,6 @@ class MarkOrderAsPaid
      */
     public function handle(OrderPaid $event): void
     {
-        $event->order->update(['status' => 'paid']);
+        $event->order->update(['status' => OrderStatus::PAID]);
     }
 }

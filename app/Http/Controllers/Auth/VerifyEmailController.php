@@ -29,10 +29,10 @@ class VerifyEmailController extends Controller
 
     private function redirectRoute($user): string
     {
-        return match ($user->role ?? 'guest') {
-            'admin' => route('admin.dashboard'),
-            'vendor' => route('vendor.dashboard'),
-            'customer' => route('customer.home'),
+        return match ($user->role) {
+            UserRole::ADMIN => route('admin.dashboard'),
+            UserRole::VENDOR => route('vendor.dashboard'),
+            UserRole::CUSTOMER => route('customer.home'),
             default => '/',
         };
     }

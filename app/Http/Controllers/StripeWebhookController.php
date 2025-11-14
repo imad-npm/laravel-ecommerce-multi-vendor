@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PaymentStatus;
+use App\Enums\PayoutStatus;
 use App\Events\OrderPaid;
 use App\Models\Order;
 use App\Models\Payment;
@@ -86,7 +88,7 @@ class StripeWebhookController extends Controller
             'payment_gateway' => 'stripe',
             'amount' => $order->total,
             'currency' => 'usd',
-            'status' => 'succeeded',
+            'status' => PaymentStatus::SUCCEEDED,
             'transaction_id' => $paymentIntent->id,
         ]);
 
@@ -103,9 +105,9 @@ class StripeWebhookController extends Controller
         if ($payoutId) {
             $payout = Payout::find($payoutId);
             if ($payout) {
-                $payout->status = 'succeeded';
+                $payout->status = PayoutStatus::PAID;
                 $payout->save();
-                Log::info("Payout {$payoutId} status updated to succeeded via webhook.");
+                Log::info("Payout {$payoutId} status updated to paid via webhook.");
             } else {
                 Log::warning("Payout {$payoutId} not found for transfer.succeeded webhook.");
             }
@@ -121,7 +123,7 @@ class StripeWebhookController extends Controller
         if ($payoutId) {
             $payout = Payout::find($payoutId);
             if ($payout) {
-                $payout->status = 'failed';
+                $payout->status = PayoutStatus::FAILED;
                 $payout->save();
                 Log::error("Payout {$payoutId} status updated to failed via webhook. Failure code: {$transfer->failure_code}, message: {$transfer->failure_message}");
             } else {
@@ -139,10 +141,10 @@ class StripeWebhookController extends Controller
         if ($payoutId) {
             $payout = Payout::find($payoutId);
             if ($payout) {
-                $payout->status = 'reversed';
+                $payout->status = PayoutStatus::FAILED; // Mapping 'reversed' to 'failed'
                 $payout->save();
                 $reason = $transfer->reversals?->data[0]?->reason ?? 'N/A';
-                Log::warning("Payout {$payoutId} status updated to reversed via webhook. Reversal reason: {$reason}");
+                Log::warning("Payout {$payoutId} status updated to failed (reversed) via webhook. Reversal reason: {$reason}");
             } else {
                 Log::warning("Payout {$payoutId} not found for transfer.reversed webhook.");
             }
