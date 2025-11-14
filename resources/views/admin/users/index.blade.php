@@ -1,3 +1,7 @@
+
+@php
+                use App\Enums\UserRole;
+            @endphp
 <x-app-layout>
     <x-slot name="header">
       <h2 class="text-2xl font-bold">Users</h2>
@@ -15,9 +19,7 @@
         <form method="GET" action="{{ route('admin.users.index') }}" class="mb-4 w-full max-w-2xl flex flex-wrap gap-2 items-center bg-gray-50 p-3 rounded shadow-sm">
           <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by name or email..." class="flex-1 min-w-0 px-4 py-2 border border-gray-300 rounded-lg" />
           <select name="role" class="px-4 py-2 w-36 border border-gray-300 rounded-lg">
-            @php
-                use App\Enums\UserRole;
-            @endphp
+            
             <option value="">All Roles</option>
             <option value="{{ UserRole::ADMIN->value }}" {{ request('role') == UserRole::ADMIN->value ? 'selected' : '' }}>Admin</option>
             <option value="{{ UserRole::VENDOR->value }}" {{ request('role') == UserRole::VENDOR->value ? 'selected' : '' }}>Vendor</option>
