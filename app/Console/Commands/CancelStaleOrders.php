@@ -1,6 +1,7 @@
 <?php
 namespace App\Console\Commands;
 
+use App\Enums\OrderStatus;
 use Illuminate\Console\Command;
 use App\Models\Order;
 
@@ -12,12 +13,12 @@ class CancelStaleOrders extends Command
     public function handle()
     {
         $cutoff = now()->subDay();
-        $orders = Order::where('status', 'pending')
+        $orders = Order::where('status', OrderStatus::PENDING)
             ->where('created_at', '<', $cutoff)
             ->get();
         $count = 0;
         foreach ($orders as $order) {
-            $order->update(['status' => 'cancelled']);
+            $order->update(['status' => OrderStatus::CANCELLED]);
             $count++;
         }
         \Log::info("Cancelled $count stale orders at " . now());

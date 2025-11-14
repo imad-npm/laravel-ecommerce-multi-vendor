@@ -1,40 +1,41 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     @php
             use App\Models\Cart;
+            use App\Enums\UserRole;
 
         $user = auth()->user();
-        $role = $user?->role ?? 'guest';
+        $role = $user?->role->value ?? 'guest';
 
         function dashboard_route() {
-            return match (auth()->user()?->role ?? 'guest') {
-                'admin' => route('admin.dashboard'),
-                'vendor' => route('vendor.dashboard'),
-                'customer' => route('customer.home'),
+            return match (auth()->user()?->role) {
+                UserRole::ADMIN => route('admin.dashboard'),
+                UserRole::VENDOR => route('vendor.dashboard'),
+                UserRole::CUSTOMER => route('customer.home'),
                 default => '/',
             };
         }
 
         function dashboard_active() {
-            return match (auth()->user()?->role ?? 'guest') {
-                'admin' => request()->routeIs('admin.dashboard'),
-                'vendor' => request()->routeIs('vendor.dashboard'),
-                'customer' => request()->routeIs('customer.home'),
+            return match (auth()->user()?->role) {
+                UserRole::ADMIN => request()->routeIs('admin.dashboard'),
+                UserRole::VENDOR => request()->routeIs('vendor.dashboard'),
+                UserRole::CUSTOMER => request()->routeIs('customer.home'),
                 default => request()->routeIs(''),
             };
         }
 
         function profile_route() {
-            return match (auth()->user()?->role ?? 'guest') {
-                'admin' => route('admin.profile.edit'),
-                'vendor' => route('vendor.profile.edit'),
-                'customer' => route('customer.profile.edit'),
+            return match (auth()->user()?->role) {
+                UserRole::ADMIN => route('admin.profile.edit'),
+                UserRole::VENDOR => route('vendor.profile.edit'),
+                UserRole::CUSTOMER => route('customer.profile.edit'),
                 default => '#',
             };
         }
 
         function linksForRole($role, $user): array {
             return match($role) {
-                'admin' => [
+                UserRole::ADMIN->value => [
                     ['label' => 'Users', 'route' => route('admin.users.index'), 'active' => request()->routeIs('admin.users.*')],
                     ['label' => 'Stores', 'route' => route('admin.stores.index'), 'active' => request()->routeIs('admin.stores.*')],
                     ['label' => 'Products', 'route' => route('admin.products.index'), 'active' => request()->routeIs('admin.products.*')],
@@ -43,7 +44,7 @@
                     ['label' => 'Payouts', 'route' => route('admin.payouts.index'), 'active' => request()->routeIs('admin.payouts.*')],
                     ['label' => 'Vendor Earnings', 'route' => route('admin.vendor-earnings.index'), 'active' => request()->routeIs('admin.vendor-earnings.*')],
                 ],
-                'vendor' => array_merge(
+                UserRole::VENDOR->value => array_merge(
                     [
                         ['label' => 'Products', 'route' => route('vendor.products.index'), 'active' => request()->routeIs('vendor.products.*')],
                         ['label' => 'Orders', 'route' => route('vendor.orders.index'), 'active' => request()->routeIs('vendor.orders.*')],
@@ -62,7 +63,7 @@
                         ['label' => 'Payouts', 'route' => route('vendor.payouts.index'), 'active' => request()->routeIs('vendor.payouts.*')],
                     ]
                 ),
-                'customer' => [
+                UserRole::CUSTOMER->value => [
                     ['label' => 'Browse Products', 'route' => route('products.index'), 'active' => request()->routeIs('products.*')],
                     ['label' => 'My Orders', 'route' => route('customer.orders.index'), 'active' => request()->routeIs('customer.orders.*')],
                     ['label' => 'Shopping Cart', 'route' => route('customer.cart-items.index'), 'active' => request()->routeIs('cart-items.*')], // Updated
@@ -86,7 +87,7 @@
         $cartCount = collect($cartItems)->sum('quantity');
     }
         $roleLinks = linksForRole($role, $user);
-    @endphp
+@endphp
 
     <!-- Top bar -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -176,7 +177,7 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            @foreach($roleLinks as $link)
+            @foreach($roleLinks as $link)->value
                 <x-responsive-nav-link :href="$link['route']" :active="$link['active']">
                     {{ __($link['label']) }}
                 </x-responsive-nav-link>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Validation\Rule;
 
 class RegisteredUserController extends Controller
 {
@@ -33,7 +35,7 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed'],
-            'role' => 'required|in:customer,vendor',
+            'role' => ['required', Rule::in(array_column(UserRole::cases(), 'value'))],
         ]);
     
         $user = User::create([
@@ -52,10 +54,10 @@ class RegisteredUserController extends Controller
     private function redirectUserByRole($user): string
     {
         return match ($user->role) {
-            'admin'    => route('admin.dashboard'),
-            'vendor'   => route('vendor.dashboard'),
-            'customer' => route('customer.home'),
-            default    => '/',
+            UserRole::ADMIN => route('admin.dashboard'),
+            UserRole::VENDOR => route('vendor.dashboard'),
+            UserRole::CUSTOMER => route('customer.home'),
+            default => '/',
         };
     }
     

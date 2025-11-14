@@ -156,7 +156,14 @@
                                     @endforeach
                                 </div>
                             </div>
-                            <div class="{{ $order->status === 'paid' ? 'text-green-600' : ($order->status === 'pending' ? 'text-yellow-600' : 'text-gray-600') }} font-bold text-sm">{{ ucfirst($order->status) }}</div>
+                            @php
+                                $statusClass = match($order->status) {
+                                    OrderStatus::PAID => 'text-green-600',
+                                    OrderStatus::PENDING => 'text-yellow-600',
+                                    default => 'text-gray-600',
+                                };
+                            @endphp
+                            <div class="{{ $statusClass }} font-bold text-sm">{{ ucfirst($order->status->value) }}</div>
                             <a href="{{ route('customer.orders.index') }}" class="text-indigo-600 text-sm hover:underline">View</a>
                         </div>
                     @empty

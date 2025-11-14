@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Enums\PayoutStatus;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdatePayoutRequest extends FormRequest
 {
@@ -25,7 +27,7 @@ class UpdatePayoutRequest extends FormRequest
             'vendor_id' => ['required', 'exists:users,id'],
             'amount' => ['required', 'numeric', 'min:0'],
             'transaction_id' => ['nullable', 'string', 'max:255'],
-            'status' => ['required', 'string', 'in:pending,completed,failed'],
+            'status' => ['required', 'string', Rule::in(array_column(PayoutStatus::cases(), 'value'))],
         ];
     }
 }

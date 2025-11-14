@@ -12,7 +12,15 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 mb-8 text-gray-700">
                     <div>
-                        <p class="text-lg"><strong class="font-semibold">Status:</strong> <span class="ml-2 px-3 py-1 rounded-full text-sm font-medium {{ $order->status === 'paid' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">{{ ucfirst($order->status) }}</span></p>
+                        @php
+                            use App\Enums\OrderStatus;
+                            $statusClass = match($order->status) {
+                                OrderStatus::PAID => 'bg-green-100 text-green-800',
+                                OrderStatus::PENDING => 'bg-yellow-100 text-yellow-800',
+                                default => 'bg-gray-100 text-gray-800'
+                            };
+                        @endphp
+                        <p class="text-lg"><strong class="font-semibold">Status:</strong> <span class="ml-2 px-3 py-1 rounded-full text-sm font-medium {{ $statusClass }}">{{ ucfirst($order->status->value) }}</span></p>
                         <p class="text-lg mt-2"><strong class="font-semibold">Total:</strong> <span class="text-green-600 text-xl font-bold">${{ number_format($order->total, 2) }}</span></p>
                     </div>
                     <div>
@@ -42,7 +50,7 @@
                     <a href="{{ route('customer.orders.index') }}" class="inline-flex items-center px-6 py-3 bg-gray-800 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                         Back to Orders
                     </a>
-                    @if($order->status === 'pending')
+                    @if($order->status === OrderStatus::PENDING)
                         <a href="{{ route('customer.orders.checkout', $order) }}" class="inline-flex items-center px-6 py-3 bg-green-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-green-500 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150">
                             Pay Now
                         </a>

@@ -34,9 +34,12 @@
                     <label class="block text-sm font-medium text-gray-700">Status</label>
                     <select name="status" required
                             class="mt-1 block w-full border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
-                        @foreach(['pending', 'paid', 'shipped', 'cancelled'] as $status)
-                            <option value="{{ $status }}" {{ old('status', $order->status) === $status ? 'selected' : '' }}>
-                                {{ ucfirst($status) }}
+                        @php
+                            use App\Enums\OrderStatus;
+                        @endphp
+                        @foreach(OrderStatus::cases() as $status)
+                            <option value="{{ $status->value }}" {{ old('status', $order->status->value) === $status->value ? 'selected' : '' }}>
+                                {{ ucfirst($status->value) }}
                             </option>
                         @endforeach
                     </select>

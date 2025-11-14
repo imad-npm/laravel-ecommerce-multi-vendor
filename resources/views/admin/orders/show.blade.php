@@ -11,9 +11,16 @@
                     <div class="text-gray-900">{{ $order->customer->name }} <span class="text-gray-500 text-sm">({{ $order->customer->email }})</span></div>
                 </div>
                 <div class="mt-4 md:mt-0">
-                    <span class="inline-block px-3 py-1 rounded-full text-xs font-medium 
-                        {{ $order->status === 'completed' ? 'bg-green-100 text-green-700' : ($order->status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700') }}">
-                        {{ ucfirst($order->status) }}
+                    @php
+                        use App\Enums\OrderStatus;
+                        $statusClass = match($order->status) {
+                            OrderStatus::PAID => 'bg-green-100 text-green-700',
+                            OrderStatus::PENDING => 'bg-yellow-100 text-yellow-700',
+                            default => 'bg-red-100 text-red-700'
+                        };
+                    @endphp
+                    <span class="inline-block px-3 py-1 rounded-full text-xs font-medium {{ $statusClass }}">
+                        {{ ucfirst($order->status->value) }}
                     </span>
                 </div>
             </div>

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\DataTransferObjects\OrderData;
+use App\Enums\OrderStatus;
 use App\Models\Order;
 use App\Models\OrderItem; // Added
 use App\Models\ShippingAddress;
@@ -37,7 +38,7 @@ class OrderService
             'shipping_postal_code' => $shippingAddress->postal_code,
             'shipping_country' => $shippingAddress->shipping_country,
             'total' => $total,
-            'status' => 'pending',
+            'status' => OrderStatus::PENDING,
         ]);
 
         $this->createOrderItems($order, $cart);
@@ -58,18 +59,18 @@ class OrderService
     
     public function markAsPaid(Order $order): void
     {
-        $order->update(['status' => 'paid']);
+        $order->update(['status' => OrderStatus::PAID]);
         $this->vendorEarningService->createVendorEarnings($order);
         $order->user->cart->items()->delete();
     }
 
     public function cancelOrder(Order $order): bool
     {
-        if ($order->status !== 'pending') {
+        if ($order->status !== OrderStatus::PENDING) {
             return false;
         }
 
-        return $order->update(['status' => 'cancelled']);
+        return $order->update(['status' => OrderStatus::CANCELLED]);
     }
 
     public function getUserOrders(User $user)

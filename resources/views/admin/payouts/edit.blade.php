@@ -31,9 +31,12 @@
                         <div class="mb-4">
                             <label for="status" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Status') }}</label>
                             <select name="status" id="status" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                <option value="pending" @selected($payout->status == 'pending')>{{ __('Pending') }}</option>
-                                <option value="completed" @selected($payout->status == 'completed')>{{ __('Completed') }}</option>
-                                <option value="failed" @selected($payout->status == 'failed')>{{ __('Failed') }}</option>
+                                @php
+                                    use App\Enums\PayoutStatus;
+                                @endphp
+                                @foreach(PayoutStatus::cases() as $status)
+                                    <option value="{{ $status->value }}" @selected($payout->status->value == $status->value)>{{ ucfirst($status->value) }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="flex items-center justify-between">
