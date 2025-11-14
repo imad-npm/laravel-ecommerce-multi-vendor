@@ -57,7 +57,7 @@ class DispatchVendorPayouts implements ShouldQueue
                     ]);
 
                     $payout->transaction_id = $transfer->id;
-                    $payout->status = $transfer->status;
+                    $payout->status = 'success';
                     $payout->save();
 
                     // Mark earnings as paid
@@ -67,7 +67,6 @@ class DispatchVendorPayouts implements ShouldQueue
                     ]);
 
                     Log::info("Payout {$payout->id} created for vendor {$vendor->id}");
-
                 } catch (Throwable $e) {
                     Log::error("Stripe transfer failed for payout {$payout->id}: " . $e->getMessage());
                     $payout->status = 'failed';
