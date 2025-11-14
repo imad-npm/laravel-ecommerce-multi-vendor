@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+
 use App\DataTransferObjects\VendorEarningData;
 use App\Models\VendorEarning;
 use Illuminate\Pagination\LengthAwarePaginator;

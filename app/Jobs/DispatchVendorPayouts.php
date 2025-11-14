@@ -10,6 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\User;
 use App\Models\VendorEarning;
 use App\Models\Payout;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Stripe\Stripe;
 use Stripe\Transfer;
@@ -19,72 +20,59 @@ class DispatchVendorPayouts implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * Execute the job.
-     */
     public function handle(): void
     {
-        Stripe::setApiKey(config('services.stripe.secret')); // Set Stripe API key
+        Stripe::setApiKey(config('services.stripe.secret'));
+        $threshold = config('commission.payout_threshold', 50);
 
-        $threshold = config('commission.payout_threshold');
-
-        $vendors = User::whereHas('vendorEarnings', function ($query) use ($threshold) {
-            $query->where('is_paid', false)
-                  ->select(DB::raw('sum(net_earnings) as total_unpaid_earnings'))
-                  ->groupBy('vendor_id')
-                  ->having('total_unpaid_earnings', '>=', $threshold);
-        })->get();
+        // Get vendors with unpaid earnings >= threshold
+        $vendors = User::whereHas('vendorEarnings', fn($q) => $q->where('is_paid', false))->get()
+            ->filter(fn($v) => $v->vendorEarnings()->where('is_paid', false)->sum('net_earnings') >= $threshold);
 
         foreach ($vendors as $vendor) {
-            DB::transaction(function () use ($vendor, $threshold) {
+            DB::transaction(function () use ($vendor) {
                 $unpaidEarnings = $vendor->vendorEarnings()->where('is_paid', false)->get();
                 $totalUnpaid = $unpaidEarnings->sum('net_earnings');
 
-                // Ensure vendor has a Stripe account ID
                 if (empty($vendor->stripe_account_id)) {
-                    \Log::warning("Vendor {$vendor->id} does not have a Stripe account ID for payout.");
+                    Log::warning("Vendor {$vendor->id} has no Stripe account");
                     return;
                 }
 
-                if ($totalUnpaid >= $threshold) {
-                    $payout = Payout::create([
-                        'vendor_id' => $vendor->id,
-                        'amount' => $totalUnpaid,
-                        'status' => 'pending', // Initial status
-                        'payment_method' => 'stripe',
-                        'payment_details' => json_encode(['note' => 'Auto-generated payout via Stripe']),
+                if ($totalUnpaid <= 0) return;
+
+                $payout = Payout::create([
+                    'vendor_id' => $vendor->id,
+                    'amount' => $totalUnpaid,
+                    'status' => 'pending',
+                    'payment_method' => 'stripe',
+                ]);
+
+                try {
+                    $transfer = Transfer::create([
+                        'amount' => (int) ($totalUnpaid * 100),
+                        'currency' => config('commission.currency', 'usd'),
+                        'destination' => $vendor->stripe_account_id,
+                        'metadata' => ['payout_id' => $payout->id],
                     ]);
 
-                    try {
-                        $transfer = Transfer::create([
-                            'amount' => (int) ($totalUnpaid * 100), // Stripe amounts are in cents
-                            'currency' => config('commission.currency', 'usd'), // Use configurable currency
-                            'destination' => $vendor->stripe_account_id,
-                            'metadata' => [
-                                'payout_id' => $payout->id,
-                                'vendor_id' => $vendor->id,
-                            ],
-                        ]);
+                    $payout->transaction_id = $transfer->id;
+                    $payout->status = $transfer->status;
+                    $payout->save();
 
-                        $payout->transaction_id = $transfer->id;
-                        $payout->status = $transfer->status; // 'pending', 'paid', 'failed' etc.
-                        $payout->save();
+                    // Mark earnings as paid
+                    $vendor->vendorEarnings()->whereIn('id', $unpaidEarnings->pluck('id'))->update([
+                        'is_paid' => true,
+                        'payout_id' => $payout->id
+                    ]);
 
-                        // Mark these earnings as paid only if transfer is successful/pending
-                        if (in_array($transfer->status, ['pending', 'paid', 'succeeded'])) {
-                            $vendor->vendorEarnings()->whereIn('id', $unpaidEarnings->pluck('id'))->update(['is_paid' => true, 'payout_id' => $payout->id]);
-                        } else {
-                            \Log::error("Stripe transfer failed for payout {$payout->id}: " . $transfer->status);
-                            $payout->status = 'failed';
-                            $payout->save();
-                        }
+                    Log::info("Payout {$payout->id} created for vendor {$vendor->id}");
 
-                    } catch (Throwable $e) {
-                        \Log::error("Stripe API error for payout {$payout->id}: " . $e->getMessage());
-                        $payout->status = 'failed';
-                        $payout->payment_details = json_encode(['error' => $e->getMessage()]);
-                        $payout->save();
-                    }
+                } catch (Throwable $e) {
+                    Log::error("Stripe transfer failed for payout {$payout->id}: " . $e->getMessage());
+                    $payout->status = 'failed';
+                    $payout->payment_details = json_encode(['error' => $e->getMessage()]);
+                    $payout->save();
                 }
             });
         }
