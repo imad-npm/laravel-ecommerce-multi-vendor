@@ -1,3 +1,7 @@
+      @php
+                  use App\Enums\UserRole;
+              @endphp
+
 <x-app-layout>
     <x-slot name="header">
       <h2 class="text-2xl font-bold">Edit User #{{ $user->id }}</h2>
@@ -23,9 +27,7 @@
           <div class="mb-4">
             <label class="block text-sm font-medium">Role</label>
             <select name="role" required class="mt-1 w-full border-gray-300 rounded p-2">
-              @php
-                  use App\Enums\UserRole;
-              @endphp
+        
               @foreach(UserRole::cases() as $role)
                 <option value="{{ $role->value }}" {{ old('role', $user->role->value) === $role->value ? 'selected' : '' }}>
                   {{ ucfirst($role->value) }}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Vendor;
 
+use App\DataTransferObjects\Profile\UpdateProfileDTO;
 use App\Http\Requests\Profile\ProfileUpdateRequest;
 use App\Services\ProfileService; // Modified
 use Illuminate\Http\RedirectResponse;
@@ -31,7 +32,7 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $this->profileService->updateProfile($request->user(), $request->toUserData()); // Modified
+        $this->profileService->updateProfile($request->user(),UpdateProfileDTO::fromRequest($request));
 
         return Redirect::route('vendor.profile.edit')->with('status', 'profile-updated');
     }

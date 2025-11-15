@@ -29,12 +29,5 @@ class ProfileUpdateRequest extends FormRequest
         ];
     }
 
-    public function toUserData(): UserData
-    {
-        return new UserData(
-            name: $this->validated('name'),
-            email: $this->validated('email'),
-            role: $this->user()->role,
-        );
-    }
+   
 }
