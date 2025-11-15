@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTransferObjects\User\UserData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\CreateUserRequest;
-use App\Http/Requests\User\UpdateUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;

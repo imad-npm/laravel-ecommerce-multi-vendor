@@ -2,19 +2,21 @@
 
 namespace App\Services;
 
-use App\DataTransferObjects\UserData;
+use App\DataTransferObjects\Profile\UpdateProfileDTO;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileService
 {
-    public function updateProfile(User $user, UserData $userData): void
+    public function updateProfile(User $user, UpdateProfileDTO $updateProfileDTO): void
     {
-        $user->name = $userData->name;
-        $user->email = $userData->email;
+        if ($updateProfileDTO->name) {
+            $user->name = $updateProfileDTO->name;
+        }
 
-        if ($user->isDirty('email')) {
+        if ($updateProfileDTO->email && $user->email !== $updateProfileDTO->email) {
+            $user->email = $updateProfileDTO->email;
             $user->email_verified_at = null;
         }
 
