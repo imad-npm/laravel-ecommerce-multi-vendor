@@ -3,9 +3,8 @@
 namespace App\DataTransferObjects\Payout;
 
 use App\Models\User;
-use Spatie\LaravelData\Data;
 
-class PayoutData extends Data
+class PayoutData 
 {
     public function __construct(
         public readonly ?int $id,

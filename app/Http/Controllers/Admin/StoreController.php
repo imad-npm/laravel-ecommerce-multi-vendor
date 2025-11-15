@@ -29,7 +29,7 @@ class StoreController extends Controller
     public function store(StoreRequest $request)
     {
         $storeData = StoreData::fromRequest($request);
-        $this->storeService->createStore($storeData);
+        $this->storeService->createStore($storeData,auth()->user());
         return redirect()->route('admin.stores.index')->with('success', 'Store created successfully.');
     }
 
