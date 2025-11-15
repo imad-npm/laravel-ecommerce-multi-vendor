@@ -4,7 +4,7 @@ namespace App\DataTransferObjects\Order;
 
 use Illuminate\Http\Request;
 
-class OrderData
+class OrderDTO
 {
     public function __construct(
         public readonly string $status,

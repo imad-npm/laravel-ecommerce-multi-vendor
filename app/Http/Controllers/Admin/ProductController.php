@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTransferObjects\Product\UpdateProductData;
+use App\DataTransferObjects\Product\UpdateProductDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Product;
@@ -31,7 +31,7 @@ class ProductController extends Controller
 
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $productData = UpdateProductData::fromRequest($request);
+        $productData = UpdateProductDTO::fromRequest($request);
         $this->productService->updateProduct($product, $productData);
 
         return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');

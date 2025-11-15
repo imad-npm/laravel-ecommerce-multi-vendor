@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Vendor;
 
-use App\DataTransferObjects\Product\CreateProductData;
-use App\DataTransferObjects\Product\UpdateProductData;
+use App\DataTransferObjects\Product\CreateProductDTO;
+use App\DataTransferObjects\Product\UpdateProductDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\CreateProductRequest;
 use App\Http\Requests\Product\UpdateProductRequest;
@@ -54,7 +54,7 @@ class ProductController extends Controller
         if (!$store) {
             return redirect()->route('vendor.store.create')->with('error', 'You need to create a store first to add products.');
         }
-        $productData = CreateProductData::fromRequest($request);
+        $productData = CreateProductDTO::fromRequest($request);
         $this->productService->createProduct($store, $productData);
 
         return redirect()->route('vendor.dashboard')->with('success', 'Product added.');
@@ -76,7 +76,7 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         Gate::authorize('update', $product);
-        $productData = UpdateProductData::fromRequest($request);
+        $productData = UpdateProductDTO::fromRequest($request);
         $this->productService->updateProduct($product, $productData);
 
         return redirect()->route('vendor.dashboard')->with('success', 'Product updated.');

@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers\Vendor;
 
-use App\DataTransferObjects\Store\StoreData;
+use App\DataTransferObjects\Store\StoreDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Store\StoreRequest;
 use App\Services\StoreService; // Modified
@@ -30,7 +30,7 @@ class StoreController extends Controller
             return redirect()->route('vendor.dashboard')->with('error', 'Store already exists.');
         }
 
-        $storeData = StoreData::fromRequest($request); // Modified
+        $storeData = StoreDTO::fromRequest($request); // Modified
         $this->storeService->createStore($storeData, $user); // Modified
 
         return redirect()->route('vendor.dashboard')->with('success', 'Store created.');
@@ -62,7 +62,7 @@ class StoreController extends Controller
     {
         $store = Auth::user()->store;
 
-        $storeData = StoreData::fromRequest($request); // Modified
+        $storeData = StoreDTO::fromRequest($request); // Modified
         $this->storeService->updateStore($store, $storeData); // Modified
 
         return redirect()->route('vendor.dashboard')->with('success', 'Store updated.');

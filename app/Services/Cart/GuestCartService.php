@@ -2,9 +2,8 @@
 
 namespace App\Services\Cart;
 
-use App\DataTransferObjects\CartItemData;
-use App\DataTransferObjects\CartItem\CreateCartItemData;
-use App\DataTransferObjects\CartItem\UpdateCartItemData;
+use App\DataTransferObjects\CartItem\CreateCartItemDTO;
+use App\DataTransferObjects\CartItem\UpdateCartItemDTO;
 use App\Models\Product;
 use Illuminate\Support\Facades\Session;
 
@@ -38,7 +37,7 @@ class GuestCartService
         ];
     }
 
-  public function addItemToCart(CreateCartItemData $data): void
+  public function addItemToCart(CreateCartItemDTO $data): void
 {
    
     $cart = Session::get('guest_cart', []);
@@ -53,7 +52,7 @@ class GuestCartService
 }
 
 
-    public function updateItemQuantity(int $productId,UpdateCartItemData $data): void
+    public function updateItemQuantity(int $productId,UpdateCartItemDTO $data): void
     {
         $cart = Session::get('guest_cart', []);
         if (isset($cart[$productId])) {

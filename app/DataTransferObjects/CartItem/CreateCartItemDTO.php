@@ -2,7 +2,7 @@
 
 namespace App\DataTransferObjects\CartItem;
 
-class CreateCartItemData
+class CreateCartItemDTO
 {
     public int $productId;
     public int $quantity;

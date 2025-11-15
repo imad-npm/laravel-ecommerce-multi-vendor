@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTransferObjects\Category\CategoryData;
+use App\DataTransferObjects\Category\CategoryDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
@@ -27,7 +27,7 @@ class CategoryController extends Controller
 
     public function store(CreateCategoryRequest $request)
     {
-        $categoryData = CategoryData::fromRequest($request);
+        $categoryData = CategoryDTO::fromRequest($request);
         $this->categoryService->createCategory($categoryData);
 
         return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
@@ -40,7 +40,7 @@ class CategoryController extends Controller
 
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $categoryData = CategoryData::fromRequest($request);
+        $categoryData = CategoryDTO::fromRequest($request);
         $this->categoryService->updateCategory($category, $categoryData);
 
         return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');

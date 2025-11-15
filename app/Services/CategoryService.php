@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\DataTransferObjects\Category\CategoryData;
+use App\DataTransferObjects\Category\CategoryDTO;
 use App\Models\Category;
 
 class CategoryService
@@ -12,12 +12,12 @@ class CategoryService
         return Category::all();
     }
 
-    public function createCategory(CategoryData $data): Category
+    public function createCategory(CategoryDTO $data): Category
     {
         return Category::create($data->toArray());
     }
 
-    public function updateCategory(Category $category, CategoryData $data): bool
+    public function updateCategory(Category $category, CategoryDTO $data): bool
     {
         return $category->update($data->toArray());
     }

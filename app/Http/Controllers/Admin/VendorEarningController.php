@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\DataTransferObjects\VendorEarning\VendorEarningData;
+use App\DataTransferObjects\VendorEarning\VendorEarningDTO;
 use App\Http\Requests\Admin\UpdateVendorEarningRequest;
 use App\Models\VendorEarning;
 use App\Services\PayoutService;
@@ -32,7 +32,7 @@ class VendorEarningController extends Controller
 
     public function update(UpdateVendorEarningRequest $request, VendorEarning $vendorEarning)
     {
-        $vendorEarningData = VendorEarningData::from($request->validated());
+        $vendorEarningData = VendorEarningDTO::from($request->validated());
         $this->vendorEarningService->updateVendorEarning($vendorEarning, $vendorEarningData);
 
         return redirect()->route('admin.vendor-earnings.index')->with('success', 'Vendor earning updated successfully.');

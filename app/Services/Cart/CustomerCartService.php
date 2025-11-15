@@ -2,9 +2,8 @@
 
 namespace App\Services\Cart;
 
-use App\DataTransferObjects\CartItemData;
-use App\DataTransferObjects\CartItem\CreateCartItemData;
-use App\DataTransferObjects\CartItem\UpdateCartItemData;
+use App\DataTransferObjects\CartItem\CreateCartItemDTO;
+use App\DataTransferObjects\CartItem\UpdateCartItemDTO;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
@@ -27,7 +26,7 @@ class CustomerCartService
         return $cart->items->filter(fn($item) => $item->product);
     }
 
-public function addItemToCart( CreateCartItemData $data): void
+public function addItemToCart( CreateCartItemDTO $data): void
 {
     $user=auth()->user() ;
 
@@ -38,7 +37,7 @@ public function addItemToCart( CreateCartItemData $data): void
 }
 
 
-    public function updateItemQuantity( CartItem $cartItem, UpdateCartItemData $data): void
+    public function updateItemQuantity( CartItem $cartItem, UpdateCartItemDTO $data): void
     {
       
         if ($data->quantity > 0) {

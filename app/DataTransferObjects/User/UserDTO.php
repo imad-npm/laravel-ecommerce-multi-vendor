@@ -4,7 +4,7 @@ namespace App\DataTransferObjects\User;
 
 use Illuminate\Http\Request;
 
-class UserData
+class UserDTO
 {
     public function __construct(
         public readonly string $name,

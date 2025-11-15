@@ -6,7 +6,7 @@ use App\Models\Order;
 use App\Models\User;
 use Spatie\LaravelData\Data;
 
-class VendorEarningData extends Data
+class VendorEarningDTO extends Data
 {
     public function __construct(
         public readonly ?int $id,

@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\DataTransferObjects\User\UserData;
+use App\DataTransferObjects\User\UserDTO;
 use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,12 +25,12 @@ class UserService
             ->latest()->paginate(15)->withQueryString();
     }
 
-    public function createUser(UserData $data): User
+    public function createUser(UserDTO $data): User
     {
         return User::create($data->toArray());
     }
 
-    public function updateUser(User $user, UserData $data): bool
+    public function updateUser(User $user, UserDTO $data): bool
     {
         return $user->update($data->toArray());
     }
