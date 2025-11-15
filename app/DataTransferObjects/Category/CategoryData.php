@@ -1,26 +1,26 @@
 <?php
 
-namespace App\DataTransferObjects;
+namespace App\DataTransferObjects\Category;
 
 use Illuminate\Http\Request;
 
-class OrderData
+class CategoryData
 {
     public function __construct(
-        public readonly string $status,
+        public readonly string $name,
     ) {}
 
     public static function fromRequest(Request $request): self
     {
         return new self(
-            status: $request->input('status'),
+            name: $request->input('name'),
         );
     }
 
     public function toArray(): array
     {
         return [
-            'status' => $this->status,
+            'name' => $this->name,
         ];
     }
 }

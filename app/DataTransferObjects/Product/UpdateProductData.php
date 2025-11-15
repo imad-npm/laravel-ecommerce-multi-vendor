@@ -1,11 +1,11 @@
 <?php
 
-namespace App\DataTransferObjects;
+namespace App\DataTransferObjects\Product;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile; // Added
+use Illuminate\Http\UploadedFile;
 
-class ProductData
+class UpdateProductData
 {
     public function __construct(
         public readonly string $name,
@@ -13,7 +13,7 @@ class ProductData
         public readonly float $price,
         public readonly int $stock,
         public readonly int $category_id,
-        public readonly ?UploadedFile $image = null, // Added
+        public readonly ?UploadedFile $image = null,
     ) {}
 
     public static function fromRequest(Request $request): self
@@ -24,18 +24,20 @@ class ProductData
             price: $request->input('price'),
             stock: $request->input('stock'),
             category_id: $request->input('category_id'),
-            image: $request->file('image'), // Added
+            image: $request->file('image'),
         );
     }
 
     public function toArray(): array
     {
-        return [
+        $data = [
             'name' => $this->name,
             'description' => $this->description,
             'price' => $this->price,
             'stock' => $this->stock,
             'category_id' => $this->category_id,
         ];
+
+        return $data;
     }
 }

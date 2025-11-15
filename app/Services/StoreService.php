@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\DataTransferObjects\StoreData;
+use App\DataTransferObjects\Store\StoreData;
 use App\Models\Store;
 use App\Models\User; // Added
 use Illuminate\Support\Facades\Storage;

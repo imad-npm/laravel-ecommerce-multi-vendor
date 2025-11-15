@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\DataTransferObjects\OrderData;
+use App\DataTransferObjects\Order\OrderData;
 use App\Enums\OrderStatus;
 use App\Models\Order;
 use App\Models\OrderItem; // Added

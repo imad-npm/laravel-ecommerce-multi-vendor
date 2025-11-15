@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\DataTransferObjects\PayoutData;
+use App\DataTransferObjects\Payout\PayoutData;
 use App\Http\Requests\Admin\StorePayoutRequest;
 use App\Http\Requests\Admin\UpdatePayoutRequest;
 use App\Jobs\DispatchVendorPayouts;

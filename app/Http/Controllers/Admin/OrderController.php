@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTransferObjects\OrderData;
+use App\DataTransferObjects\Order\OrderData;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\OrderRequest;
+use App\Http\Requests\Order\OrderRequest;
 use App\Models\Order;
 use App\Services\OrderService;
 use Illuminate\Http\Request;

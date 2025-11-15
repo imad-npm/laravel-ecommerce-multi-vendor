@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTransferObjects;
+namespace App\DataTransferObjects\Store;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;

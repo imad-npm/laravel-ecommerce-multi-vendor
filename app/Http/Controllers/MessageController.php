@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Conversation;
 use App\Services\MessageService;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\StoreMessageRequest;
+use App\Http\Requests\Message\StoreMessageRequest;
 
 class MessageController extends Controller
 {

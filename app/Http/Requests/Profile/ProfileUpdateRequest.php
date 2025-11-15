@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Profile;
 
 use App\DataTransferObjects\UserData;
 use App\Models\User;

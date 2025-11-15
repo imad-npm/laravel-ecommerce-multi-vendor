@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\DataTransferObjects\VendorEarningData;
+use App\DataTransferObjects\VendorEarning\VendorEarningData;
 use App\Http\Requests\Admin\UpdateVendorEarningRequest;
 use App\Models\VendorEarning;
 use App\Services\PayoutService;

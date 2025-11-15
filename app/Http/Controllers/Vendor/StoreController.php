@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Controllers\Vendor;
 
-use App\DataTransferObjects\StoreData; // Modified
+use App\DataTransferObjects\Store\StoreData;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\VendorStoreRequest;
+use App\Http\Requests\Store\StoreRequest;
 use App\Services\StoreService; // Modified
 use Illuminate\Support\Facades\Auth;
 
@@ -22,7 +22,7 @@ class StoreController extends Controller
         return view('vendor.store.create');
     }
 
-    public function store(VendorStoreRequest $request)
+    public function store(StoreRequest $request)
     {
         $user = Auth::user();
 
@@ -58,7 +58,7 @@ class StoreController extends Controller
         return view('vendor.store.edit', compact('store'));
     }
 
-    public function update(VendorStoreRequest $request)
+    public function update(StoreRequest $request)
     {
         $store = Auth::user()->store;
 

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Vendor;
 
-use App\DataTransferObjects\ProductData;
+use App\DataTransferObjects\Product\CreateProductData;
+use App\DataTransferObjects\Product\UpdateProductData;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\VendorProductRequest;
+use App\Http\Requests\Product\CreateProductRequest;
+use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Product;
 use App\Models\Category; // Added
 use App\Services\ProductService;
@@ -46,13 +48,13 @@ class ProductController extends Controller
     /**
      * Enregistre un nouveau produit dans la base.
      */
-    public function store(VendorProductRequest $request)
+    public function store(CreateProductRequest $request)
     {
         $store = Auth::user()->store;
         if (!$store) {
             return redirect()->route('vendor.store.create')->with('error', 'You need to create a store first to add products.');
         }
-        $productData = ProductData::fromRequest($request);
+        $productData = CreateProductData::fromRequest($request);
         $this->productService->createProduct($store, $productData);
 
         return redirect()->route('vendor.dashboard')->with('success', 'Product added.');
@@ -71,10 +73,10 @@ class ProductController extends Controller
     /**
      * Met à jour les informations d’un produit.
      */
-    public function update(VendorProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
         Gate::authorize('update', $product);
-        $productData = ProductData::fromRequest($request);
+        $productData = UpdateProductData::fromRequest($request);
         $this->productService->updateProduct($product, $productData);
 
         return redirect()->route('vendor.dashboard')->with('success', 'Product updated.');

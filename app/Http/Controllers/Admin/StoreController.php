@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTransferObjects\StoreData;
+use App\DataTransferObjects\Store\StoreData;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreRequest;
+use App\Http\Requests\Store\StoreRequest;
 use App\Models\Store;
 use App\Services\StoreService;
 
