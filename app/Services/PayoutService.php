@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\DataTransferObjects\Payout\PayoutData;
+use App\DataTransferObjects\Payout\PayoutDTO;
 use App\Models\Payout;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -13,14 +13,14 @@ class PayoutService
         return Payout::with('vendor')->latest()->paginate(10);
     }
 
-    public function createPayout(PayoutData $payoutData): Payout
+    public function createPayout(PayoutDTO $payoutData): Payout
     {
-        return Payout::create($payoutData->all());
+        return Payout::create($payoutData->toArray());
     }
 
-    public function updatePayout(Payout $payout, PayoutData $payoutData): bool
+    public function updatePayout(Payout $payout, PayoutDTO $payoutData): bool
     {
-        return $payout->update($payoutData->all());
+        return $payout->update($payoutData->toArray());
     }
 
     public function deletePayout(Payout $payout): bool

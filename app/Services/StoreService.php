@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\DataTransferObjects\Store\StoreData;
+use App\DataTransferObjects\Store\StoreDTO;
 use App\Models\Store;
 use App\Models\User; // Added
 use Illuminate\Support\Facades\Storage;
@@ -22,7 +22,7 @@ class StoreService
     }
 
     // Unified createStore method
-    public function createStore(StoreData $data, User $user): Store
+    public function createStore(StoreDTO $data, User $user): Store
     {
         $storeData = $data->toArray();
 
@@ -35,7 +35,7 @@ class StoreService
         return Store::create($storeData);
     }
 
-    public function updateStore(Store $store, StoreData $data): bool
+    public function updateStore(Store $store, StoreDTO $data): bool
     {
         $storeData = $data->toArray();
 

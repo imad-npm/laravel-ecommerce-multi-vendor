@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Guest;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Services\Cart\GuestCartService;
-use App\DataTransferObjects\CartItem\CreateCartItemData;
-use App\DataTransferObjects\CartItem\UpdateCartItemData;
+use App\DataTransferObjects\CartItem\CreateCartItemDTO;
+use App\DataTransferObjects\CartItem\UpdateCartItemDTO;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -34,7 +34,7 @@ class CartItemController extends Controller
             'product_id' => 'required|exists:products,id',
         ]);
 
-        $this->guestCartService->addItemToCart(CreateCartItemData::from($validated));
+        $this->guestCartService->addItemToCart(CreateCartItemDTO::from($validated));
 
         return redirect()
             ->route('cart-items.index')
@@ -50,7 +50,7 @@ class CartItemController extends Controller
             'quantity' => 'required|integer|min:0',
         ]);
 
-        $cartItemData = UpdateCartItemData::from(['productId' => $productId, 'quantity' => $validated['quantity']]);
+        $cartItemData = UpdateCartItemDTO::from(['productId' => $productId, 'quantity' => $validated['quantity']]);
 
         $this->guestCartService->updateItemQuantity($productId,$cartItemData);
 

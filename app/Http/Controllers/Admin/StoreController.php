@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTransferObjects\Store\StoreData;
+use App\DataTransferObjects\Store\StoreDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Store\StoreRequest;
 use App\Models\Store;
@@ -28,7 +28,7 @@ class StoreController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $storeData = StoreData::fromRequest($request);
+        $storeData = StoreDTO::fromRequest($request);
         $this->storeService->createStore($storeData,auth()->user());
         return redirect()->route('admin.stores.index')->with('success', 'Store created successfully.');
     }
@@ -45,7 +45,7 @@ class StoreController extends Controller
 
     public function update(StoreRequest $request, Store $store)
     {
-        $storeData = StoreData::fromRequest($request);
+        $storeData = StoreDTO::fromRequest($request);
         $this->storeService->updateStore($store, $storeData);
         return redirect()->route('admin.stores.index')->with('success', 'Store updated successfully.');
     }

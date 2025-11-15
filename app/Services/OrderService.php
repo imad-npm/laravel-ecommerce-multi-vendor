@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\DataTransferObjects\Order\OrderData;
+use App\DataTransferObjects\Order\OrderDTO;
 use App\Enums\OrderStatus;
 use App\Models\Order;
 use App\Models\OrderItem; // Added
@@ -109,7 +109,7 @@ class OrderService
             ->get();
     }
 
-    public function updateOrder(Order $order, OrderData $orderData): Order
+    public function updateOrder(Order $order, OrderDTO $orderData): Order
     {
         $order->update([
             'status' => $orderData->status,

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\DataTransferObjects\Payout\PayoutData;
+use App\DataTransferObjects\Payout\PayoutDTO;
 use App\Http\Requests\Admin\StorePayoutRequest;
 use App\Http\Requests\Admin\UpdatePayoutRequest;
 use App\Jobs\DispatchVendorPayouts;
@@ -36,7 +36,7 @@ class PayoutController extends Controller
 
     public function update(UpdatePayoutRequest $request, Payout $payout)
     {
-        $payoutData = PayoutData::from($request->validated());
+        $payoutData = PayoutDTO::from($request->validated());
         $this->payoutService->updatePayout($payout, $payoutData);
 
         return redirect()->route('admin.payouts.index')->with('success', 'Payout updated successfully.');

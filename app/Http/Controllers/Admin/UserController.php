@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTransferObjects\User\UserData;
+use App\DataTransferObjects\User\UserDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
@@ -28,7 +28,7 @@ class UserController extends Controller
 
     public function store(CreateUserRequest $request)
     {
-        $userData = UserData::fromRequest($request);
+        $userData = UserDTO::fromRequest($request);
         $this->userService->createUser($userData);
         return redirect()->route('admin.users.index')->with('success','User created.');
     }
@@ -45,7 +45,7 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        $userData = UserData::fromRequest($request);
+        $userData = UserDTO::fromRequest($request);
         $this->userService->updateUser($user, $userData);
         return redirect()->route('admin.users.index')->with('success','User updated.');
     }

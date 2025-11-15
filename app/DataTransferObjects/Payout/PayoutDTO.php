@@ -4,7 +4,7 @@ namespace App\DataTransferObjects\Payout;
 
 use App\Models\User;
 
-class PayoutData 
+class PayoutDTO 
 {
     public function __construct(
         public readonly ?int $id,

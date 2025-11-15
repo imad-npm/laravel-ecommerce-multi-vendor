@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTransferObjects\Order\OrderData;
+use App\DataTransferObjects\Order\OrderDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Order\OrderRequest;
 use App\Models\Order;
@@ -34,7 +34,7 @@ class OrderController extends Controller
 
     public function update(OrderRequest $request, Order $order)
     {
-        $orderData = OrderData::fromRequest($request);
+        $orderData = OrderDTO::fromRequest($request);
         $this->orderService->updateOrder($order, $orderData);
 
         return redirect()->route('admin.orders.index')->with('success', 'Order updated successfully.');

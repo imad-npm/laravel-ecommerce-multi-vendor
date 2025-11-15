@@ -5,7 +5,7 @@ namespace App\DataTransferObjects\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 
-class UpdateProductData
+class UpdateProductDTO
 {
     public function __construct(
         public readonly string $name,

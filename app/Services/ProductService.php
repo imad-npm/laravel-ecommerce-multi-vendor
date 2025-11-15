@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\DataTransferObjects\Product\CreateProductData;
-use App\DataTransferObjects\Product\UpdateProductData;
+use App\DataTransferObjects\Product\CreateProductDTO;
+use App\DataTransferObjects\Product\UpdateProductDTO;
 use App\Models\Product;
 use App\Models\Store; // Added
 use Illuminate\Http\Request;
@@ -77,7 +77,7 @@ class ProductService
     }
 
     // Unified createProduct method
-    public function createProduct(Store $store, CreateProductData $data): Product
+    public function createProduct(Store $store, CreateProductDTO $data): Product
     {
         $productData = $data->toArray();
 
@@ -92,7 +92,7 @@ class ProductService
     }
 
     // Unified updateProduct method
-    public function updateProduct(Product $product, UpdateProductData $data): bool
+    public function updateProduct(Product $product, UpdateProductDTO $data): bool
     {
         $productData = $data->toArray();
 

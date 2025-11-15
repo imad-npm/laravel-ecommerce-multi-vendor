@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\DataTransferObjects\VendorEarning\VendorEarningData;
+use App\DataTransferObjects\VendorEarning\VendorEarningDTO;
 use App\Models\Order;
 use App\Models\VendorEarning;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -35,9 +35,9 @@ class VendorEarningService
         }
     }
 
-    public function updateVendorEarning(VendorEarning $vendorEarning, VendorEarningData $vendorEarningData): bool
+    public function updateVendorEarning(VendorEarning $vendorEarning, VendorEarningDTO $vendorEarningData): bool
     {
-        return $vendorEarning->update($vendorEarningData->all());
+        return $vendorEarning->update($vendorEarningData->toArray());
     }
 
     public function getEligibleVendorEarningsForPayout()
