@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\DataTransferObjects\CategoryData;
+use App\DataTransferObjects\Category\CategoryData;
 use App\Models\Category;
 
 class CategoryService

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTransferObjects;
+namespace App\DataTransferObjects\VendorEarning;
 
 use App\Models\Order;
 use App\Models\User;

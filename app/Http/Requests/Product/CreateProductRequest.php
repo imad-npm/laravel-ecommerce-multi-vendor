@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Product;
 
-use App\Enums\OrderStatus;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class OrderRequest extends FormRequest
+class CreateProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +22,12 @@ class OrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => ['required', Rule::in(array_column(OrderStatus::cases(), 'value'))],
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

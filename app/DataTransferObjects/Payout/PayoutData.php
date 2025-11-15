@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTransferObjects;
+namespace App\DataTransferObjects\Payout;
 
 use App\Models\User;
 use Spatie\LaravelData\Data;

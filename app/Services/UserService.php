@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\DataTransferObjects\UserData;
+use App\DataTransferObjects\User\UserData;
 use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Http\Request;

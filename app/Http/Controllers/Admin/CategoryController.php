@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTransferObjects\CategoryData;
+use App\DataTransferObjects\Category\CategoryData;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\Category\CreateCategoryRequest;
+use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Category;
 use App\Services\CategoryService;
 
@@ -24,7 +25,7 @@ class CategoryController extends Controller
         return view('admin.categories.create');
     }
 
-    public function store(CategoryRequest $request)
+    public function store(CreateCategoryRequest $request)
     {
         $categoryData = CategoryData::fromRequest($request);
         $this->categoryService->createCategory($categoryData);
@@ -37,7 +38,7 @@ class CategoryController extends Controller
         return view('admin.categories.edit', compact('category'));
     }
 
-    public function update(CategoryRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
         $categoryData = CategoryData::fromRequest($request);
         $this->categoryService->updateCategory($category, $categoryData);

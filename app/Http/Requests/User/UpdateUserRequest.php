@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
+use App\Enums\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,10 +23,17 @@ class StoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $userId = $this->route('user')->id;
+
         return [
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($userId),
+            ],
+            'role' => ['required', Rule::in(array_column(UserRole::cases(), 'value'))],
+            'password' => 'nullable|string|min:8|confirmed',
         ];
     }
 }

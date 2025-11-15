@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTransferObjects\UserData;
+use App\DataTransferObjects\User\UserData;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\User\CreateUserRequest;
+use App\Http/Requests\User\UpdateUserRequest;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ class UserController extends Controller
         return view('admin.users.create');
     }
 
-    public function store(UserRequest $request)
+    public function store(CreateUserRequest $request)
     {
         $userData = UserData::fromRequest($request);
         $this->userService->createUser($userData);
@@ -42,7 +43,7 @@ class UserController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
-    public function update(UserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
         $userData = UserData::fromRequest($request);
         $this->userService->updateUser($user, $userData);

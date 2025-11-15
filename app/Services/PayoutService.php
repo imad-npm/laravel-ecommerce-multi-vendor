@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\DataTransferObjects\PayoutData;
+use App\DataTransferObjects\Payout\PayoutData;
 use App\Models\Payout;
 use Illuminate\Pagination\LengthAwarePaginator;
 

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTransferObjects\ProductData;
+use App\DataTransferObjects\Product\UpdateProductData;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\Product\UpdateProductRequest;
 use App\Models\Product;
 use App\Models\Category;
 use App\Services\ProductService;
@@ -29,9 +29,9 @@ class ProductController extends Controller
         return view('admin.products.edit', compact('product', 'categories'));
     }
 
-    public function update(ProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        $productData = ProductData::fromRequest($request);
+        $productData = UpdateProductData::fromRequest($request);
         $this->productService->updateProduct($product, $productData);
 
         return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
