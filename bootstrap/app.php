@@ -21,6 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->redirectUsersTo(function (\Illuminate\Http\Request $request) {
+        
             return getUserHomeRoute();
         });
     })

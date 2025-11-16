@@ -1,3 +1,8 @@
+@php
+    use App\Enums\OrderStatus;
+
+@endphp
+
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
@@ -20,25 +25,7 @@
                 <a href="{{ route('products.index') }}" class="bg-white text-indigo-700 font-semibold px-6 py-2 rounded-lg shadow hover:bg-gray-100 transition">Shop Now</a>
             </div>
 
-            {{-- ✨ Welcome Card --}}
-            <div class="bg-white rounded-xl shadow-md p-6 border border-gray-200">
-                <div class="flex items-center space-x-4">
-                    <div class="bg-indigo-100 text-indigo-600 p-3 rounded-full">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2"
-                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M5 13l4 4L19 7"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-gray-800">Your Dashboard</h3>
-                        <p class="text-gray-600 text-sm mt-1">
-                            Manage your activity, from shopping to personal info, all in one place.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
+        
             {{-- 🏷️ Categories --}}
             <div class="bg-white rounded-xl shadow p-6 border border-gray-100">
                 <h3 class="text-lg font-semibold text-gray-800 mb-4">Shop by Category</h3>
