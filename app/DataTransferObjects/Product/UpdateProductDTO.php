@@ -16,15 +16,15 @@ class UpdateProductDTO
         public readonly ?UploadedFile $image = null,
     ) {}
 
-    public static function fromRequest(Request $request): self
+    public static function fromArray(array $data): self
     {
         return new self(
-            name: $request->input('name'),
-            description: $request->input('description'),
-            price: $request->input('price'),
-            stock: $request->input('stock'),
-            category_id: $request->input('category_id'),
-            image: $request->file('image'),
+            name: $data['name'],
+            description: $data['description'] ?? null,
+            price: $data['price'],
+            stock: $data['stock'],
+            category_id: $data['category_id'],
+            image: $data['image'] ?? null,
         );
     }
 
