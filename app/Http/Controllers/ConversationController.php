@@ -9,10 +9,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Conversation\StoreConversationRequest;
 use App\Models\Conversation;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ConversationController extends Controller
 {
     protected $conversationService;
+    use AuthorizesRequests ;
 
     public function __construct(ConversationService $conversationService)
     {
@@ -29,6 +31,9 @@ class ConversationController extends Controller
 
     public function show(Conversation $conversation)
     {
+
+            $this->authorize('view', $conversation);
+
         // This can be used to show conversation details, but not messages.
         // Messages will be handled by MessageController.
         $otherUser = ($conversation->user_one_id === Auth::id()) ? $conversation->userTwo : $conversation->userOne;

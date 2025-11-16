@@ -5,18 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\Review\StoreReviewRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ReviewController extends Controller
 {
+    use AuthorizesRequests ;
     //
     public function store(StoreReviewRequest $request, Product $product)
 {
-    $user = auth()->user();
 
-    // Vérifie que l'utilisateur a acheté le produit
-    if (!$user->hasPurchased($product)) {
-        abort(403, 'You can only review products you have purchased.');
-    }
+        $this->authorize('create', $product);
+
+    $user = auth()->user();
 
     $user->reviews()->updateOrCreate(
         ['product_id' => $product->id],

@@ -8,9 +8,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ShippingAddress\StoreShippingAddressRequest;
 use App\Http\Requests\ShippingAddress\UpdateShippingAddressRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ShippingAddressController extends Controller
 {
+    use AuthorizesRequests ;
     public function index()
     {
         $shippingAddresses = Auth::user()->shippingAddresses;
