@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Requests\Review\StoreReviewRequest;
 
 class ReviewController extends Controller
 {
     //
-    public function store(Request $request, Product $product)
+    public function store(StoreReviewRequest $request, Product $product)
 {
     $user = auth()->user();
 
@@ -16,11 +17,6 @@ class ReviewController extends Controller
     if (!$user->hasPurchased($product)) {
         abort(403, 'You can only review products you have purchased.');
     }
-
-    $request->validate([
-        'stars' => 'required|integer|min:1|max:5',
-        'comment' => 'nullable|string|max:1000',
-    ]);
 
     $user->reviews()->updateOrCreate(
         ['product_id' => $product->id],

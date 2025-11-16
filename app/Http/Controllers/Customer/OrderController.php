@@ -9,6 +9,7 @@ use App\Services\OrderService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Order\StoreOrderRequest;
 
 class OrderController extends Controller
 {
@@ -47,15 +48,11 @@ class OrderController extends Controller
         return view('customer.checkout.create', compact('cart', 'shippingAddresses'));
     }
 
-    public function store(Request $request)
+    public function store(StoreOrderRequest $request)
     {
         $user = Auth::user();
 
-        $validated = $request->validate([
-            'shipping_address_id' => 'required|exists:shipping_addresses,id,user_id,' . $user->id,
-        ]);
-
-        $order = $this->orderService->createPendingOrder($user, $validated['shipping_address_id']);
+        $order = $this->orderService->createPendingOrder($user, $request->validated('shipping_address_id'));
         if (!$order) {
             return redirect()->route('cart-items.index')->with('error', 'Could not create order. Your cart might be empty.');
         }

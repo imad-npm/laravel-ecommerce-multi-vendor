@@ -8,6 +8,8 @@ use App\Models\Product;
 use App\Services\Cart\CustomerCartService;
 use App\DataTransferObjects\CartItem\CreateCartItemDTO;
 use App\DataTransferObjects\CartItem\UpdateCartItemDTO;
+use App\Http\Requests\CartItem\StoreCartItemRequest;
+use App\Http\Requests\CartItem\UpdateCartItemRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -31,12 +33,8 @@ class CartItemController extends Controller
     /**
      * Store a newly created cart item in storage for the authenticated customer.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(StoreCartItemRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'product_id' => 'required|exists:products,id',
-        ]);
-
         $this->customerCartService->addItemToCart( CreateCartItemDTO::from($request->validated()));
 
         return redirect()
@@ -47,13 +45,8 @@ class CartItemController extends Controller
     /**
      * Update the specified cart item in storage for the authenticated customer.
      */
-    public function update(Request $request, CartItem $cartItem): RedirectResponse
+    public function update(UpdateCartItemRequest $request, CartItem $cartItem): RedirectResponse
     {
-
-        $validated = $request->validate([
-            'quantity' => 'required|integer|min:0',
-        ]);
-
         $this->customerCartService->updateItemQuantity($cartItem, UpdateCartItemDTO::from($request->validated()));
 
         return redirect()

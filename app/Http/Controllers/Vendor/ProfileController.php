@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Vendor;
 
 use App\DataTransferObjects\Profile\UpdateProfileDTO;
 use App\Http\Requests\Profile\ProfileUpdateRequest;
+use App\Http\Requests\Profile\DeleteUserRequest;
 use App\Services\ProfileService; // Modified
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -40,12 +41,8 @@ class ProfileController extends Controller
     /**
      * Delete the user's account.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(DeleteUserRequest $request): RedirectResponse
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
         $this->profileService->deleteAccount($request->user(), $request); // Modified
 
         return Redirect::to('/');
