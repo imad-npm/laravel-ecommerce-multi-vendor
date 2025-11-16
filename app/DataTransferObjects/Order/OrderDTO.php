@@ -10,10 +10,10 @@ class OrderDTO
         public readonly string $status,
     ) {}
 
-    public static function fromRequest(Request $request): self
+    public static function fromArray(array $data): self
     {
         return new self(
-            status: $request->input('status'),
+            status: $data['status'],
         );
     }
 

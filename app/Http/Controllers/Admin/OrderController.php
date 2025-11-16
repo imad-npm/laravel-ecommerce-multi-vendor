@@ -34,7 +34,7 @@ class OrderController extends Controller
 
     public function update(OrderRequest $request, Order $order)
     {
-        $orderData = OrderDTO::fromRequest($request);
+        $orderData = OrderDTO::fromArray($request->validated());
         $this->orderService->updateOrder($order, $orderData);
 
         return redirect()->route('admin.orders.index')->with('success', 'Order updated successfully.');

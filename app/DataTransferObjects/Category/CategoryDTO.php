@@ -10,10 +10,10 @@ class CategoryDTO
         public readonly string $name,
     ) {}
 
-    public static function fromRequest(Request $request): self
+    public static function fromArray(array $data): self
     {
         return new self(
-            name: $request->input('name'),
+            name: $data['name'],
         );
     }
 

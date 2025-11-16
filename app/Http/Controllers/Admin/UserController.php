@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTransferObjects\User\UserDTO;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\UserRequest;
 use App\Models\User;
@@ -28,7 +28,7 @@ class UserController extends Controller
         return view('admin.users.create');
     }
 
-    public function store(CreateUserRequest $request)
+    public function store(StoreUserRequest $request)
     {
         $userData = UserDTO::fromArray($request->validated());
         $this->userService->createUser($userData);
