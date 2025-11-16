@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\ShippingAddress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ShippingAddress\StoreShippingAddressRequest;
+use App\Http\Requests\ShippingAddress\UpdateShippingAddressRequest;
 
 class ShippingAddressController extends Controller
 {
@@ -20,15 +22,9 @@ class ShippingAddressController extends Controller
         return view('customer.addresses.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreShippingAddressRequest $request)
     {
-        $validated = $request->validate([
-            'address_line_1' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:255',
-        ]);
-
-        Auth::user()->shippingAddresses()->create($validated);
+        Auth::user()->shippingAddresses()->create($request->validated());
 
         if ($request->query('redirect') === 'checkout') {
             return redirect()->route('customer.orders.create')->with('success', 'Shipping address added successfully.');
@@ -43,17 +39,11 @@ class ShippingAddressController extends Controller
         return view('customer.addresses.edit', compact('address'));
     }
 
-    public function update(Request $request, ShippingAddress $address)
+    public function update(UpdateShippingAddressRequest $request, ShippingAddress $address)
     {
         $this->authorize('update', $address);
 
-        $validated = $request->validate([
-            'address_line_1' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:255',
-        ]);
-
-        $address->update($validated);
+        $address->update($request->validated());
 
         if ($request->query('redirect') === 'checkout') {
             return redirect()->route('customer.orders.create')->with('success', 'Shipping address updated successfully.');

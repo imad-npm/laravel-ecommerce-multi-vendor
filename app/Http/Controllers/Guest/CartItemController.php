@@ -7,6 +7,8 @@ use App\Models\Product;
 use App\Services\Cart\GuestCartService;
 use App\DataTransferObjects\CartItem\CreateCartItemDTO;
 use App\DataTransferObjects\CartItem\UpdateCartItemDTO;
+use App\Http\Requests\CartItem\StoreCartItemRequest;
+use App\Http\Requests\CartItem\UpdateCartItemRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -28,12 +30,8 @@ class CartItemController extends Controller
     /**
      * Store a newly created guest cart item in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(StoreCartItemRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'product_id' => 'required|exists:products,id',
-        ]);
-
         $this->guestCartService->addItemToCart(CreateCartItemDTO::from($request->validated()));
 
         return redirect()
@@ -44,12 +42,8 @@ class CartItemController extends Controller
     /**
      * Update the specified guest cart item in storage.
      */
-    public function update(Request $request, int $productId): RedirectResponse
+    public function update(UpdateCartItemRequest $request, int $productId): RedirectResponse
     {
-        $validated = $request->validate([
-            'quantity' => 'required|integer|min:0',
-        ]);
-
         $cartItemData = UpdateCartItemDTO::from(['productId' => $productId, 'quantity' => $request->validated()['quantity']]);
 
         $this->guestCartService->updateItemQuantity($productId,$cartItemData);

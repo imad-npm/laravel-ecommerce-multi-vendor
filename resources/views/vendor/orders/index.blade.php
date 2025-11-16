@@ -1,3 +1,9 @@
+@php
+                                            use App\Enums\OrderStatus;
+
+@endphp
+
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-3xl font-bold text-gray-900">📦 Orders for Your Products</h2>
@@ -27,7 +33,6 @@
                                 <span class="
                                     px-2 py-1 rounded-full text-xs font-semibold
                                     @php
-                                        use App\Enums\OrderStatus;
                                         $statusClass = match($item->order->status) {
                                             OrderStatus::PENDING => 'bg-yellow-100 text-yellow-800',
                                             OrderStatus::PAID => 'bg-green-100 text-green-800',

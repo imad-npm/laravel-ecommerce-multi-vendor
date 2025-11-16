@@ -41,6 +41,7 @@ return [
             'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
 
     'client_id' => env('STRIPE_CLIENT_ID'),
+    'static_vendor_account_id' => env('STRIPE_STATIC_VENDOR_ACCOUNT_ID'),
 
     ],
 
