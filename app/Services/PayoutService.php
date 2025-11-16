@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\DataTransferObjects\Payout\PayoutDTO;
 use App\Models\Payout;
+use App\Models\User; // Added
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class PayoutService
@@ -11,6 +12,11 @@ class PayoutService
     public function getAllPayouts(): LengthAwarePaginator
     {
         return Payout::with('vendor')->latest()->paginate(10);
+    }
+
+    public function getVendorPayouts(User $vendor): LengthAwarePaginator
+    {
+        return $vendor->payouts()->latest()->paginate(10);
     }
 
     public function createPayout(PayoutDTO $payoutData): Payout
