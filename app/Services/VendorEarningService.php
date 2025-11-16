@@ -14,26 +14,31 @@ class VendorEarningService
         return VendorEarning::with(['vendor', 'order'])->latest()->paginate(10);
     }
 
-    public function createVendorEarnings(Order $order): void
-    {
-        $commissionRate = config('commission.rate');
+ public function createVendorEarnings(Order $order): void
+{
+    $commissionRate = config('commission.rate');
 
-        foreach ($order->items as $item) {
-            $vendor = $item->product->store->user;
-            $totalAmount = $item->price * $item->quantity;
-            $commission = $totalAmount * $commissionRate;
-            $netEarnings = $totalAmount - $commission;
+    // Group items by vendor
+    $itemsByVendor = $order->items->groupBy(fn($item) =>
+        $item->product->store->user_id
+    );
 
-            VendorEarning::create([
-                'vendor_id' => $vendor->id,
-                'order_id' => $order->id,
-                'total_amount' => $totalAmount,
-                'commission' => $commission,
-                'net_earnings' => $netEarnings,
-                'is_paid' => false,
-            ]);
-        }
+    foreach ($itemsByVendor as $vendorId => $items) {
+        $total = $items->sum(fn($item) => $item->price * $item->quantity);
+        $commission = $total * $commissionRate;
+        $net = $total - $commission;
+
+        VendorEarning::create([
+            'vendor_id'     => $vendorId,
+            'order_id'      => $order->id,
+            'total_amount'  => $total,
+            'commission'    => $commission,
+            'net_earnings'  => $net,
+            'is_paid'       => false,
+        ]);
     }
+}
+
 
     public function updateVendorEarning(VendorEarning $vendorEarning, VendorEarningDTO $vendorEarningData): bool
     {

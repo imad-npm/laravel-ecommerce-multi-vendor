@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTransferObjects\User\UserDTO;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Requests\User\UserRequest;
 use App\Models\User;
 use App\Services\UserService;
@@ -17,7 +19,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $users = $this->userService->getAllUsers($request);
+        $users = $this->userService->getUsers($request);
         return view('admin.users.index', compact('users'));
     }
 
@@ -26,7 +28,7 @@ class UserController extends Controller
         return view('admin.users.create');
     }
 
-    public function store(UserRequest $request)
+    public function store(CreateUserRequest $request)
     {
         $userData = UserDTO::fromArray($request->validated());
         $this->userService->createUser($userData);
@@ -43,7 +45,7 @@ class UserController extends Controller
         return view('admin.users.edit', compact('user'));
     }
 
-    public function update(UserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
         $userData = UserDTO::fromArray($request->validated());
         $this->userService->updateUser($user, $userData);
