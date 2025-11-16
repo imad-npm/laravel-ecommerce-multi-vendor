@@ -6,7 +6,6 @@ use App\DataTransferObjects\User\UserDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
-use App\Http\Requests\User\UserRequest;
 use App\Models\User;
 use App\Services\UserService;
 
