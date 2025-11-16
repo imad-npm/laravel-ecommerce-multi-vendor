@@ -1,7 +1,8 @@
-<x-guest-layout>
-    @php
+   @php
         use App\Enums\UserRole;
     @endphp
+    <x-guest-layout>
+ 
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -44,13 +45,13 @@
 
        <!-- Choix du rôle -->
 <div class="mt-4">
-    <x-input-label for="role" value="Vous êtes ?" />
+    <x-input-label for="role" value="You Are ?" />
 
     <select id="role" name="role"
         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         required>
-        <option value="{{ UserRole::CUSTOMER->value }}">Client</option>
-        <option value="{{ UserRole::VENDOR->value }}">Vendeur</option>
+        <option value="{{ UserRole::CUSTOMER->value }}">Customer</option>
+        <option value="{{ UserRole::VENDOR->value }}">Vendor</option>
     </select>
 
     <x-input-error :messages="$errors->get('role')" class="mt-2" />
