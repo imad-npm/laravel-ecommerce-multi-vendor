@@ -13,7 +13,8 @@ use App\Http\Controllers\Guest\CartItemController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('guest');
+
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
@@ -21,7 +22,6 @@ Route::get('/stores/{store}', [StoreController::class, 'show'])->name('stores.sh
 
 require __DIR__.'/auth.php';
 
-Route::post('/webhooks/{gatewayType}', [WebhookController::class, 'handle'])->name('webhooks.handle');
 
 
 require __DIR__.'/admin.php';
