@@ -2,8 +2,6 @@
 
 namespace App\DataTransferObjects\User;
 
-use Illuminate\Http\Request;
-
 class UserDTO
 {
     public function __construct(
@@ -13,13 +11,13 @@ class UserDTO
         public readonly ?string $password = null,
     ) {}
 
-    public static function fromRequest(Request $request): self
+    public static function fromArray(array $data): self
     {
         return new self(
-            name: $request->input('name'),
-            email: $request->input('email'),
-            role: $request->input('role'),
-            password: $request->input('password'),
+            name: $data['name'],
+            email: $data['email'],
+            role: $data['role'],
+            password: $data['password'] ?? null,
         );
     }
 

@@ -32,7 +32,7 @@ class VendorEarningController extends Controller
 
     public function update(UpdateVendorEarningRequest $request, VendorEarning $vendorEarning)
     {
-        $vendorEarningData = VendorEarningDTO::from($request->validated());
+        $vendorEarningData = VendorEarningDTO::fromArray($request->validated());
         $this->vendorEarningService->updateVendorEarning($vendorEarning, $vendorEarningData);
 
         return redirect()->route('admin.vendor-earnings.index')->with('success', 'Vendor earning updated successfully.');

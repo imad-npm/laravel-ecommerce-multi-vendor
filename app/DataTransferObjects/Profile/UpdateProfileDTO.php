@@ -2,8 +2,6 @@
 
 namespace App\DataTransferObjects\Profile;
 
-use Illuminate\Http\Request;
-
 class UpdateProfileDTO 
 {
     public function __construct(
@@ -11,10 +9,8 @@ class UpdateProfileDTO
         public readonly ?string $email,
     ) {}
 
-   public static function fromRequest(Request $request): self
+   public static function fromArray(array $data): self
 {
-    $data = $request->only(['name', 'email']);
-
     return new self(
         name: $data['name'] ?? null,
         email: $data['email'] ?? null,

@@ -2,8 +2,7 @@
 
 namespace App\DataTransferObjects\Store;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
+class StoreDTO
 
 class StoreDTO
 {
@@ -13,12 +12,12 @@ class StoreDTO
         public readonly ?UploadedFile $logo = null,
     ) {}
 
-    public static function fromRequest(Request $request): self
+    public static function fromArray(array $data, ?UploadedFile $logo = null): self
     {
         return new self(
-            name: $request->input('name'),
-            description: $request->input('description'),
-            logo: $request->file('logo'),
+            name: $data['name'],
+            description: $data['description'],
+            logo: $logo,
         );
     }
 
