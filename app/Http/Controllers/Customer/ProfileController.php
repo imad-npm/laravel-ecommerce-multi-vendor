@@ -35,7 +35,7 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $this->profileService->updateProfile($request->user(),UpdateProfileDTO::fromRequest($request));
+        $this->profileService->updateProfile($request->user(),UpdateProfileDTO::fromArray($request->validated()));
 
         return Redirect::route('customer.profile.edit')->with('status', 'profile-updated');
     }

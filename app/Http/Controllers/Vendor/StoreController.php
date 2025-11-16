@@ -30,7 +30,7 @@ class StoreController extends Controller
             return redirect()->route('vendor.dashboard')->with('error', 'Store already exists.');
         }
 
-        $storeData = StoreDTO::fromRequest($request); // Modified
+        $storeData = StoreDTO::fromArray($request->validated(), $request->file('logo'));
         $this->storeService->createStore($storeData, $user); // Modified
 
         return redirect()->route('vendor.dashboard')->with('success', 'Store created.');
@@ -62,7 +62,7 @@ class StoreController extends Controller
     {
         $store = Auth::user()->store;
 
-        $storeData = StoreDTO::fromRequest($request); // Modified
+        $storeData = StoreDTO::fromArray($request->validated(), $request->file('logo'));
         $this->storeService->updateStore($store, $storeData); // Modified
 
         return redirect()->route('vendor.dashboard')->with('success', 'Store updated.');

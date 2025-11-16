@@ -28,7 +28,7 @@ class StoreController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $storeData = StoreDTO::fromRequest($request);
+        $storeData = StoreDTO::fromArray($request->validated(), $request->file('logo'));
         $this->storeService->createStore($storeData,auth()->user());
         return redirect()->route('admin.stores.index')->with('success', 'Store created successfully.');
     }
@@ -45,7 +45,7 @@ class StoreController extends Controller
 
     public function update(StoreRequest $request, Store $store)
     {
-        $storeData = StoreDTO::fromRequest($request);
+        $storeData = StoreDTO::fromArray($request->validated(), $request->file('logo'));
         $this->storeService->updateStore($store, $storeData);
         return redirect()->route('admin.stores.index')->with('success', 'Store updated successfully.');
     }

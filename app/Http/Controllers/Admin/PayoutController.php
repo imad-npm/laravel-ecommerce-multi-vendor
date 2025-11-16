@@ -36,7 +36,7 @@ class PayoutController extends Controller
 
     public function update(UpdatePayoutRequest $request, Payout $payout)
     {
-        $payoutData = PayoutDTO::from($request->validated());
+        $payoutData = new PayoutDTO(id: null, vendor_id: $request->validated('vendor_id'), amount: $request->validated('amount'), status: $request->validated('status'), transaction_id: $request->validated('transaction_id'), vendor: null);
         $this->payoutService->updatePayout($payout, $payoutData);
 
         return redirect()->route('admin.payouts.index')->with('success', 'Payout updated successfully.');

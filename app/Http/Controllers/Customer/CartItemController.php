@@ -37,7 +37,7 @@ class CartItemController extends Controller
             'product_id' => 'required|exists:products,id',
         ]);
 
-        $this->customerCartService->addItemToCart( CreateCartItemDTO::from($validated));
+        $this->customerCartService->addItemToCart( CreateCartItemDTO::from($request->validated()));
 
         return redirect()
             ->route('customer.cart-items.index')
@@ -54,7 +54,7 @@ class CartItemController extends Controller
             'quantity' => 'required|integer|min:0',
         ]);
 
-        $this->customerCartService->updateItemQuantity($cartItem, UpdateCartItemDTO::from($validated));
+        $this->customerCartService->updateItemQuantity($cartItem, UpdateCartItemDTO::from($request->validated()));
 
         return redirect()
             ->route('customer.cart-items.index')
