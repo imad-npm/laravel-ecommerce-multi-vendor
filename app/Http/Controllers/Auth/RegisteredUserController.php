@@ -48,17 +48,9 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
     
-        return redirect($this->redirectUserByRole($user));
+        return redirect(getUserHomeRoute());
     }
     
-    private function redirectUserByRole($user): string
-    {
-        return match ($user->role) {
-            UserRole::ADMIN => route('admin.dashboard'),
-            UserRole::VENDOR => route('vendor.dashboard'),
-            UserRole::CUSTOMER => route('customer.home'),
-            default => '/',
-        };
-    }
+   
     
 }

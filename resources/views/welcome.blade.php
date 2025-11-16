@@ -52,11 +52,7 @@
   {{-- Auth Links --}}
   <div class="absolute top-6 right-6 text-sm">
     @if(Route::has('login'))
-      @auth
-        <a href="{{ url('/dashboard') }}" class="text-zinc-700 dark:text-zinc-200 hover:underline">
-          Dashboard
-        </a>
-      @else
+    
         <a href="{{ route('login') }}" class="text-zinc-700 dark:text-zinc-200 hover:underline">
           Log in
         </a>
@@ -64,7 +60,7 @@
           <a href="{{ route('register') }}" class="ml-4 text-zinc-700 dark:text-zinc-200 hover:underline">
             Register
           </a>
-        @endif
+      
       @endauth
     @endif
   </div>

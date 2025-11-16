@@ -28,18 +28,10 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
     
-        return redirect()->intended($this->redirectUserByRole(Auth::user()));
+        return redirect()->intended(getUserHomeRoute());
     }
     
-    private function redirectUserByRole($user): string
-    {
-        return match ($user->role) {
-            UserRole::ADMIN => route('admin.dashboard'),
-            UserRole::VENDOR => route('vendor.dashboard'),
-            UserRole::CUSTOMER => route('customer.home'),
-            default => '/',
-        };
-    }
+  
     
 
     /**
