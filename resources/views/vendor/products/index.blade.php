@@ -66,7 +66,7 @@
                                             @endif
                                         </td>
                                         <td class="px-4 py-3">
-                                            <div class="flex items-center gap-3">
+                                            <div class="flex space-x-3">
                                                 <x-ui.link variant="primary" href="{{ route('vendor.products.show', $product) }}">View</x-ui.link>
                                                 <x-ui.link variant="primary" href="{{ route('vendor.products.edit', $product) }}">Edit</x-ui.link>
                                                 <form action="{{ route('vendor.products.destroy', $product) }}" method="POST" onsubmit="return confirm('Are you sure?')">
