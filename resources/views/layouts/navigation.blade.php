@@ -1,19 +1,13 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    @php
+  @php
             use App\Models\Cart;
             use App\Enums\UserRole;
+use App\Services\Cart\CustomerCartService;
+use App\Services\Cart\GuestCartService;
 
         $user = auth()->user();
         $role = $user?->role->value ?? 'guest';
 
-        function dashboard_route() {
-            return match (auth()->user()?->role) {
-                UserRole::ADMIN => route('admin.dashboard'),
-                UserRole::VENDOR => route('vendor.dashboard'),
-                UserRole::CUSTOMER => route('customer.home'),
-                default => '/',
-            };
-        }
+        
 
         function dashboard_active() {
             return match (auth()->user()?->role) {
@@ -77,18 +71,13 @@
                     ],
             };
         }
-        $cartCount = 0;
-    if (auth()->check()) {
-
-        $cart = Cart::with('items')->where('user_id', auth()->id())->first();
-        $cartCount = $cart?->items->sum('quantity') ?? 0;
-    } else {
-        $cartItems = session('guest_cart', []);
-        $cartCount = collect($cartItems)->sum('quantity');
-    }
+        $cartCount = auth()->user() ? CustomerCartService::itemsCount() :  GuestCartService::itemsCount() ;
         $roleLinks = linksForRole($role, $user);
 @endphp
 
+
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+  
     <!-- Top bar -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -103,7 +92,7 @@
 
                 <!-- Desktop Links -->
                 <div class="hidden sm:flex space-x-8 sm:ms-10">
-                    <x-nav-link :href="dashboard_route()" :active="dashboard_active()">
+                    <x-nav-link :href="getUserHomeRoute()" :active="dashboard_active()">
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
@@ -173,7 +162,7 @@
     <!-- Mobile Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="dashboard_route()" :active="dashboard_active()">
+            <x-responsive-nav-link :href="getUserHomeRoute()" :active="dashboard_active()">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
