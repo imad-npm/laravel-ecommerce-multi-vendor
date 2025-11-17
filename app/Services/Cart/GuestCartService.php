@@ -76,4 +76,11 @@ class GuestCartService
     {
         Session::forget('guest_cart');
     }
+
+    public static function itemsCount(): int
+{
+    
+    $cartItems = session('guest_cart', []);
+    return collect($cartItems)->sum('quantity');
+}
 }

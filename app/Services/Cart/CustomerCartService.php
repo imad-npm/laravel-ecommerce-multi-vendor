@@ -57,4 +57,13 @@ public function addItemToCart( CreateCartItemDTO $data): void
     {
         $user->cart?->items()->delete();
     }
+public static function itemsCount(): int
+{
+        $user=auth()->user() ;
+        $cart = Cart::with('items')->where('user_id', $user->id)->first();
+        return $cart?->items->sum('quantity') ?? 0;
+   
+   
+}
+
 }
