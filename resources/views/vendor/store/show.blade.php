@@ -5,15 +5,14 @@
                 <h2 class="text-4xl font-extrabold text-gray-800 tracking-tight">Store</h2>
                 <p class="text-sm text-gray-500 mt-1">Your store's public profile and settings.</p>
             </div>
-            <a href="{{ route('vendor.store.edit') }}"
-               class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gray-800 text-white font-medium hover:bg-gray-800 transition-all duration-300 shadow-md">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
+            <x-ui.button :href="route('vendor.store.edit')" variant="primary" size="lg" class="rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 me-2" fill="none"
                      viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M11 5h2M12 7v10m9 2a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h7l2 2h7a2 2 0 012 2v14z"/>
                 </svg>
                 Edit Store
-            </a>
+            </x-ui.button>
         </div>
     </x-slot>
 
@@ -53,15 +52,14 @@
                           onsubmit="return confirm('Are you sure you want to delete your store? This action cannot be undone.');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit"
-                                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-red-600 text-white font-semibold hover:bg-red-700 transition shadow-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                        <x-ui.button type="submit" variant="danger" size="lg" class="rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 me-2" fill="none"
                                  viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                       stroke-width="2" d="M20 12H4"/>
                             </svg>
                             Delete Store
-                        </button>
+                        </x-ui.button>
                     </form>
                 </div>
             </div>

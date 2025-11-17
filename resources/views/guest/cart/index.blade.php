@@ -14,9 +14,9 @@
             @if ($items->isEmpty())
                 <div class="bg-white p-10 text-center rounded-2xl shadow-lg text-gray-500 text-lg">
                     <p>Your cart is empty.</p>
-                    <a href="{{ route('products.index') }}" class="mt-4 inline-block px-6 py-3 bg-indigo-600 text-white text-sm font-medium rounded-lg shadow hover:bg-indigo-700 transition">
+                    <x-ui.button :href="route('products.index')" variant="primary" class="mt-4">
                         Start Shopping
-                    </a>
+                    </x-ui.button>
                 </div>
             @else
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -41,14 +41,14 @@
                                 <div class="flex flex-col sm:flex-row items-center gap-3">
                                     <form action="{{ route('cart-items.update', $item->product_id) }}" method="POST" class="flex items-center gap-2">
                                         @csrf @method('PATCH')
-                                        <input type="number" name="quantity" value="{{ $item->quantity }}" min="1"
-                                               class="w-20 border-gray-300 rounded-lg p-2 text-center shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                                        <button class="text-indigo-600 hover:underline text-sm transition">Update</button>
+                                        <x-ui.input type="number" name="quantity" :value="$item->quantity" min="1"
+                                               class="w-20 text-center" />
+                                        <x-ui.button type="submit" variant="link">Update</x-ui.button>
                                     </form>
 
                                     <form action="{{ route('cart-items.destroy', $item->product_id) }}" method="POST">
                                         @csrf @method('DELETE')
-                                        <button class="text-red-600 hover:underline text-sm transition">Remove</button>
+                                        <x-ui.button type="submit" variant="link" class="text-red-600">Remove</x-ui.button>
                                     </form>
                                 </div>
                             </div>
@@ -76,10 +76,9 @@
                         </div>
 
                         @auth
-                            <a href="{{ route('customer.orders.create') }}"
-                               class="mt-6 block w-full text-center px-6 py-3 bg-indigo-600 text-white text-sm font-medium rounded-lg shadow hover:bg-indigo-700 transition">
+                            <x-ui.button :href="route('customer.orders.create')" variant="primary" class="mt-6 w-full justify-center">
                                 Proceed to Checkout
-                            </a>
+                            </x-ui.button>
                         @else
                             <div class="mt-6 text-sm text-center text-gray-500">
                                 <a href="{{ route('login') }}" class="text-indigo-600 hover:underline">Login</a> to checkout.

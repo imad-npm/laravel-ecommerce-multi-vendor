@@ -19,7 +19,7 @@
                         <div class="space-y-4" x-data="{ selectedAddress: '{{ $shippingAddresses->first()->id ?? '' }}' }">
                             @forelse ($shippingAddresses as $address)
                                 <label class="flex items-center p-4 border rounded-lg cursor-pointer">
-                                    <input type="radio" name="shipping_address_id" value="{{ $address->id }}" class="form-radio h-5 w-5 text-indigo-600" x-model="selectedAddress">
+                                    <x-ui.radio name="shipping_address_id" :value="$address->id" x-model="selectedAddress" />
                                     <div class="ml-4">
                                         <p class="text-gray-800">{{ $address->address_line_1 }}</p>
                                         <p class="text-gray-600">{{ $address->city }}, {{ $address->postal_code }}</p>
@@ -37,22 +37,22 @@
                             </div>
                         </div>
 
-                        @error('shipping_address_id') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
-                        @error('new_address.*') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
+                        <x-ui.input-error :messages="$errors->get('shipping_address_id')" class="mt-2" />
+                        <x-ui.input-error :messages="$errors->get('new_address.*')" class="mt-2" />
 
                         <!-- Payment Method Selection -->
                         <h3 class="text-lg font-medium text-gray-900 mt-8 mb-4">Payment Method</h3>
                         <div class="space-y-4">
                             <label class="flex items-center p-4 border rounded-lg cursor-pointer">
-                                <input type="radio" name="payment_method" value="stripe" class="form-radio h-5 w-5 text-indigo-600" checked>
+                                <x-ui.radio name="payment_method" value="stripe" checked />
                                 <span class="ml-4 text-gray-800">Credit Card (Stripe)</span>
                             </label>
                             <label class="flex items-center p-4 border rounded-lg cursor-pointer">
-                                <input type="radio" name="payment_method" value="paypal" class="form-radio h-5 w-5 text-indigo-600">
+                                <x-ui.radio name="payment_method" value="paypal" />
                                 <span class="ml-4 text-gray-800">PayPal</span>
                             </label>
                         </div>
-                        @error('payment_method') <p class="mt-2 text-sm text-red-600">{{ $message }}</p> @enderror
+                        <x-ui.input-error :messages="$errors->get('payment_method')" class="mt-2" />
                     </div>
 
                     <!-- Cart Summary Column -->
@@ -74,9 +74,9 @@
                             <p class="text-lg font-semibold">${{ number_format($cart->items->sum(fn($i) => $i->product->price * $i->quantity), 2) }}</p>
                         </div>
                         <div class="mt-6">
-                            <button type="submit" class="w-full text-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                            <x-ui.button type="submit" variant="primary" class="w-full justify-center">
                                 Place Order and Proceed to Payment
-                            </button>
+                            </x-ui.button>
                         </div>
                     </div>
 

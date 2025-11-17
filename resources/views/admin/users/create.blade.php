@@ -1,6 +1,6 @@
   @php
-                  use App\Enums\UserRole;
-              @endphp
+    use App\Enums\UserRole;
+@endphp
 
 <x-app-layout>
     <x-slot name="header">
@@ -13,44 +13,43 @@
           @csrf
   
           <div class="mb-4">
-            <label class="block text-sm font-medium">Name</label>
-            <input name="name" value="{{ old('name') }}" required
-                   class="mt-1 w-full border-gray-300 rounded p-2">
-            @error('name')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
+            <x-ui.input-label for="name" value="Name" />
+            <x-ui.input id="name" name="name" :value="old('name')" required class="mt-1 w-full" />
+            <x-ui.input-error :messages="$errors->get('name')" class="mt-2" />
           </div>
   
           <div class="mb-4">
-            <label class="block text-sm font-medium">Email</label>
-            <input name="email" type="email" value="{{ old('email') }}" required
-                   class="mt-1 w-full border-gray-300 rounded p-2">
-            @error('email')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
+            <x-ui.input-label for="email" value="Email" />
+            <x-ui.input id="email" type="email" name="email" :value="old('email')" required class="mt-1 w-full" />
+            <x-ui.input-error :messages="$errors->get('email')" class="mt-2" />
           </div>
   
           <div class="mb-4">
-            <label class="block text-sm font-medium">Role</label>
-            <select name="role" required class="mt-1 w-full border-gray-300 rounded p-2">
-            
-              @foreach(UserRole::cases() as $role)
-                <option value="{{ $role->value }}" {{ old('role')===$role->value?'selected':'' }}>{{ ucfirst($role->value) }}</option>
-              @endforeach
-            </select>
-            @error('role')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
+            <x-ui.input-label for="role" value="Role" />
+            @php
+                $roles = [];
+                foreach (UserRole::cases() as $role) {
+                    $roles[] = ['value' => $role->value, 'label' => ucfirst($role->value)];
+                }
+            @endphp
+            <x-ui.select-dropdown id="role" name="role" :options="$roles" :selected="old('role')" required class="mt-1 w-full" />
+            <x-ui.input-error :messages="$errors->get('role')" class="mt-2" />
           </div>
   
           <div class="mb-4">
-            <label class="block text-sm font-medium">Password</label>
-            <input name="password" type="password" required class="mt-1 w-full border-gray-300 rounded p-2">
-            @error('password')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
+            <x-ui.input-label for="password" value="Password" />
+            <x-ui.input id="password" type="password" name="password" required class="mt-1 w-full" />
+            <x-ui.input-error :messages="$errors->get('password')" class="mt-2" />
           </div>
   
           <div class="mb-4">
-            <label class="block text-sm font-medium">Confirm Password</label>
-            <input name="password_confirmation" type="password" required class="mt-1 w-full border-gray-300 rounded p-2">
+            <x-ui.input-label for="password_confirmation" value="Confirm Password" />
+            <x-ui.input id="password_confirmation" type="password" name="password_confirmation" required class="mt-1 w-full" />
           </div>
   
-          <button type="submit" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
+          <x-ui.button variant="success" type="submit" class="w-full justify-center">
             Create User
-          </button>
+          </x-ui.button>
         </form>
       </div>
     </div>
