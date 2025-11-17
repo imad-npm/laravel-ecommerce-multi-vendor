@@ -30,11 +30,11 @@
                                     <p class="text-gray-600">{{ $address->city }}, {{ $address->postal_code }}</p>
                                 </div>
                                 <div class="flex items-center space-x-4">
-                                    <a href="{{ route('customer.addresses.edit', ['address' => $address, 'redirect' => request()->query('redirect')]) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    <x-ui.link variant="primary" href="{{ route('customer.addresses.edit', ['address' => $address, 'redirect' => request()->query('redirect')]) }}">Edit</x-ui.link>
                                     <form action="{{ route('customer.addresses.destroy', $address) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this address?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                                        <x-ui.button variant="text" color="danger" type="submit">Delete</x-ui.button>
                                     </form>
                                 </div>
                             </div>

@@ -86,26 +86,24 @@
     ? route('customer.cart-items.store') 
     : route('cart-items.store') }}">                            @csrf
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            <button type="submit"
-                                    class="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg text-sm shadow">
+                            <x-ui.button type="submit" variant="success">
                                 🛒 Add to Cart
-                            </button>
+                            </x-ui.button>
                         </form>
                         @auth
                             @if(Auth::id() !== $product->store->user->id)
                                 @if($conversation)
-                                    <a href="{{ route('conversations.show', ['conversation' => $conversation->id]) }}"
-                                       class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm shadow flex items-center">
+                                    <x-ui.button :href="route('conversations.show', ['conversation' => $conversation->id])" variant="primary" class="flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H16.5m3.065-12.69a11.955 11.955 0 0 1 .965 3.53l-1.798-.91c-.302-.152-.543-.413-.697-.72L16.5 4.5l1.798-.91c.302-.152.543-.413.697-.72ZM5.73 3.22a11.955 11.955 0 0 1 3.53.965l-.91 1.798c-.152.302-.413.543-.72.697L4.5 7.5l-.91-1.798a2.25 2.25 0 0 0-.72-.697A11.955 11.955 0 0 1 3.22 3.22Zm12.69 0a11.955 11.955 0 0 1-3.53.965l.91 1.798c.152.302.413.543.72.697L19.5 7.5l.91-1.798a2.25 2.25 0 0 0 .72-.697A11.955 11.955 0 0 1 18.91 3.22ZM3.22 5.73a11.955 11.955 0 0 1 .965 3.53l1.798-.91c.302-.152.543-.413.697-.72L7.5 4.5l.91 1.798a2.25 2.25 0 0 0 .72.697A11.955 11.955 0 0 1 5.73 3.22Z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H16.5m3.065-12.69a11.955 11.955 0 0 1 .965 3.53l-1.798-.91c-.302-.152-.543-.413-.697-.72L16.5 4.5l1.798-.91c.302-.152.543-.413.697-.72ZM5.73 3.22a11.955 11.955 0 0 1 3.53.965l-.91 1.798c-.152.302-.413.543-.72.697L4.5 7.5l-.91-1.798a2.25 2.25 0 0 0-.72-.697A11.955 11.955 0 0 1 3.22 3.22Zm12.69 0a11.955 11.955 0 0 1-3.53.965l.91 1.798c.152.302.413.543.72.697L19.5 7.5l.91-1.798a2.25 2.25 0 0 0 .72-.697A11.955 11.955 0 0 1 18.91 3.22ZM3.22 5.73a11.955 11.955 0 0 1 .965 3.53l1.798-.91c-.302-.152-.543-.413-.697-.72L7.5 4.5l.91 1.798a2.25 2.25 0 0 0 .72.697A11.955 11.955 0 0 1 5.73 3.22Z" />
                                         </svg>
                                         Message Vendor
-                                    </a>
+                                    </x-ui.button>
                                 @else
                                     <form action="{{ route('conversations.store') }}" method="POST">
                                         @csrf
-                                        <input type="hidden" name="user_id" value="{{ $product->store->user->id }}">
-                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <x-ui.input type="hidden" name="user_id" :value="$product->store->user->id" />
+                                        <x-ui.input type="hidden" name="product_id" :value="$product->id" />
                                         <button type="submit"
                                                 class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg text-sm shadow flex items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
@@ -117,10 +115,9 @@
                                 @endif
                             @endif
                         @endauth
-                        <a href="{{ route('products.index') }}"
-                           class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-5 py-2 rounded-lg text-sm shadow">
+                        <x-ui.button :href="route('products.index')" variant="secondary">
                             ← Back to Products
-                        </a>
+                        </x-ui.button>
                     </div>
                 </div>
             </div>

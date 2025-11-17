@@ -39,11 +39,11 @@
                     @endif
                   </td>
                   <td class="px-4 py-3 text-right space-x-2">
-                    <a href="{{ route('admin.stores.show', $store) }}" class="text-indigo-600 hover:underline">View</a>
-                    <a href="{{ route('admin.stores.edit', $store) }}" class="text-yellow-600 hover:underline">Edit</a>
+                    <x-ui.link variant="primary" href="{{ route('admin.stores.show', $store) }}">View</x-ui.link>
+                    <x-ui.link variant="primary" href="{{ route('admin.stores.edit', $store) }}">Edit</x-ui.link>
                     <form action="{{ route('admin.stores.destroy', $store) }}" method="POST" class="inline" onsubmit="return confirm('Delete this store?')">
                       @csrf @method('DELETE')
-                      <button type="submit" class="text-red-600 hover:underline">Delete</button>
+                      <x-ui.button variant="text" color="danger" type="submit">Delete</x-ui.button>
                     </form>
                   </td>
                 </tr>

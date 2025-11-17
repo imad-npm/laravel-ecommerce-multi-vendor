@@ -111,7 +111,7 @@ use App\Enums\OrderStatus;
                                                 <form action="{{ route('customer.orders.cancel', $order->id) }}" method="POST" class="inline-block"
                                                       onsubmit="return confirm('Are you sure you want to cancel this order?')">
                                                     @csrf @method('PATCH')
-                                                    <button type="submit" class="inline-block px-4 py-2 bg-red-100 text-red-700 text-xs rounded shadow hover:bg-red-200 transition">Cancel</button>
+                                                    <x-ui.button variant="text" color="danger" type="submit">Cancel</x-ui.button>
                                                 </form>
                                             @endif
                                         </td>

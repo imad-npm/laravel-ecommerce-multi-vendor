@@ -65,10 +65,8 @@
 
                                         <td class="px-4 py-3">
                                             <div class="flex space-x-3">
-                                                <a href="{{ route('admin.products.show', $product) }}"
-                                                    class="text-blue-600 hover:underline">View</a>
-                                                <a href="{{ route('admin.products.edit', $product) }}"
-                                                    class="text-yellow-600 hover:underline">Edit</a>
+                                                <x-ui.link variant="primary" href="{{ route('admin.products.show', $product) }}">View</x-ui.link>
+                                                <x-ui.link variant="primary" href="{{ route('admin.products.edit', $product) }}">Edit</x-ui.link>
                                                 <form action="{{ route('admin.products.destroy', $product) }}" method="POST" onsubmit="return confirm('Are you sure?')">
                                                     @csrf
                                                     @method('DELETE')

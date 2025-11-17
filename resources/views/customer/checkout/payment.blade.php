@@ -55,7 +55,7 @@
                 </div>
                 <x-ui.input-error :messages="$errors->get('payment_method')" class="mt-2" />
                 <div class="mt-8 flex justify-between">
-                    <x-ui.button :href="isset($order) ? route('customer.orders.show', $order) : route('customer.checkout.shipping')" variant="link">Back</x-ui.button>
+                    <x-ui.link href="{{ isset($order) ? route('customer.orders.show', $order) : route('customer.checkout.shipping') }}" variant="default">Back</x-ui.link>
                     <x-ui.button type="submit" variant="primary">{{ isset($order) ? 'Retry Payment' : 'Place Order' }}</x-ui.button>
                 </div>
             </form>

@@ -13,9 +13,9 @@
                         <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6" role="alert">
                             <p class="font-bold">Connect your Stripe Account</p>
                             <p>To receive payouts, please connect your Stripe account.</p>
-                            <a href="{{ route('vendor.stripe.connect') }}" class="mt-2 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <x-ui.button :href="route('vendor.stripe.connect')" variant="primary" class="mt-2">
                                 Connect Stripe
-                            </a>
+                            </x-ui.button>
                         </div>
                     @else
                         <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">
@@ -23,9 +23,9 @@
                             <p>Your Stripe account is successfully connected. You are ready to receive payouts.</p>
                             <form action="{{ route('vendor.stripe.disconnect') }}" method="POST" class="inline-block mt-2">
                                 @csrf
-                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                <x-ui.button type="submit" variant="danger">
                                     Disconnect Stripe
-                                </button>
+                                </x-ui.button>
                             </form>
                         </div>
                     @endif

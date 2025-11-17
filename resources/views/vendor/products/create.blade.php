@@ -16,70 +16,61 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Name -->
                         <div>
-                            <x-input-label for="name" :value="__('Name')" />
-                            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" required autofocus />
-                            <x-input-error :messages="$errors->get('name')" class="mt-1" />
+                            <x-ui.input-label for="name" :value="__('Name')" />
+                            <x-ui.input id="name" name="name" type="text" class="mt-1 block w-full" required autofocus />
+                            <x-ui.input-error :messages="$errors->get('name')" class="mt-1" />
                         </div>
 
                         <!-- Price -->
                         <div>
-                            <x-input-label for="price" :value="__('Price (USD)')" />
-                            <x-text-input id="price" name="price" type="number" step="0.01" class="mt-1 block w-full" required />
-                            <x-input-error :messages="$errors->get('price')" class="mt-1" />
+                            <x-ui.input-label for="price" :value="__('Price (USD)')" />
+                            <x-ui.input id="price" name="price" type="number" step="0.01" class="mt-1 block w-full" required />
+                            <x-ui.input-error :messages="$errors->get('price')" class="mt-1" />
                         </div>
                     </div>
 
                     <!-- Description -->
                     <div>
-                        <x-input-label for="description" :value="__('Description')" />
-                        <textarea id="description" name="description" rows="4"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                        >{{ old('description') }}</textarea>
-                        <x-input-error :messages="$errors->get('description')" class="mt-1" />
+                        <x-ui.input-label for="description" :value="__('Description')" />
+                        <x-ui.textarea id="description" name="description" rows="4"
+                            class="mt-1 block w-full"
+                        >{{ old('description') }}</x-ui.textarea>
+                        <x-ui.input-error :messages="$errors->get('description')" class="mt-1" />
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Stock -->
                         <div>
-                            <x-input-label for="stock" :value="__('Stock Quantity')" />
-                            <x-text-input id="stock" name="stock" type="number" class="mt-1 block w-full" required />
-                            <x-input-error :messages="$errors->get('stock')" class="mt-1" />
+                            <x-ui.input-label for="stock" :value="__('Stock Quantity')" />
+                            <x-ui.input id="stock" name="stock" type="number" class="mt-1 block w-full" required />
+                            <x-ui.input-error :messages="$errors->get('stock')" class="mt-1" />
                         </div>
 
                         <!-- Category -->
                         <div>
-                            <x-input-label for="category_id" :value="__('Category')" />
-                            <select id="category_id" name="category_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
-                                <option value="">Select a Category</option>
-                                @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                        {{ $category->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <x-input-error :messages="$errors->get('category_id')" class="mt-1" />
+                            <x-ui.input-label for="category_id" :value="__('Category')" />
+                            @php
+                                $categoryOptions = $categories->map(fn($cat) => ['value' => $cat->id, 'label' => $cat->name])->prepend(['value' => '', 'label' => 'Select a Category'])->toArray();
+                            @endphp
+                            <x-ui.select-dropdown id="category_id" name="category_id" :options="$categoryOptions" :selected="old('category_id')" class="mt-1 block w-full" required />
+                            <x-ui.input-error :messages="$errors->get('category_id')" class="mt-1" />
                         </div>
                     </div>
 
                     <!-- Image -->
                     <div>
-                        <x-input-label for="image" :value="__('Product Image')" />
-                        <input id="image" name="image" type="file"
-                            class="mt-1 block w-full text-sm text-gray-500
-                                   file:mr-4 file:py-2 file:px-4
-                                   file:rounded-md file:border-0
-                                   file:text-sm file:font-semibold
-                                   file:bg-indigo-50 file:text-indigo-700
-                                   hover:file:bg-indigo-100"
+                        <x-ui.input-label for="image" :value="__('Product Image')" />
+                        <x-ui.input id="image" name="image" type="file"
+                            class="mt-1 block w-full"
                         />
-                        <x-input-error :messages="$errors->get('image')" class="mt-1" />
+                        <x-ui.input-error :messages="$errors->get('image')" class="mt-1" />
                     </div>
 
                     <!-- Submit Button -->
                     <div class="flex justify-end">
-                        <x-primary-button>
+                        <x-ui.button variant="primary" type="submit">
                             {{ __('Save Product') }}
-                        </x-primary-button>
+                        </x-ui.button>
                     </div>
                 </form>
             </div>

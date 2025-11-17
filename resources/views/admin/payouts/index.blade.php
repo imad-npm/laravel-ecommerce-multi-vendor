@@ -53,7 +53,7 @@
                                         {{ $payout->transaction_id }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="{{ route('admin.payouts.show', $payout) }}" class="text-indigo-600 hover:text-indigo-900">{{ __('View') }}</a>
+                                        <x-ui.link variant="primary" href="{{ route('admin.payouts.show', $payout) }}">{{ __('View') }}</x-ui.link>
                                     </td>
                                 </tr>
                             @endforeach

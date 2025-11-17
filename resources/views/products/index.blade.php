@@ -9,9 +9,9 @@
                 <p class="text-gray-600 mb-2">{{ $product->description }}</p>
                 <p class="text-gray-800 font-bold mb-2">${{ $product->price }}</p>
                 <p class="text-sm text-gray-500 mb-2">
-                    Store: <a href="{{ route('stores.show', $product->store) }}" class="text-indigo-600 hover:underline">{{ $product->store->name }}</a>
+                    Store: <x-ui.link variant="primary" href="{{ route('stores.show', $product->store) }}">{{ $product->store->name }}</x-ui.link>
                 </p>
-                <a href="{{ route('products.show', $product) }}" class="text-blue-600 hover:underline">View Details</a>
+                <x-ui.link variant="primary" href="{{ route('products.show', $product) }}">View Details</x-ui.link>
             </div>
         @endforeach
     </div>

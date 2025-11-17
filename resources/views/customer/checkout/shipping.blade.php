@@ -49,7 +49,7 @@
         </div>
 
         <div class="mt-8 flex justify-between">
-            <x-ui.button :href="route('cart.index')" variant="link">Back to Cart</x-ui.button>
+            <x-ui.link href="{{ route('cart.index') }}" variant="default">Back to Cart</x-ui.link>
             <x-ui.button type="submit" variant="primary">Continue to Payment</x-ui.button>
         </div>
     </form>
