@@ -46,11 +46,11 @@
                   <td class="px-4 py-3">{{ $user->email }}</td>
                   <td class="px-4 py-3">{{ ucfirst($user->role->value) }}</td>
                   <td class="px-4 py-3 text-right space-x-2">
-                    <a href="{{ route('admin.users.show', $user) }}" class="text-indigo-600 hover:underline">View</a>
-                    <a href="{{ route('admin.users.edit', $user) }}" class="text-yellow-600 hover:underline">Edit</a>
+                    <x-ui.link variant="primary" href="{{ route('admin.users.show', $user) }}">View</x-ui.link>
+                    <x-ui.link variant="primary" href="{{ route('admin.users.edit', $user) }}">Edit</x-ui.link>
                     <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline" onsubmit="return confirm('Delete this user?')">
                       @csrf @method('DELETE')
-                      <button type="submit" class="text-red-600 hover:underline">Delete</button>
+                      <x-ui.button variant="text" color="danger" type="submit">Delete</x-ui.button>
                     </form>
                   </td>
                 </tr>

@@ -102,8 +102,8 @@
                                 <div class="w-24 h-24 bg-gray-200 rounded mb-2 flex items-center justify-center text-gray-400">No Image</div>
                             @endif
                             <div class="font-semibold text-gray-700 text-center">{{ $product->name }}</div>
-                            <div class="text-indigo-600 font-bold mt-1">${{ number_format($product->price, 2) }}</div>
-                            <a href="{{ route('products.show', $product) }}" class="mt-2 text-sm text-indigo-600 hover:underline">View</a>
+                            <div class="font-bold mt-1 text-indigo-600">${{ number_format($product->price, 2) }}</div>
+                            <x-ui.link variant="primary" href="{{ route('products.show', $product) }}" class="mt-2 text-sm">View</x-ui.link>
                         </div>
                     @endforeach
                 </div>
@@ -121,8 +121,8 @@
                                 <div class="w-24 h-24 bg-gray-200 rounded mb-2 flex items-center justify-center text-gray-400">No Image</div>
                             @endif
                             <div class="font-semibold text-gray-700 text-center">{{ $product->name }}</div>
-                            <div class="text-indigo-600 font-bold mt-1">${{ number_format($product->price, 2) }}</div>
-                            <a href="{{ route('products.show', $product) }}" class="mt-2 text-sm text-indigo-600 hover:underline">View</a>
+                            <div class="font-bold mt-1 text-indigo-600">${{ number_format($product->price, 2) }}</div>
+                            <x-ui.link variant="primary" href="{{ route('products.show', $product) }}" class="mt-2 text-sm">View</x-ui.link>
                         </div>
                     @endforeach
                 </div>
@@ -151,7 +151,7 @@
                                 };
                             @endphp
                             <div class="{{ $statusClass }} font-bold text-sm">{{ ucfirst($order->status->value) }}</div>
-                            <a href="{{ route('customer.orders.index') }}" class="text-indigo-600 text-sm hover:underline">View</a>
+                            <x-ui.link variant="primary" href="{{ route('customer.orders.index') }}" class="text-sm">View</x-ui.link>
                         </div>
                     @empty
                         <div class="text-gray-500 text-sm">No recent orders.</div>

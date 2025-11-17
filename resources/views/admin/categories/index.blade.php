@@ -27,10 +27,10 @@
                   <td class="px-4 py-3">{{ $category->id }}</td>
                   <td class="px-4 py-3">{{ $category->name }}</td>
                   <td class="px-4 py-3 text-right space-x-2">
-                    <a href="{{ route('admin.categories.edit', $category) }}" class="text-yellow-600 hover:underline">Edit</a>
+                    <x-ui.link variant="primary" href="{{ route('admin.categories.edit', $category) }}">Edit</x-ui.link>
                     <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="inline" onsubmit="return confirm('Delete this category?')">
                       @csrf @method('DELETE')
-                      <button type="submit" class="text-red-600 hover:underline">Delete</button>
+                      <x-ui.button variant="text" color="danger" type="submit">Delete</x-ui.button>
                     </form>
                   </td>
                 </tr>

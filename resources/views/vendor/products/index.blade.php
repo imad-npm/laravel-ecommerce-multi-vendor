@@ -10,10 +10,9 @@
             <div class="bg-white shadow-md rounded-lg p-6">
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="text-lg font-semibold text-gray-800">Product List</h3>
-                    <a href="{{ route('vendor.products.create') }}"
-                        class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded text-sm">
+                    <x-ui.button :href="route('vendor.products.create')" variant="primary" size="sm">
                         + Add Product
-                    </a>
+                    </x-ui.button>
                 </div>
 
                 @if($products->isEmpty())
@@ -67,17 +66,15 @@
                                             @endif
                                         </td>
                                         <td class="px-4 py-3">
-                                            <div class="flex space-x-3">
-                                                <a href="{{ route('vendor.products.show', $product) }}"
-                                                    class="text-blue-600 hover:underline">View</a>
-                                                <a href="{{ route('vendor.products.edit', $product) }}"
-                                                    class="text-yellow-600 hover:underline">Edit</a>
+                                            <div class="flex items-center gap-3">
+                                                <x-ui.link variant="primary" href="{{ route('vendor.products.show', $product) }}">View</x-ui.link>
+                                                <x-ui.link variant="primary" href="{{ route('vendor.products.edit', $product) }}">Edit</x-ui.link>
                                                 <form action="{{ route('vendor.products.destroy', $product) }}" method="POST" onsubmit="return confirm('Are you sure?')">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="text-red-600 hover:underline">
+                                                    <x-ui.button type="submit" variant="text" color="danger">
                                                         Delete
-                                                    </button>
+                                                    </x-ui.button>
                                                 </form>
                                             </div>
                                         </td>

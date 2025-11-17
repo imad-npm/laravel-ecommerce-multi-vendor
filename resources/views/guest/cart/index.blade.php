@@ -81,7 +81,7 @@
                             </x-ui.button>
                         @else
                             <div class="mt-6 text-sm text-center text-gray-500">
-                                <a href="{{ route('login') }}" class="text-indigo-600 hover:underline">Login</a> to checkout.
+                                <x-ui.link variant="primary" href="{{ route('login') }}">Login</x-ui.link> to checkout.
                             </div>
                         @endauth
                     </div>

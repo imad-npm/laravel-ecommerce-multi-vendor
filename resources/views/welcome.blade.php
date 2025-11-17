@@ -53,13 +53,13 @@
   <div class="absolute top-6 right-6 text-sm">
     @if(Route::has('login'))
     
-        <a href="{{ route('login') }}" class="text-zinc-700 dark:text-zinc-200 hover:underline">
-          Log in
-        </a>
+        <x-ui.link variant="default" href="{{ route('login') }}">
+                    Log in
+                </x-ui.link>
         @if(Route::has('register'))
-          <a href="{{ route('register') }}" class="ml-4 text-zinc-700 dark:text-zinc-200 hover:underline">
-            Register
-          </a>
+          <x-ui.link variant="default" href="{{ route('register') }}" class="ml-4">
+                    Register
+                </x-ui.link>
       
       @endauth
     @endif

@@ -49,11 +49,11 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         @if ($earning->payout)
-                                            <a href="{{ route('admin.payouts.show', $earning->payout) }}" class="text-indigo-600 hover:text-indigo-900">{{ $earning->payout->id }}</a>
+                                            <x-ui.link variant="primary" href="{{ route('admin.payouts.show', $earning->payout) }}">{{ $earning->payout->id }}</x-ui.link>
                                         @endif
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="{{ route('admin.vendor-earnings.edit', $earning) }}" class="text-indigo-600 hover:text-indigo-900">{{ __('Edit') }}</a>
+                                        <x-ui.link variant="primary" href="{{ route('admin.vendor-earnings.edit', $earning) }}">{{ __('Edit') }}</x-ui.link>
                                     </td>
                                 </tr>
                             @endforeach

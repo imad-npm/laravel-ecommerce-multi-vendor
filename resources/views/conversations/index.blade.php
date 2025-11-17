@@ -28,10 +28,10 @@
                                     <div class="flex min-w-0 gap-x-4">
                                         <div class="min-w-0 flex-auto">
                                             <p class="text-sm font-semibold leading-6 text-gray-900">
-                                                <a
+                                                <x-ui.link variant="primary"
                                                     href="{{ route('conversations.messages.index', ['conversation' => $conversation->id]) }}">
                                                     {{ $otherUser->name }} {{ $productName }}
-                                                </a>
+                                                </x-ui.link>
                                             </p>
                                             @if ($lastMessage)
                                                 <p class="mt-1 truncate text-xs leading-5 text-gray-500">

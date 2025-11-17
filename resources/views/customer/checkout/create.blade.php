@@ -31,9 +31,9 @@
 
                             <!-- Link to add a new address -->
                             <div class="mt-4">
-                                <a href="{{ route('customer.addresses.create', ['redirect' => 'checkout']) }}" class="text-indigo-600 hover:text-indigo-900 font-medium">
-                                    + Add a new address
-                                </a>
+                                <x-ui.link variant="primary" href="{{ route('customer.addresses.create', ['redirect' => 'checkout']) }}" class="font-medium">
+    Add New Address
+</x-ui.link>
                             </div>
                         </div>
 

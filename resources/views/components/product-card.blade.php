@@ -30,9 +30,9 @@
             @if($product->store)
                 <div class="text-[11px] text-indigo-700 font-medium whitespace-nowrap truncate">
                     Store:
-                    <a href="{{ route('stores.show', $product->store) }}" class="hover:underline">
-                        {{ $product->store->name }}
-                    </a>
+                    <x-ui.link variant="primary" href="{{ route('stores.show', $product->store) }}">
+                <p class="text-sm font-medium text-gray-900">{{ $product->store->name }}</p>
+            </x-ui.link>
                 </div>
             @endif
 
