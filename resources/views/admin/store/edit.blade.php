@@ -8,24 +8,24 @@
         <form method="POST" action="{{ route('admin.stores.update', $store) }}" enctype="multipart/form-data">
           @csrf @method('PUT')
           <div class="mb-4">
-            <label class="block text-sm font-medium">Name</label>
-            <input name="name" value="{{ old('name', $store->name) }}" required class="mt-1 w-full border-gray-300 rounded p-2">
-            @error('name')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
+            <x-ui.input-label for="name" value="Name" />
+            <x-ui.input id="name" name="name" :value="old('name', $store->name)" required class="mt-1 w-full" />
+            <x-ui.input-error :messages="$errors->get('name')" class="mt-2" />
           </div>
           <div class="mb-4">
-            <label class="block text-sm font-medium">Description</label>
-            <textarea name="description" class="mt-1 w-full border-gray-300 rounded p-2">{{ old('description', $store->description) }}</textarea>
-            @error('description')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
+            <x-ui.input-label for="description" value="Description" />
+            <x-ui.textarea id="description" name="description" class="mt-1 w-full">{{ old('description', $store->description) }}</x-ui.textarea>
+            <x-ui.input-error :messages="$errors->get('description')" class="mt-2" />
           </div>
           <div class="mb-4">
-            <label class="block text-sm font-medium">Logo</label>
-            <input type="file" name="logo" class="mt-1 w-full border-gray-300 rounded p-2">
+            <x-ui.input-label for="logo" value="Logo" />
+            <x-ui.input id="logo" type="file" name="logo" class="mt-1 w-full" />
             @if($store->logo)
               <img src="{{ asset('storage/' . $store->logo) }}" class="w-20 h-20 mt-2 rounded shadow">
             @endif
-            @error('logo')<p class="text-red-600 text-sm">{{ $message }}</p>@enderror
+            <x-ui.input-error :messages="$errors->get('logo')" class="mt-2" />
           </div>
-          <button type="submit" class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700">Update Store</button>
+          <x-ui.button variant="primary" type="submit" class="w-full justify-center">Update Store</x-ui.button>
         </form>
       </div>
     </div>

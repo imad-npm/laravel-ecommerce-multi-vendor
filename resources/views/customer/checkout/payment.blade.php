@@ -42,23 +42,21 @@
                 <div class="space-y-4">
                     <div>
                         <label class="flex items-center">
-                            <input type="radio" name="payment_method" value="stripe" class="form-radio">
+                            <x-ui.radio name="payment_method" value="stripe" />
                             <span class="ml-2">Credit Card (Stripe)</span>
                         </label>
                     </div>
                     <div>
                         <label class="flex items-center">
-                            <input type="radio" name="payment_method" value="paypal" class="form-radio">
+                            <x-ui.radio name="payment_method" value="paypal" />
                             <span class="ml-2">PayPal</span>
                         </label>
                     </div>
                 </div>
-                @error('payment_method')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
+                <x-ui.input-error :messages="$errors->get('payment_method')" class="mt-2" />
                 <div class="mt-8 flex justify-between">
-                    <a href="{{ isset($order) ? route('customer.orders.show', $order) : route('customer.checkout.shipping') }}" class="text-gray-600 hover:text-gray-900">Back</a>
-                    <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600">{{ isset($order) ? 'Retry Payment' : 'Place Order' }}</button>
+                    <x-ui.button :href="isset($order) ? route('customer.orders.show', $order) : route('customer.checkout.shipping')" variant="link">Back</x-ui.button>
+                    <x-ui.button type="submit" variant="primary">{{ isset($order) ? 'Retry Payment' : 'Place Order' }}</x-ui.button>
                 </div>
             </form>
         </div>

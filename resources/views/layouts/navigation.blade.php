@@ -92,12 +92,12 @@ use App\Services\Cart\GuestCartService;
 
                 <!-- Desktop Links -->
                 <div class="hidden sm:flex space-x-8 sm:ms-10">
-                    <x-nav-link :href="getUserHomeRoute()" :active="dashboard_active()">
+                    <x-ui.nav-link :href="getUserHomeRoute()" :active="dashboard_active()">
                         {{ __('Dashboard') }}
-                    </x-nav-link>
+                    </x-ui.nav-link>
 
                     @foreach($roleLinks as $link)
-                    <x-nav-link :href="$link['route']" :active="$link['active']">
+                    <x-ui.nav-link :href="$link['route']" :active="$link['active']">
                         <span class="relative inline-flex items-center">
                             {{ __($link['label']) }}
                             @if ($link['label'] === 'Shopping Cart' && $cartCount > 0)
@@ -106,7 +106,7 @@ use App\Services\Cart\GuestCartService;
                                 </span>
                             @endif
                         </span>
-                    </x-nav-link>
+                    </x-ui.nav-link>
                 @endforeach
                 
                 
@@ -115,7 +115,7 @@ use App\Services\Cart\GuestCartService;
 
             <!-- Right -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
+                <x-ui.dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
                             <div>{{ $user?->name ?? 'Guest' }}</div>
@@ -129,22 +129,22 @@ use App\Services\Cart\GuestCartService;
 
                     <x-slot name="content">
                         @if ($user)
-                            <x-dropdown-link :href="profile_route()">
+                            <x-ui.dropdown-link :href="profile_route()">
                                 {{ __('Profile') }}
-                            </x-dropdown-link>
+                            </x-ui.dropdown-link>
 
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <x-dropdown-link href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                <x-ui.dropdown-link href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
                                     {{ __('Log Out') }}
-                                </x-dropdown-link>
+                                </x-ui.dropdown-link>
                             </form>
                         @else
-                            <x-dropdown-link :href="route('login')">Login</x-dropdown-link>
-                            <x-dropdown-link :href="route('register')">Register</x-dropdown-link>
+                            <x-ui.dropdown-link :href="route('login')">Login</x-ui.dropdown-link>
+                            <x-ui.dropdown-link :href="route('register')">Register</x-ui.dropdown-link>
                         @endif
                     </x-slot>
-                </x-dropdown>
+                </x-ui.dropdown>
             </div>
 
             <!-- Hamburger -->
@@ -162,14 +162,14 @@ use App\Services\Cart\GuestCartService;
     <!-- Mobile Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="getUserHomeRoute()" :active="dashboard_active()">
+            <x-ui.responsive-nav-link :href="getUserHomeRoute()" :active="dashboard_active()">
                 {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+            </x-ui.responsive-nav-link>
 
-            @foreach($roleLinks as $link)->value
-                <x-responsive-nav-link :href="$link['route']" :active="$link['active']">
+            @foreach($roleLinks as $link)
+                <x-ui.responsive-nav-link :href="$link['route']" :active="$link['active']">
                     {{ __($link['label']) }}
-                </x-responsive-nav-link>
+                </x-ui.responsive-nav-link>
             @endforeach
         </div>
 
@@ -186,19 +186,19 @@ use App\Services\Cart\GuestCartService;
 
             <div class="mt-3 space-y-1">
                 @if ($user)
-                    <x-responsive-nav-link :href="profile_route()">
+                    <x-ui.responsive-nav-link :href="profile_route()">
                         {{ __('Profile') }}
-                    </x-responsive-nav-link>
+                    </x-ui.responsive-nav-link>
 
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <x-responsive-nav-link href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                        <x-ui.responsive-nav-link href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
                             {{ __('Log Out') }}
-                        </x-responsive-nav-link>
+                        </x-ui.responsive-nav-link>
                     </form>
                 @else
-                    <x-responsive-nav-link :href="route('login')">Login</x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('register')">Register</x-responsive-nav-link>
+                    <x-ui.responsive-nav-link :href="route('login')">Login</x-ui.responsive-nav-link>
+                    <x-ui.responsive-nav-link :href="route('register')">Register</x-ui.responsive-nav-link>
                 @endif
             </div>
         </div>

@@ -1,0 +1,45 @@
+@props([
+    'size' => 'md',
+    'variant' => 'primary',
+    'href' => null,
+    'disabled' => false,
+])
+
+@php
+$baseClasses = 'inline-flex items-center font-semibold text-xs uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150';
+
+$sizeClasses = [
+    'sm' => 'px-3 py-1.5 text-xs',
+    'md' => 'px-4 py-2 text-sm',
+    'lg' => 'px-6 py-3 text-base',
+];
+
+$variantClasses = [
+    'primary' => 'bg-gray-800 border border-transparent text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:ring-indigo-500 rounded-md',
+    'secondary' => 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-indigo-500 rounded-md',
+    'danger' => 'bg-red-600 border border-transparent text-white hover:bg-red-500 focus:bg-red-700 active:bg-red-900 focus:ring-red-500 rounded-md',
+    'outline' => 'bg-transparent border border-gray-300 text-gray-700 hover:bg-gray-100 focus:ring-indigo-500 rounded-md',
+    'success' => 'bg-green-600 border border-transparent text-white hover:bg-green-700 focus:bg-green-700 active:bg-green-900 focus:ring-green-500 rounded-md',
+    'link' => 'text-gray-600 hover:text-gray-900 underline',
+];
+
+$classes = $baseClasses . ' ' . $variantClasses[$variant];
+if ($variant !== 'link') {
+    $classes .= ' ' . $sizeClasses[$size];
+}
+
+
+if ($disabled) {
+    $classes .= ' opacity-25 cursor-not-allowed';
+}
+@endphp
+
+@if ($href)
+    <a href="{{ $href }}" {{ $attributes->merge(['class' => $classes]) }} {{ $disabled ? 'aria-disabled=true' : '' }}>
+        {{ $slot }}
+    </a>
+@else
+    <button {{ $attributes->merge(['class' => $classes]) }} {{ $disabled ? 'disabled' : '' }}>
+        {{ $slot }}
+    </button>
+@endif
