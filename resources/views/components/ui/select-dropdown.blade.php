@@ -38,7 +38,7 @@
     <div 
         x-show="open" 
         x-transition 
-        class="absolute z-10 mt-1 w-full rounded-md bg-white py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5"
+        class="absolute z-50 max-h-40 overflow-y-scroll mt-1 w-full rounded-md bg-white py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5"
     >
         @foreach ($options as $option)
             <div 
