@@ -1,3 +1,6 @@
+@php
+    use App\Enums\OrderStatus;
+@endphp
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-2xl font-bold text-gray-800">Edit Order #{{ $order->id }}</h2>
@@ -34,9 +37,6 @@
                     <label class="block text-sm font-medium text-gray-700">Status</label>
                     <select name="status" required
                             class="mt-1 block w-full border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
-                        @php
-                            use App\Enums\OrderStatus;
-                        @endphp
                         @foreach(OrderStatus::cases() as $status)
                             <option value="{{ $status->value }}" {{ old('status', $order->status->value) === $status->value ? 'selected' : '' }}>
                                 {{ ucfirst($status->value) }}

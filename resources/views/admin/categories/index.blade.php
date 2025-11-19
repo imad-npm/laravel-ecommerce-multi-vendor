@@ -12,36 +12,34 @@
             + New Category
           </a>
         </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm text-left text-gray-700">
-            <thead class="bg-gray-50 border-b text-gray-600 uppercase text-xs">
-              <tr>
-                <th class="px-4 py-3">ID</th>
-                <th class="px-4 py-3">Name</th>
-                <th class="px-4 py-3 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
+        <x-table.index>
+            <x-table.head>
+              <x-table.row>
+                <x-table.header>ID</x-table.header>
+                <x-table.header>Name</x-table.header>
+                <x-table.header class="text-right">Actions</x-table.header>
+              </x-table.row>
+            </x-table.head>
+            <x-table.body>
               @forelse($categories as $category)
-                <tr class="border-b hover:bg-gray-50">
-                  <td class="px-4 py-3">{{ $category->id }}</td>
-                  <td class="px-4 py-3">{{ $category->name }}</td>
-                  <td class="px-4 py-3 text-right space-x-2">
+                <x-table.row>
+                  <x-table.data>{{ $category->id }}</x-table.data>
+                  <x-table.data>{{ $category->name }}</x-table.data>
+                  <x-table.actions class="space-x-2">
                     <x-ui.link variant="primary" href="{{ route('admin.categories.edit', $category) }}">Edit</x-ui.link>
                     <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="inline" onsubmit="return confirm('Delete this category?')">
                       @csrf @method('DELETE')
                       <x-ui.button variant="text" color="danger" type="submit">Delete</x-ui.button>
                     </form>
-                  </td>
-                </tr>
+                  </x-table.actions>
+                </x-table.row>
               @empty
-                <tr>
-                  <td colspan="3" class="px-4 py-4 text-center text-gray-500">No categories found.</td>
-                </tr>
+                <x-table.empty>
+                  No categories found.
+                </x-table.empty>
               @endforelse
-            </tbody>
-          </table>
-        </div>
+            </x-table.body>
+          </x-table.index>
       </div>
     </div>
   </x-app-layout>

@@ -34,38 +34,34 @@
                     <!-- Top Selling Products -->
                     <div class="mt-8">
                         <h4 class="text-xl font-bold mb-4">Top Selling Products</h4>
-                        <div class="overflow-x-auto shadow-md sm:rounded-lg">
-                            <table class="w-full text-sm text-left text-gray-500">
-                                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3">Product</th>
-                                        <th scope="col" class="px-6 py-3">Price</th>
-                                        <th scope="col" class="px-6 py-3">Orders</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                        <x-table.index>
+                                <x-table.head>
+                                    <x-table.row>
+                                        <x-table.header>Product</x-table.header>
+                                        <x-table.header>Price</x-table.header>
+                                        <x-table.header>Orders</x-table.header>
+                                    </x-table.row>
+                                </x-table.head>
+                                <x-table.body>
                                     @forelse ($topProducts as $product)
-                                    <tr class="bg-white border-b hover:bg-gray-50">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    <x-table.row>
+                                        <x-table.header scope="row">
                                             {{ $product->name }}
-                                        </th>
-                                        <td class="px-6 py-4">
+                                        </x-table.header>
+                                        <x-table.data>
                                             ${{ number_format($product->price, 2) }}
-                                        </td>
-                                        <td class="px-6 py-4">
+                                        </x-table.data>
+                                        <x-table.data>
                                             {{ $product->orders_count }}
-                                        </td>
-                                    </tr>
+                                        </x-table.data>
+                                    </x-table.row>
                                     @empty
-                                    <tr class="bg-white border-b">
-                                        <td colspan="3" class="px-6 py-4 text-center text-gray-500">
-                                            No products found.
-                                        </td>
-                                    </tr>
+                                    <x-table.empty>
+                                        No products found.
+                                    </x-table.empty>
                                     @endforelse
-                                </tbody>
-                            </table>
-                        </div>
+                                </x-table.body>
+                            </x-table.index>
                     </div>
                 </div>
             </div>

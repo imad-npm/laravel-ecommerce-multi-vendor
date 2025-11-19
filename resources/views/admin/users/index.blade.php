@@ -27,41 +27,39 @@
           </select>
           <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg"> Search</button>
         </form>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm text-left text-gray-700">
-            <thead class="bg-gray-50 border-b text-gray-600 uppercase text-xs">
-              <tr>
-                <th class="px-4 py-3">ID</th>
-                <th class="px-4 py-3">Name</th>
-                <th class="px-4 py-3">Email</th>
-                <th class="px-4 py-3">Role</th>
-                <th class="px-4 py-3 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
+        <x-table.index>
+            <x-table.head>
+              <x-table.row>
+                <x-table.header>ID</x-table.header>
+                <x-table.header>Name</x-table.header>
+                <x-table.header>Email</x-table.header>
+                <x-table.header>Role</x-table.header>
+                <x-table.header class="text-right">Actions</x-table.header>
+              </x-table.row>
+            </x-table.head>
+            <x-table.body>
               @forelse($users as $user)
-                <tr class="border-b hover:bg-gray-50">
-                  <td class="px-4 py-3">{{ $user->id }}</td>
-                  <td class="px-4 py-3">{{ $user->name }}</td>
-                  <td class="px-4 py-3">{{ $user->email }}</td>
-                  <td class="px-4 py-3">{{ ucfirst($user->role->value) }}</td>
-                  <td class="px-4 py-3 text-right space-x-2">
+                <x-table.row>
+                  <x-table.data>{{ $user->id }}</x-table.data>
+                  <x-table.data>{{ $user->name }}</x-table.data>
+                  <x-table.data>{{ $user->email }}</x-table.data>
+                  <x-table.data>{{ ucfirst($user->role->value) }}</x-table.data>
+                  <x-table.actions class="space-x-2">
                     <x-ui.link variant="primary" href="{{ route('admin.users.show', $user) }}">View</x-ui.link>
                     <x-ui.link variant="primary" href="{{ route('admin.users.edit', $user) }}">Edit</x-ui.link>
                     <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline" onsubmit="return confirm('Delete this user?')">
                       @csrf @method('DELETE')
                       <x-ui.button variant="text" color="danger" type="submit">Delete</x-ui.button>
                     </form>
-                  </td>
-                </tr>
+                  </x-table.actions>
+                </x-table.row>
               @empty
-                <tr>
-                  <td colspan="5" class="px-4 py-4 text-center text-gray-500">No users found.</td>
-                </tr>
+                <x-table.empty>
+                  No users found.
+                </x-table.empty>
               @endforelse
-            </tbody>
-          </table>
-        </div>
+            </x-table.body>
+          </x-table.index>
       <div class="mt-6">
     {{ $users->links() }}
 </div>

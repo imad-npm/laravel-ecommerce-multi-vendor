@@ -1,3 +1,6 @@
+@php
+    use App\Enums\OrderStatus;
+@endphp
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -12,14 +15,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 mb-8 text-gray-700">
                     <div>
-                        @php
-                            use App\Enums\OrderStatus;
-                            $statusClass = match($order->status) {
-                                OrderStatus::PAID => 'bg-green-100 text-green-800',
-                                OrderStatus::PENDING => 'bg-yellow-100 text-yellow-800',
-                                default => 'bg-gray-100 text-gray-800'
-                            };
-                        @endphp
+                        
                         <p class="text-lg"><strong class="font-semibold">Status:</strong> <span class="ml-2 px-3 py-1 rounded-full text-sm font-medium {{ $statusClass }}">{{ ucfirst($order->status->value) }}</span></p>
                         <p class="text-lg mt-2"><strong class="font-semibold">Total:</strong> <span class="text-green-600 text-xl font-bold">${{ number_format($order->total, 2) }}</span></p>
                     </div>

@@ -33,7 +33,7 @@
                 tabindex="-1" x-ref="modal" @keydown.window.escape="showFilters = false" x-init="$watch('showFilters', v => { if(v) { setTimeout(() => $refs.modal.querySelector('input,select,button').focus(), 50) } })">
                 <div class="flex justify-between items-center border-b pb-2 mb-4">
                     <h2 class="text-lg font-semibold text-gray-800">Advanced Filters</h2>
-                    <x-ui.button @click="showFilters = false" variant="link" aria-label="Close">&times;</x-ui.button>
+                    <x-ui.button @click="showFilters = false"  aria-label="Close">&times;</x-ui.button>
                 </div>
                 {{-- Price Range --}}
                 <div class="flex flex-col sm:flex-row gap-4">

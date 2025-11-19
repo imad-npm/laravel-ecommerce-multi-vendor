@@ -13,30 +13,28 @@
                             <p class="text-gray-400 mt-2">Encourage your customers to leave feedback!</p>
                         </div>
                     @else
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rating</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Comment</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
+                        <x-table.index>
+                                <x-table.head>
+                                    <x-table.row>
+                                        <x-table.header>Product</x-table.header>
+                                        <x-table.header>Customer</x-table.header>
+                                        <x-table.header>Rating</x-table.header>
+                                        <x-table.header>Comment</x-table.header>
+                                        <x-table.header>Date</x-table.header>
+                                    </x-table.row>
+                                </x-table.head>
+                                <x-table.body>
                                     @foreach ($reviews as $review)
-                                        <tr class="hover:bg-gray-50">
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $review->product->name }}</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $review->user->name }}</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $review->stars }} / 5</td>
-                                            <td class="px-6 py-4 text-sm text-gray-500">{{ $review->comment }}</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $review->created_at->format('d/m/Y') }}</td>
-                                        </tr>
+                                        <x-table.row>
+                                            <x-table.data>{{ $review->product->name }}</x-table.data>
+                                            <x-table.data>{{ $review->user->name }}</x-table.data>
+                                            <x-table.data>{{ $review->stars }} / 5</x-table.data>
+                                            <x-table.data>{{ $review->comment }}</x-table.data>
+                                            <x-table.data>{{ $review->created_at->format('d/m/Y') }}</x-table.data>
+                                        </x-table.row>
                                     @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                                </x-table.body>
+                            </x-table.index>
                     @endif
                 </div>
             </div>

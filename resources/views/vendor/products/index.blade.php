@@ -18,38 +18,37 @@
                 @if($products->isEmpty())
                     <p class="text-gray-500">You haven’t added any products yet.</p>
                 @else
-                    <div class="">
-                        <table class="w-full text-sm text-left text-gray-700">
-                            <thead class="bg-gray-50 border-b text-gray-600 uppercase text-xs">
-                                <tr>
-                                    <th class="px-4 py-3">Image</th>
-                                    <th class="px-4 py-3">Name</th>
-                                    <th class="px-4 py-3">Category</th>
-                                    <th class="px-4 py-3">Price</th>
-                                    <th class="px-4 py-3">Stock</th>
-                                    <th class="px-4 py-3">Avg Rating</th>
-                                    <th class="px-4 py-3">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                    <x-table.index>
+                            <x-table.head>
+                                <x-table.row>
+                                    <x-table.header>Image</x-table.header>
+                                    <x-table.header>Name</x-table.header>
+                                    <x-table.header>Category</x-table.header>
+                                    <x-table.header>Price</x-table.header>
+                                    <x-table.header>Stock</x-table.header>
+                                    <x-table.header>Avg Rating</x-table.header>
+                                    <x-table.header>Actions</x-table.header>
+                                </x-table.row>
+                            </x-table.head>
+                            <x-table.body>
                                 @foreach ($products as $product)
-                                    <tr class="border-b hover:bg-gray-50">
-                                        <td class="px-4 py-3">
+                                    <x-table.row>
+                                        <x-table.data>
                                             @if($product->image)
                                                 <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-12 h-12 object-cover rounded">
                                             @else
                                                 <span class="text-gray-400 italic">No Image</span>
                                             @endif
-                                        </td>
-                                        <td class="px-4 py-3 font-medium text-gray-900">
+                                        </x-table.data>
+                                        <x-table.data class="font-medium text-gray-900">
                                             {{ $product->name }}
-                                        </td>
-                                        <td class="px-4 py-3">
+                                        </x-table.data>
+                                        <x-table.data>
                                             {{ $product->category->name ?? 'N/A' }}
-                                        </td>
-                                        <td class="px-4 py-3">${{ number_format($product->price, 2) }}</td>
-                                        <td class="px-4 py-3">{{ $product->stock }}</td>
-                                        <td class="px-4 py-3">
+                                        </x-table.data>
+                                        <x-table.data>${{ number_format($product->price, 2) }}</x-table.data>
+                                        <x-table.data>{{ $product->stock }}</x-table.data>
+                                        <x-table.data>
                                             @if($product->reviews_avg_stars)
                                                 <div class="flex items-center">
                                                     @for ($i = 1; $i <= 5; $i++)
@@ -64,8 +63,8 @@
                                             @else
                                                 <span class="text-gray-500 text-xs">No ratings</span>
                                             @endif
-                                        </td>
-                                        <td class="px-4 py-3">
+                                        </x-table.data>
+                                        <x-table.actions>
                                             <div class="flex space-x-3">
                                                 <x-ui.link variant="primary" href="{{ route('vendor.products.show', $product) }}">View</x-ui.link>
                                                 <x-ui.link variant="primary" href="{{ route('vendor.products.edit', $product) }}">Edit</x-ui.link>
@@ -77,12 +76,11 @@
                                                     </x-ui.button>
                                                 </form>
                                             </div>
-                                        </td>
-                                    </tr>
+                                        </x-table.actions>
+                                    </x-table.row>
                                 @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                            </x-table.body>
+                        </x-table.index>
                 @endif
             </div>
         </div>
