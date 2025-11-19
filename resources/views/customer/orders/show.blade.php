@@ -1,5 +1,11 @@
 @php
     use App\Enums\OrderStatus;
+
+       $statusClass = match($order->status) {
+                            OrderStatus::PAID => 'bg-green-100 text-green-700',
+                            OrderStatus::PENDING => 'bg-yellow-100 text-yellow-700',
+                            default => 'bg-red-100 text-red-700'
+                        };
 @endphp
 <x-app-layout>
     <x-slot name="header">
