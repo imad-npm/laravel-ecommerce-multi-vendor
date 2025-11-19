@@ -12,7 +12,7 @@ if (! function_exists('getUserHomeRoute')) {
     function getUserHomeRoute()
     {
         $user=auth()->user() ;
-       return match ($user->role) {
+       return match ($user?->role) {
             UserRole::ADMIN => route('admin.dashboard'),
             UserRole::VENDOR => route('vendor.dashboard'),
             UserRole::CUSTOMER => route('customer.home'),
