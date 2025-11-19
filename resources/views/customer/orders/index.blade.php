@@ -24,24 +24,23 @@ use App\Enums\OrderStatus;
             @else
                 <div class="bg-white p-6 rounded-2xl shadow-lg">
                     <h3 class="text-xl font-semibold text-gray-800 mb-6">🕘 Order History</h3>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50 sticky top-0 z-10">
-                                <tr>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Order</th>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Date</th>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Items</th>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Total</th>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-                                    <th class="px-4 py-3 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-100">
+                    <x-table.index>
+                            <x-table.head>
+                                <x-table.row>
+                                    <x-table.header>Order</x-table.header>
+                                    <x-table.header>Date</x-table.header>
+                                    <x-table.header>Items</x-table.header>
+                                    <x-table.header>Total</x-table.header>
+                                    <x-table.header>Status</x-table.header>
+                                    <x-table.header class="text-right">Actions</x-table.header>
+                                </x-table.row>
+                            </x-table.head>
+                            <x-table.body>
                                 @foreach ($orders as $order)
-                                    <tr class="hover:bg-gray-50 transition">
-                                        <td class="px-4 py-4 font-bold text-indigo-700">#{{ $order->id }}</td>
-                                        <td class="px-4 py-4 text-gray-500">{{ $order->created_at->format('M d, Y H:i') }}</td>
-                                        <td class="px-4 py-4">
+                                    <x-table.row>
+                                        <x-table.data class="font-bold text-indigo-700">#{{ $order->id }}</x-table.data>
+                                        <x-table.data class="text-gray-500">{{ $order->created_at->format('M d, Y H:i') }}</x-table.data>
+                                        <x-table.data>
                                             <div class="flex flex-col gap-2">
                                                 @foreach ($order->items as $item)
                                                     <div class="flex items-center gap-2">
@@ -59,9 +58,9 @@ use App\Enums\OrderStatus;
                                                     </div>
                                                 @endforeach
                                             </div>
-                                        </td>
-                                        <td class="px-4 py-4 font-semibold text-gray-900">${{ number_format($order->total, 2) }}</td>
-                                        <td class="px-4 py-4">
+                                        </x-table.data>
+                                        <x-table.data class="font-semibold text-gray-900">${{ number_format($order->total, 2) }}</x-table.data>
+                                        <x-table.data>
                                             @php
                                                 $statusClass = match ($order->status) {
                                                     OrderStatus::PENDING => 'bg-yellow-100 text-yellow-700',
@@ -102,8 +101,8 @@ use App\Enums\OrderStatus;
                                                     </div>
                                                 @endif
                                             @endif
-                                        </td>
-                                        <td class="px-4 py-4 text-right flex gap-2">
+                                        </x-table.data>
+                                        <x-table.actions class="flex gap-2">
                                             <a href="{{ route('customer.orders.show', $order->id) }}" class="inline-block px-4 py-2 bg-indigo-600 text-white text-xs rounded shadow hover:bg-indigo-700 transition">Show</a>
 
                                             @if ($order->status === OrderStatus::PENDING)
@@ -114,12 +113,11 @@ use App\Enums\OrderStatus;
                                                     <x-ui.button variant="text" color="danger" type="submit">Cancel</x-ui.button>
                                                 </form>
                                             @endif
-                                        </td>
-                                    </tr>
+                                        </x-table.actions>
+                                    </x-table.row>
                                 @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                            </x-table.body>
+                        </x-table.index>
                 </div>
             @endif
 

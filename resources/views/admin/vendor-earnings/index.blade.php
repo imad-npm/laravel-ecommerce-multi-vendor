@@ -9,56 +9,56 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <x-table.index>
+                        <x-table.head>
+                            <x-table.row>
+                                <x-table.header>
                                     {{ __('Vendor') }}
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                </x-table.header>
+                                <x-table.header>
                                     {{ __('Order') }}
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                </x-table.header>
+                                <x-table.header>
                                     {{ __('Net Earnings') }}
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                </x-table.header>
+                                <x-table.header>
                                     {{ __('Paid') }}
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                </x-table.header>
+                                <x-table.header>
                                     {{ __('Payout') }}
-                                </th>
-                                <th scope="col" class="relative px-6 py-3">
+                                </x-table.header>
+                                <x-table.header>
                                     <span class="sr-only">Edit</span>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
+                                </x-table.header>
+                            </x-table.row>
+                        </x-table.head>
+                        <x-table.body>
                             @foreach ($vendorEarnings as $earning)
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                <x-table.row>
+                                    <x-table.data>
                                         {{ $earning->vendor->name }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    </x-table.data>
+                                    <x-table.data>
                                         {{ $earning->order->id }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    </x-table.data>
+                                    <x-table.data>
                                         {{ $earning->net_earnings }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    </x-table.data>
+                                    <x-table.data>
                                         {{ $earning->is_paid ? 'Yes' : 'No' }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    </x-table.data>
+                                    <x-table.data>
                                         @if ($earning->payout)
                                             <x-ui.link variant="primary" href="{{ route('admin.payouts.show', $earning->payout) }}">{{ $earning->payout->id }}</x-ui.link>
                                         @endif
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    </x-table.data>
+                                    <x-table.actions>
                                         <x-ui.link variant="primary" href="{{ route('admin.vendor-earnings.edit', $earning) }}">{{ __('Edit') }}</x-ui.link>
-                                    </td>
-                                </tr>
+                                    </x-table.actions>
+                                </x-table.row>
                             @endforeach
-                        </tbody>
-                    </table>
+                        </x-table.body>
+                    </x-table.index>
                     <div class="mt-4">
                         {{ $vendorEarnings->links() }}
                     </div>

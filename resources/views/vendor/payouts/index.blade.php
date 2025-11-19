@@ -16,36 +16,32 @@
                         <p class="text-3xl font-bold mt-2">${{ number_format($unpaidEarnings, 2) }}</p>
                     </div>
 
-                    <div class="overflow-x-auto shadow-md sm:rounded-lg">
-                        <table class="w-full text-sm text-left text-gray-500">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3">ID</th>
-                                    <th scope="col" class="px-6 py-3">Amount</th>
-                                    <th scope="col" class="px-6 py-3">Status</th>
-                                    <th scope="col" class="px-6 py-3">Payment Method</th>
-                                    <th scope="col" class="px-6 py-3">Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($payouts as $payout)
-                                    <tr class="bg-white border-b hover:bg-gray-50">
-                                        <td class="px-6 py-4">{{ $payout->id }}</td>
-                                        <td class="px-6 py-4">${{ number_format($payout->amount, 2) }}</td>
-                                        <td class="px-6 py-4">{{ $payout->status }}</td>
-                                        <td class="px-6 py-4">{{ $payout->payment_method }}</td>
-                                        <td class="px-6 py-4">{{ $payout->created_at->format('Y-m-d') }}</td>
-                                    </tr>
-                                @empty
-                                    <tr class="bg-white border-b">
-                                        <td colspan="5" class="px-6 py-4 text-center text-gray-500">
-                                            No payout requests found.
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
+                    <x-table.index>
+                        <x-table.head>
+                            <x-table.row>
+                                <x-table.header>ID</x-table.header>
+                                <x-table.header>Amount</x-table.header>
+                                <x-table.header>Status</x-table.header>
+                                <x-table.header>Payment Method</x-table.header>
+                                <x-table.header>Date</x-table.header>
+                            </x-table.row>
+                        </x-table.head>
+                        <x-table.body>
+                            @forelse ($payouts as $payout)
+                                <x-table.row>
+                                    <x-table.data>{{ $payout->id }}</x-table.data>
+                                    <x-table.data>${{ number_format($payout->amount, 2) }}</x-table.data>
+                                    <x-table.data>{{ $payout->status }}</x-table.data>
+                                    <x-table.data>{{ $payout->payment_method }}</x-table.data>
+                                    <x-table.data>{{ $payout->created_at->format('Y-m-d') }}</x-table.data>
+                                </x-table.row>
+                            @empty
+                                <x-table.empty>
+                                    No payout requests found.
+                                </x-table.empty>
+                            @endforelse
+                        </x-table.body>
+                    </x-table.index>
                     <div class="mt-4">
                         {{ $payouts->links() }}
                     </div>

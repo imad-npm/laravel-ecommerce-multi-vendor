@@ -1,3 +1,6 @@
+@php
+    use App\Enums\PayoutStatus;
+@endphp
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -31,9 +34,6 @@
                         <div class="mb-4">
                             <label for="status" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Status') }}</label>
                             <select name="status" id="status" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                @php
-                                    use App\Enums\PayoutStatus;
-                                @endphp
                                 @foreach(PayoutStatus::cases() as $status)
                                     <option value="{{ $status->value }}" @selected($payout->status->value == $status->value)>{{ ucfirst($status->value) }}</option>
                                 @endforeach

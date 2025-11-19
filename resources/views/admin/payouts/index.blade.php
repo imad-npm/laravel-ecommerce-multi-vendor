@@ -17,48 +17,48 @@
                             </button>
                         </form>
                     </div>
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <x-table.index>
+                        <x-table.head>
+                            <x-table.row>
+                                <x-table.header>
                                     {{ __('Vendor') }}
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                </x-table.header>
+                                <x-table.header>
                                     {{ __('Amount') }}
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font--medium text-gray-500 uppercase tracking-wider">
+                                </x-table.header>
+                                <x-table.header>
                                     {{ __('Status') }}
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                </x-table.header>
+                                <x-table.header>
                                     {{ __('Transaction ID') }}
-                                </th>
-                                <th scope="col" class="relative px-6 py-3">
+                                </x-table.header>
+                                <x-table.header>
                                     <span class="sr-only">Actions</span>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
+                                </x-table.header>
+                            </x-table.row>
+                        </x-table.head>
+                        <x-table.body>
                             @foreach ($payouts as $payout)
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                <x-table.row>
+                                    <x-table.data>
                                         {{ $payout->vendor->name }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    </x-table.data>
+                                    <x-table.data>
                                         {{ $payout->amount }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    </x-table.data>
+                                    <x-table.data>
                                         {{ $payout->status }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    </x-table.data>
+                                    <x-table.data>
                                         {{ $payout->transaction_id }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    </x-table.data>
+                                    <x-table.actions>
                                         <x-ui.link variant="primary" href="{{ route('admin.payouts.show', $payout) }}">{{ __('View') }}</x-ui.link>
-                                    </td>
-                                </tr>
+                                    </x-table.actions>
+                                </x-table.row>
                             @endforeach
-                        </tbody>
-                    </table>
+                        </x-table.body>
+                    </x-table.index>
                     <div class="mt-4">
                         {{ $payouts->links() }}
                     </div>
