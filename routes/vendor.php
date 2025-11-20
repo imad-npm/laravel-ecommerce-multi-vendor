@@ -37,6 +37,7 @@ Route::prefix('vendor')
         Route::resource('payouts', PayoutController::class)->only(['index']);
 
         // Stripe Account Connection
+        Route::get('stripe', [\App\Http\Controllers\Vendor\StripeAccountController::class, 'index'])->name('stripe.index');
         Route::get('stripe/connect', [\App\Http\Controllers\Vendor\StripeAccountController::class, 'connect'])->name('stripe.connect');
         Route::get('stripe/callback', [\App\Http\Controllers\Vendor\StripeAccountController::class, 'callback'])->name('stripe.callback');
         Route::post('stripe/disconnect', [\App\Http\Controllers\Vendor\StripeAccountController::class, 'disconnect'])->name('stripe.disconnect');

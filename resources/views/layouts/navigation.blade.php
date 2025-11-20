@@ -111,6 +111,11 @@
                           'route' => route('vendor.payouts.index'),
                           'active' => request()->routeIs('vendor.payouts.*'),
                       ],
+                      [
+                          'label' => 'Stripe Account',
+                          'route' => route('vendor.stripe.index'),
+                          'active' => request()->routeIs('vendor.stripe.*'),
+                      ],
                   ],
               ),
               UserRole::CUSTOMER->value => [
