@@ -3,7 +3,7 @@
 @endphp
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-2xl font-bold text-gray-800">Order #{{ $order->id }}</h2>
+        <h2 class="text-2xl font-bold text-primary">Order #{{ $order->id }}</h2>
     </x-slot>
 
     <div class="py-10 bg-gray-50">
@@ -29,7 +29,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div>
                     <div class="text-sm text-gray-500">Shipping Address</div>
-                                        <div class="text-gray-800 font-medium">
+                                        <div class="text-primary font-medium">
                         {{ $order->shipping_address_line_1 }}<br>
                         {{ $order->shipping_city }}, {{ $order->shipping_postal_code }}<br>
                         {{ $order->shipping_country }}
@@ -42,7 +42,7 @@
                 <div class="text-2xl font-bold text-primary">${{ number_format($order->total, 2) }}</div>
             </div>
             <div>
-                <h3 class="font-semibold text-lg mb-3 text-gray-800">Ordered Items</h3>
+                <h3 class="font-semibold text-lg mb-3 text-primary">Ordered Items</h3>
                 <x-table.index>
                         <x-table.head>
                             <x-table.row>

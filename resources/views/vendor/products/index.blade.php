@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-2xl font-bold text-gray-800">
+        <h2 class="text-2xl font-bold text-primary">
             My Products
         </h2>
     </x-slot>
@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-md rounded-lg p-6">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-lg font-semibold text-gray-800">Product List</h3>
+                    <h3 class="text-lg font-semibold text-primary">Product List</h3>
                     <x-ui.button :href="route('vendor.products.create')" variant="primary" size="sm">
                         + Add Product
                     </x-ui.button>

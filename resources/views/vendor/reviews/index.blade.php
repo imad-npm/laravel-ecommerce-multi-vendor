@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-bold text-gray-800">Product Reviews</h2>
+        <h2 class="text-xl font-bold text-primary">Product Reviews</h2>
     </x-slot>
 
     <div class="py-10">

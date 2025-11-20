@@ -1,7 +1,7 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-bold text-gray-800">Create Store</h2>
+        <h2 class="text-xl font-bold text-primary">Create Store</h2>
     </x-slot>
 
     <div class="py-10">

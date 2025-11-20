@@ -28,7 +28,7 @@
         
             {{-- 🏷️ Categories --}}
             <div class="bg-white rounded-xl shadow p-6 border border-gray-100">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">Shop by Category</h3>
+                <h3 class="text-lg font-semibold text-primary mb-4">Shop by Category</h3>
                 <div class="flex flex-wrap gap-4">
                     @foreach($categories ?? [] as $category)
                         <a href="{{ route('products.index', ['category' => $category->id]) }}" class="bg-primary text-primary px-4 py-2 rounded-lg font-medium hover:bg-primary">{{ $category->name }}</a>
@@ -67,7 +67,7 @@
                 <a href="{{ route('customer.profile.edit') }}"
                    class="bg-white border border-gray-300 p-6 rounded-xl shadow hover:shadow-lg transition group">
                     <div class="flex items-center justify-between">
-                        <h4 class="text-lg font-semibold text-gray-800 group-hover:underline">👤 Edit Profile</h4>
+                        <h4 class="text-lg font-semibold text-primary group-hover:underline">👤 Edit Profile</h4>
                         <svg class="h-5 w-5 text-gray-400 group-hover:translate-x-1 transition" fill="none"
                              stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -92,7 +92,7 @@
 
             {{-- 🌟 Featured Products --}}
             <div class="bg-white rounded-xl shadow p-6 border border-gray-100">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">Featured Products</h3>
+                <h3 class="text-lg font-semibold text-primary mb-4">Featured Products</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                     @foreach($featured as $product)
                         <div class="bg-gray-50 rounded-lg p-4 flex flex-col items-center shadow hover:shadow-md transition">
@@ -111,7 +111,7 @@
 
             {{-- 🤖 Personalized Recommendations --}}
             <div class="bg-white rounded-xl shadow p-6 border border-gray-100">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">Recommended for You</h3>
+                <h3 class="text-lg font-semibold text-primary mb-4">Recommended for You</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                     @foreach($recommended as $product)
                         <div class="bg-gray-50 rounded-lg p-4 flex flex-col items-center shadow hover:shadow-md transition">
@@ -130,7 +130,7 @@
 
             {{-- 🕘 Recent Orders --}}
             <div class="bg-white rounded-xl shadow p-6 border border-gray-100">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">Recent Orders</h3>
+                <h3 class="text-lg font-semibold text-primary mb-4">Recent Orders</h3>
                 <div class="space-y-4">
                     @forelse($orders as $order)
                         <div class="flex items-center justify-between bg-gray-50 rounded-lg p-4 shadow-sm">
@@ -162,7 +162,7 @@
             {{-- 💬 Support --}}
             <div class="bg-white rounded-xl shadow p-6 border border-gray-100 flex items-center justify-between">
                 <div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-1">Need Help?</h3>
+                    <h3 class="text-lg font-semibold text-primary mb-1">Need Help?</h3>
                     <p class="text-gray-600 text-sm">Our support team is here for you 24/7.</p>
                 </div>
                 <a href="#" class="bg-primary text-white px-6 py-2 rounded-lg font-semibold shadow hover:bg-primary transition">Contact Support</a>

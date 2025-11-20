@@ -17,7 +17,7 @@
 
                 <!-- Details -->
                 <div class="md:w-2/3 p-6 space-y-4">
-                    <h3 class="text-2xl font-semibold text-gray-800">{{ $product->name }}</h3>
+                    <h3 class="text-2xl font-semibold text-primary">{{ $product->name }}</h3>
 
                     @if($product->description)
                         <p class="text-gray-700">{{ $product->description }}</p>
@@ -30,7 +30,7 @@
                         </div>
                         <div>
                             <span class="block text-sm text-gray-500">Stock</span>
-                            <span class="text-xl font-medium text-gray-800">{{ $product->stock }}</span>
+                            <span class="text-xl font-medium text-primary">{{ $product->stock }}</span>
                         </div>
                     </div>
 
@@ -40,7 +40,7 @@
                             ✏️ Edit
                         </a>
                         <a href="{{ route('admin.dashboard') }}"
-                           class="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-800 text-sm font-medium rounded hover:bg-gray-300">
+                           class="inline-flex items-center px-4 py-2 bg-gray-200 text-primary text-sm font-medium rounded hover:bg-gray-300">
                             ← Back to Dashboard
                         </a>
                     </div>

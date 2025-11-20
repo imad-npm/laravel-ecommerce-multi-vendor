@@ -32,7 +32,7 @@ $sizeClasses = [ 'sm' => 'px-3 py-1.5 text-xs', 'md' => 'px-4 py-2 text-sm', 'lg
 
 $resolvedColor= $variantColors[$color] ?? 'gray' ;
 $variantClasses = [
-    'primary' => 'bg-gray-800 border border-transparent text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:ring-primary rounded-md',
+    'primary' => 'bg-primary border border-transparent text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:ring-primary rounded-md',
     'secondary' => 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-primary rounded-md',
     'danger' => 'bg-red-600 border border-transparent text-white hover:bg-red-500 focus:bg-red-700 active:bg-red-900 focus:ring-red-500 rounded-md',
     'outline' => 'bg-transparent border border-gray-300 text-gray-700 hover:bg-gray-100 focus:ring-primary rounded-md',

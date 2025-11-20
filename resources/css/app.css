@@ -4,17 +4,16 @@
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
-   
 
 @theme {
-  /* === Brand Accents === */
-   --color-primary: #1f1f1f;       /* Elegant dark main */
+  /* === Brand Colors === */
+  --color-primary: #1f1f1f;       /* Elegant dark main */
   --color-primary-dark: #121212;  /* Darker variant for hover/active */
 
   --color-secondary: #3bb29d;     /* Muted emerald */
   --color-secondary-dark: #2d8d7b;
 
-  /* === Elegant Neutral Grays (UI) === */
+  /* === Elegant Neutral Grays === */
   --color-gray-50:  #f8f9fb;
   --color-gray-100: #f1f3f7;
   --color-gray-200: #e4e7ec;
@@ -23,17 +22,17 @@
   --color-gray-500: #667085;
   --color-gray-600: #475467;
   --color-gray-700: #344054;
-  --color-gray-800: #1d2939;
-  --color-gray-900: #0f172a;
+  --color-gray-800: #1d2939; /* main dark gray */
+  --color-gray-900: #0f172a; /* near black */
 
-  /* === Surface Colors === */
-  --color-bg: #ffffff;
-  --color-bg-muted: #f7f9fc;
-  --color-bg-card: #ffffff;
+  /* === Surface / Background Colors === */
+  --color-bg: #121212;          /* main background */
+  --color-bg-muted: #1f1f1f;    /* muted background */
+  --color-bg-card: #1d1d1d;     /* card surfaces */
 
   /* === Text Colors === */
-  --color-text: #0f172a;
-  --color-text-muted: #475467;
+  --color-text: #f8f9fb;        /* main text */
+  --color-text-muted: #98a2b3;  /* secondary text */
 
   /* === Status Colors === */
   --color-success: #16a34a;

@@ -16,7 +16,7 @@
                     <div class="md:flex justify-between items-start gap-6">
                         <!-- Product Info -->
                         <div class="flex-1 space-y-2">
-                            <div class="text-lg font-semibold text-gray-800">
+                            <div class="text-lg font-semibold text-primary">
                                 🛒 {{ $item->product->name }}
                             </div>
                             <div class="text-gray-600 text-sm">
@@ -38,7 +38,7 @@
                                             OrderStatus::PAID => 'bg-green-100 text-green-800',
                                             OrderStatus::SHIPPED => 'bg-primary text-primary',
                                             OrderStatus::CANCELLED => 'bg-red-100 text-red-800',
-                                            default => 'bg-gray-100 text-gray-800'
+                                            default => 'bg-gray-100 text-primary'
                                         };
                                     @endphp
                                     {{ $statusClass }}

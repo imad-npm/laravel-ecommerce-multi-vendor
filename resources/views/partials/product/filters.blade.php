@@ -32,7 +32,7 @@
                 class="bg-white w-full h-full sm:h-auto sm:w-full max-w-xl rounded-none sm:rounded-lg shadow-lg p-6 space-y-4 flex flex-col justify-center relative overflow-y-auto"
                 tabindex="-1" x-ref="modal" @keydown.window.escape="showFilters = false" x-init="$watch('showFilters', v => { if(v) { setTimeout(() => $refs.modal.querySelector('input,select,button').focus(), 50) } })">
                 <div class="flex justify-between items-center border-b pb-2 mb-4">
-                    <h2 class="text-lg font-semibold text-gray-800">Advanced Filters</h2>
+                    <h2 class="text-lg font-semibold text-primary">Advanced Filters</h2>
                     <x-ui.button @click="showFilters = false"  aria-label="Close">&times;</x-ui.button>
                 </div>
                 {{-- Price Range --}}

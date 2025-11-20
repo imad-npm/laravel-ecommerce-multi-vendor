@@ -3,7 +3,7 @@
 @endphp
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-2xl font-bold text-gray-800">Edit Order #{{ $order->id }}</h2>
+        <h2 class="text-2xl font-bold text-primary">Edit Order #{{ $order->id }}</h2>
     </x-slot>
 
     <div class="py-10 bg-gray-50">

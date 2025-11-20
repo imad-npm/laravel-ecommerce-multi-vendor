@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-2xl font-bold text-gray-800">Product Details</h2>
+        <h2 class="text-2xl font-bold text-primary">Product Details</h2>
     </x-slot>
 
     <div class="py-10 bg-gray-50">
@@ -124,7 +124,7 @@
 
             {{-- Avis clients --}}
             <div class="bg-white rounded-2xl shadow p-6 space-y-8">
-                <h2 class="text-xl font-semibold text-gray-800">Customer Reviews</h2>
+                <h2 class="text-xl font-semibold text-primary">Customer Reviews</h2>
 
                 @include('customer.products.partials.reviews', ['reviews' => $reviews])
 

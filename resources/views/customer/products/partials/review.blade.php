@@ -1,6 +1,6 @@
 <div class="border-b pb-4 last:border-b-0 last:pb-0">
     <div class="flex items-center gap-3 mb-2">
-        <span class="font-semibold text-gray-800">
+        <span class="font-semibold text-primary">
             @auth
                 @if($review->user_id === auth()->id())
                     Me

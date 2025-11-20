@@ -4,7 +4,7 @@ use App\Enums\OrderStatus;
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-2xl font-bold text-gray-800">🧾 My Orders</h2>
+        <h2 class="text-2xl font-bold text-primary">🧾 My Orders</h2>
     </x-slot>
 
     <div class="py-10 bg-gray-100">
@@ -23,7 +23,7 @@ use App\Enums\OrderStatus;
             {{-- Orders table --}}
             @else
                 <div class="bg-white p-6 rounded-2xl shadow-lg">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-6">🕘 Order History</h3>
+                    <h3 class="text-xl font-semibold text-primary mb-6">🕘 Order History</h3>
                     <x-table.index>
                             <x-table.head>
                                 <x-table.row>
@@ -53,7 +53,7 @@ use App\Enums\OrderStatus;
                                                                 No Img
                                                             </div>
                                                         @endif
-                                                        <span class="text-gray-800 font-medium">{{ $item->product->name }}</span>
+                                                        <span class="text-primary font-medium">{{ $item->product->name }}</span>
                                                         <span class="text-gray-500 text-xs">×{{ $item->quantity }}</span>
                                                     </div>
                                                 @endforeach

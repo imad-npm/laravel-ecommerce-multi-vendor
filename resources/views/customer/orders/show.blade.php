@@ -9,7 +9,7 @@
 @endphp
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-primary leading-tight">
             {{ __('Order Details') }}
         </h2>
     </x-slot>
@@ -34,7 +34,7 @@
                     </div>
                 </div>
 
-                <h3 class="text-2xl font-bold text-gray-800 mb-4 border-b pb-2">Items</h3>
+                <h3 class="text-2xl font-bold text-primary mb-4 border-b pb-2">Items</h3>
                 <div class="bg-gray-50 rounded-lg p-4 mb-8">
                     <ul class="divide-y divide-gray-200">
                         @foreach($order->items as $item)
@@ -49,7 +49,7 @@
                     </ul>
                 </div>
                 <div class="mt-8 flex items-center gap-4">
-                    <a href="{{ route('customer.orders.index') }}" class="inline-flex items-center px-6 py-3 bg-gray-800 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition ease-in-out duration-150">
+                    <a href="{{ route('customer.orders.index') }}" class="inline-flex items-center px-6 py-3 bg-primary border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition ease-in-out duration-150">
                         Back to Orders
                     </a>
                     @if($order->status === OrderStatus::PENDING)

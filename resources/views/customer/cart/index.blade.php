@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-3xl font-bold text-gray-800 flex items-center gap-2">
+        <h2 class="text-3xl font-bold text-primary flex items-center gap-2">
             🛒 Your Shopping Cart
         </h2>
     </x-slot>
@@ -31,7 +31,7 @@
                                          alt="{{ $item->product->name }}"
                                          class="w-24 h-24 object-cover rounded-lg shadow-sm">
                                     <div>
-                                        <h3 class="text-lg font-semibold text-gray-800">{{ $item->product->name }}</h3>
+                                        <h3 class="text-lg font-semibold text-primary">{{ $item->product->name }}</h3>
                                         <p class="text-sm text-gray-600 mt-1">
                                             ${{ number_format($item->product->price, 2) }} × {{ $item->quantity }}
                                             <span class="ml-2 text-gray-500">= ${{ number_format($item->product->price * $item->quantity, 2) }}</span>
@@ -59,7 +59,7 @@
 
                     {{-- Résumé --}}
                     <div class="bg-white rounded-2xl shadow-lg p-6 h-fit sticky top-20">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Order Summary</h3>
+                        <h3 class="text-xl font-semibold text-primary mb-4">Order Summary</h3>
 
                         <div class="space-y-2 text-sm text-gray-700">
                             @foreach($cartItems as $item)
@@ -71,7 +71,7 @@
                         </div>
 
                         <div class="border-t pt-4 mt-4">
-                            <div class="flex justify-between text-lg font-bold text-gray-800">
+                            <div class="flex justify-between text-lg font-bold text-primary">
                                 <span>Total</span>
                                 <span>${{ number_format($total, 2) }}</span>
                             </div>
