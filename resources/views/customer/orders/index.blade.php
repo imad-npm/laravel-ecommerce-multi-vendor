@@ -7,12 +7,12 @@ use App\Enums\OrderStatus;
         <h2 class="text-2xl font-bold text-primary">🧾 My Orders</h2>
     </x-slot>
 
-    <div class="py-10 bg-gray-100">
+    <div class="py-10 bg-neutral-100">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
 
             {{-- No orders --}}
             @if ($orders->isEmpty())
-                <div class="bg-white p-6 rounded-lg shadow text-center text-gray-600">
+                <div class="bg-white p-6 rounded-lg shadow text-center text-neutral-600">
                     <p class="text-lg font-semibold">You haven't placed any orders yet.</p>
                     <a href="{{ route('products.index') }}"
                         class="mt-4 inline-block px-5 py-2 bg-primary text-white text-sm rounded shadow hover:bg-primary transition">
@@ -39,7 +39,7 @@ use App\Enums\OrderStatus;
                                 @foreach ($orders as $order)
                                     <x-table.row>
                                         <x-table.data class="font-bold text-primary">#{{ $order->id }}</x-table.data>
-                                        <x-table.data class="text-gray-500">{{ $order->created_at->format('M d, Y H:i') }}</x-table.data>
+                                        <x-table.data class="text-neutral-500">{{ $order->created_at->format('M d, Y H:i') }}</x-table.data>
                                         <x-table.data>
                                             <div class="flex flex-col gap-2">
                                                 @foreach ($order->items as $item)
@@ -49,17 +49,17 @@ use App\Enums\OrderStatus;
                                                                 alt="{{ $item->product->name }}"
                                                                 class="w-8 h-8 object-cover rounded shadow-sm">
                                                         @else
-                                                            <div class="w-8 h-8 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-400">
+                                                            <div class="w-8 h-8 bg-neutral-200 rounded flex items-center justify-center text-xs text-neutral-400">
                                                                 No Img
                                                             </div>
                                                         @endif
                                                         <span class="text-primary font-medium">{{ $item->product->name }}</span>
-                                                        <span class="text-gray-500 text-xs">×{{ $item->quantity }}</span>
+                                                        <span class="text-neutral-500 text-xs">×{{ $item->quantity }}</span>
                                                     </div>
                                                 @endforeach
                                             </div>
                                         </x-table.data>
-                                        <x-table.data class="font-semibold text-gray-900">${{ number_format($order->total, 2) }}</x-table.data>
+                                        <x-table.data class="font-semibold text-neutral-900">${{ number_format($order->total, 2) }}</x-table.data>
                                         <x-table.data>
                                             @php
                                                 $statusClass = match ($order->status) {
@@ -67,7 +67,7 @@ use App\Enums\OrderStatus;
                                                     OrderStatus::PAID => 'bg-success-100 text-success-700',
                                                     OrderStatus::SHIPPED => 'bg-primary text-primary',
                                                     OrderStatus::CANCELLED => 'bg-red-100 text-red-700',
-                                                    default => 'bg-gray-100 text-gray-700',
+                                                    default => 'bg-neutral-100 text-neutral-700',
                                                 };
                                             @endphp
                                             <span class="px-3 py-1 text-xs rounded-full font-semibold {{ $statusClass }}">

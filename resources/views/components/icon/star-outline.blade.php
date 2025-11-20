@@ -1,4 +1,4 @@
-<svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+<svg class="w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20">
     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 
         0l1.178 3.63h3.813c.969 0 1.371 
         1.24.588 1.81l-3.087 2.245 

@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="text-4xl font-extrabold text-primary tracking-tight">Store</h2>
-                <p class="text-sm text-gray-500 mt-1">Your store's public profile and settings.</p>
+                <p class="text-sm text-neutral-500 mt-1">Your store's public profile and settings.</p>
             </div>
             <x-ui.button :href="route('vendor.store.edit')" variant="primary" size="lg" class="rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 me-2" fill="none"
@@ -16,9 +16,9 @@
         </div>
     </x-slot>
 
-    <div class="py-16 bg-gray-50">
+    <div class="py-16 bg-neutral-50">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-white rounded-3xl border border-gray-200 shadow-xl overflow-hidden">
+            <div class="bg-white rounded-3xl border border-neutral-200 shadow-xl overflow-hidden">
 
                 {{-- Header Section with Logo --}}
                 <div class="flex flex-col md:flex-row items-center md:items-start gap-8 p-10">
@@ -27,9 +27,9 @@
                         @if($store->logo)
                             <img src="{{ asset('storage/' . $store->logo) }}"
                                  alt="{{ $store->name }}"
-                                 class="w-40 h-40 object-cover rounded-2xl shadow border border-gray-300">
+                                 class="w-40 h-40 object-cover rounded-2xl shadow border border-neutral-300">
                         @else
-                            <div class="w-40 h-40 flex items-center justify-center bg-gray-100 rounded-2xl border border-gray-300 text-gray-400 text-sm italic">
+                            <div class="w-40 h-40 flex items-center justify-center bg-neutral-100 rounded-2xl border border-neutral-300 text-neutral-400 text-sm italic">
                                 No logo
                             </div>
                         @endif
@@ -38,16 +38,16 @@
                     {{-- Info --}}
                     <div class="flex-1">
                         <h3 class="text-3xl font-semibold text-primary">{{ $store->name }}</h3>
-                        <p class="text-gray-600 text-base mt-2 leading-relaxed">
+                        <p class="text-neutral-600 text-base mt-2 leading-relaxed">
                             {{ $store->description ?? 'No description provided.' }}
                         </p>
                     </div>
                 </div>
 
-                <hr class="border-gray-200">
+                <hr class="border-neutral-200">
 
                 {{-- Actions Footer --}}
-                <div class="flex items-center justify-end px-10 py-6 bg-gray-50">
+                <div class="flex items-center justify-end px-10 py-6 bg-neutral-50">
                     <form action="{{ route('vendor.store.destroy') }}" method="POST"
                           onsubmit="return confirm('Are you sure you want to delete your store? This action cannot be undone.');">
                         @csrf

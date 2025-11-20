@@ -6,12 +6,12 @@
         <h2 class="text-2xl font-bold text-primary">Order #{{ $order->id }}</h2>
     </x-slot>
 
-    <div class="py-10 bg-gray-50">
+    <div class="py-10 bg-neutral-50">
         <div class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-lg">
             <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
                 <div>
-                    <div class="text-lg font-semibold text-gray-700 mb-1">Customer</div>
-                    <div class="text-gray-900">{{ $order->customer->name }} <span class="text-gray-500 text-sm">({{ $order->customer->email }})</span></div>
+                    <div class="text-lg font-semibold text-neutral-700 mb-1">Customer</div>
+                    <div class="text-neutral-900">{{ $order->customer->name }} <span class="text-neutral-500 text-sm">({{ $order->customer->email }})</span></div>
                 </div>
                 <div class="mt-4 md:mt-0">
                     @php
@@ -28,7 +28,7 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div>
-                    <div class="text-sm text-gray-500">Shipping Address</div>
+                    <div class="text-sm text-neutral-500">Shipping Address</div>
                                         <div class="text-primary font-medium">
                         {{ $order->shipping_address_line_1 }}<br>
                         {{ $order->shipping_city }}, {{ $order->shipping_postal_code }}<br>
@@ -38,7 +38,7 @@
                 
             </div>
             <div class="mb-8">
-                <div class="text-sm text-gray-500">Order Total</div>
+                <div class="text-sm text-neutral-500">Order Total</div>
                 <div class="text-2xl font-bold text-primary">${{ number_format($order->total, 2) }}</div>
             </div>
             <div>

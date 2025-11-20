@@ -5,5 +5,5 @@
         @endforeach
     </div>
 @else
-    <p class="text-gray-500 text-sm">No reviews yet. Be the first to review this product!</p>
+    <p class="text-neutral-500 text-sm">No reviews yet. Be the first to review this product!</p>
 @endif

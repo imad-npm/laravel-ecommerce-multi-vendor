@@ -6,11 +6,11 @@
     <div class="py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
+                <div class="p-6 bg-white border-b border-neutral-200">
                     @if ($reviews->isEmpty())
                         <div class="text-center py-8">
-                            <p class="text-gray-500 text-lg">No reviews yet for your products.</p>
-                            <p class="text-gray-400 mt-2">Encourage your customers to leave feedback!</p>
+                            <p class="text-neutral-500 text-lg">No reviews yet for your products.</p>
+                            <p class="text-neutral-400 mt-2">Encourage your customers to leave feedback!</p>
                         </div>
                     @else
                         <x-table.index>

@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-10 bg-gray-100">
+    <div class="py-10 bg-neutral-100">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-md rounded-lg p-6">
                 <div class="flex justify-between items-center mb-6">
@@ -16,7 +16,7 @@
                 </div>
 
                 @if($products->isEmpty())
-                    <p class="text-gray-500">You haven’t added any products yet.</p>
+                    <p class="text-neutral-500">You haven’t added any products yet.</p>
                 @else
                     <x-table.index>
                             <x-table.head>
@@ -37,10 +37,10 @@
                                             @if($product->image)
                                                 <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-12 h-12 object-cover rounded">
                                             @else
-                                                <span class="text-gray-400 italic">No Image</span>
+                                                <span class="text-neutral-400 italic">No Image</span>
                                             @endif
                                         </x-table.data>
-                                        <x-table.data class="font-medium text-gray-900">
+                                        <x-table.data class="font-medium text-neutral-900">
                                             {{ $product->name }}
                                         </x-table.data>
                                         <x-table.data>
@@ -55,13 +55,13 @@
                                                         @if ($i <= round($product->reviews_avg_stars))
                                                             <x-icon.star class="w-4 h-4 text-yellow-400" />
                                                         @else
-                                                            <x-icon.star-outline class="w-4 h-4 text-gray-300" />
+                                                            <x-icon.star-outline class="w-4 h-4 text-neutral-300" />
                                                         @endif
                                                     @endfor
-                                                    <span class="ml-1 text-gray-600 text-xs">({{ number_format($product->reviews_avg_stars, 1) }})</span>
+                                                    <span class="ml-1 text-neutral-600 text-xs">({{ number_format($product->reviews_avg_stars, 1) }})</span>
                                                 </div>
                                             @else
-                                                <span class="text-gray-500 text-xs">No ratings</span>
+                                                <span class="text-neutral-500 text-xs">No ratings</span>
                                             @endif
                                         </x-table.data>
                                         <x-table.actions>

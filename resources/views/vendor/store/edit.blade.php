@@ -24,7 +24,7 @@
                     <x-ui.input type="file" name="logo" id="logo" class="mt-1 block w-full" />
                     @if($store->logo)
                         <div class="mt-4">
-                            <p class="text-sm text-gray-600">Current Logo:</p>
+                            <p class="text-sm text-neutral-600">Current Logo:</p>
                             <img src="{{ asset('storage/' . $store->logo) }}" alt="Current Store Logo" class="w-24 h-24 object-cover rounded-md shadow-sm mt-2">
                         </div>
                     @endif

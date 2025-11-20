@@ -13,9 +13,9 @@
                 </a>
             </div>
             <form method="GET" action="{{ route('admin.stores.index') }}"
-                class="mb-4 w-full max-w-2xl flex flex-wrap gap-2 items-center bg-gray-50 p-3 rounded shadow-sm">
+                class="mb-4 w-full max-w-2xl flex flex-wrap gap-2 items-center bg-neutral-50 p-3 rounded shadow-sm">
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by name..."
-                    class="flex-1 min-w-0 px-4 py-2 border border-gray-300 rounded-lg" />
+                    class="flex-1 min-w-0 px-4 py-2 border border-neutral-300 rounded-lg" />
                 <button type="submit" class="px-4 py-2 bg-primary text-white rounded-lg"> Search</button>
             </form>
             <x-table.index>

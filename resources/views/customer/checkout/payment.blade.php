@@ -5,7 +5,7 @@
     <div class="grid grid-cols-2 gap-8">
         <div>
             <h3 class="text-lg font-medium mb-4">Order Summary</h3>
-            <div class="bg-gray-50 p-4 rounded-md">
+            <div class="bg-neutral-50 p-4 rounded-md">
                 @if(isset($order))
                     @foreach($order->items as $item)
                         <div class="flex justify-between items-center mb-2">
@@ -13,7 +13,7 @@
                             <span>${{ number_format($item->price * $item->quantity, 2) }}</span>
                         </div>
                     @endforeach
-                    <div class="border-t border-gray-200 mt-4 pt-4">
+                    <div class="border-t border-neutral-200 mt-4 pt-4">
                         <div class="flex justify-between font-bold">
                             <span>Total</span>
                             <span>${{ number_format($order->total, 2) }}</span>
@@ -26,7 +26,7 @@
                             <span>${{ number_format($item->product->price * $item->quantity, 2) }}</span>
                         </div>
                     @endforeach
-                    <div class="border-t border-gray-200 mt-4 pt-4">
+                    <div class="border-t border-neutral-200 mt-4 pt-4">
                         <div class="flex justify-between font-bold">
                             <span>Total</span>
                             <span>${{ number_format($cart->total, 2) }}</span>

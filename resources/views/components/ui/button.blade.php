@@ -32,10 +32,10 @@ $sizeClasses = [ 'sm' => 'px-3 py-1.5 text-xs', 'md' => 'px-4 py-2 text-sm', 'lg
 
 $resolvedColor= $variantColors[$color] ?? 'gray' ;
 $variantClasses = [
-    'primary' => 'bg-primary border border-transparent text-white hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:ring-primary rounded-md',
-    'secondary' => 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-primary rounded-md',
+    'primary' => 'bg-primary border border-transparent text-white hover:bg-neutral-700 focus:bg-neutral-700 active:bg-neutral-900 focus:ring-primary rounded-md',
+    'secondary' => 'bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50 focus:ring-primary rounded-md',
     'danger' => 'bg-red-600 border border-transparent text-white hover:bg-red-500 focus:bg-red-700 active:bg-red-900 focus:ring-red-500 rounded-md',
-    'outline' => 'bg-transparent border border-gray-300 text-gray-700 hover:bg-gray-100 focus:ring-primary rounded-md',
+    'outline' => 'bg-transparent border border-neutral-300 text-neutral-700 hover:bg-neutral-100 focus:ring-primary rounded-md',
     'success' => 'bg-success-600 border border-transparent text-white hover:bg-success-700 focus:bg-success-700 active:bg-success-900 focus:ring-success-500 rounded-md',
     'text' => "text-{$resolvedColor}-600 hover:text-{$resolvedColor}-900 underline", // New text variant
 ];

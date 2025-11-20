@@ -27,7 +27,7 @@
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
                 <x-ui.checkbox id="remember_me" name="remember" />
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                <span class="ms-2 text-sm text-neutral-600">{{ __('Remember me') }}</span>
             </label>
         </div>
 

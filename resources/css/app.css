@@ -14,18 +14,7 @@
   --color-secondary: #3bb29d;     /* Muted emerald */
   --color-secondary-dark: #2d8d7b;
 
-  /* === Neutral Grays === */
-  --color-gray-50:  #f8f9fb;
-  --color-gray-100: #f1f3f7;
-  --color-gray-200: #e4e7ec;
-  --color-gray-300: #d0d5dd;
-  --color-gray-400: #98a2b3;
-  --color-gray-500: #667085;
-  --color-gray-600: #475467;
-  --color-gray-700: #344054;
-  --color-gray-800: #2c2c2c;  /* Matches primary-light for cards */
-  --color-gray-900: #1a1a1a;  /* Slightly darker than primary for deep sections */
-
+ 
   /* === Surface / Background Colors === */
   --color-bg: #121212;          /* main background */
   --color-bg-muted: #1f1f1f;    /* muted background */

@@ -3,14 +3,14 @@
         <h2 class="text-2xl font-bold text-primary">Product Details</h2>
     </x-slot>
 
-    <div class="py-10 bg-gray-50">
+    <div class="py-10 bg-neutral-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
 
             {{-- Détails produit --}}
             <div class="bg-white shadow-lg rounded-2xl grid md:grid-cols-2 overflow-hidden">
 
                 {{-- Image --}}
-                <div class="bg-gray-100 flex items-center justify-center p-8 relative">
+                <div class="bg-neutral-100 flex items-center justify-center p-8 relative">
                     @if($product->sold_count > 50)
                         <span class="absolute top-4 left-4 bg-yellow-400 text-white text-xs font-bold px-2 py-1 rounded-full shadow">
                             Best Seller
@@ -21,17 +21,17 @@
                         <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
                              class="object-contain max-h-96 w-full rounded-lg">
                     @else
-                        <div class="text-gray-400">No Image Available</div>
+                        <div class="text-neutral-400">No Image Available</div>
                     @endif
                 </div>
 
                 {{-- Infos --}}
                 <div class="p-8 flex flex-col justify-between space-y-6">
                     <div>
-                        <h1 class="text-3xl font-bold text-gray-900 mb-2">{{ $product->name }}</h1>
+                        <h1 class="text-3xl font-bold text-neutral-900 mb-2">{{ $product->name }}</h1>
 
                         {{-- Étoiles + vente --}}
-                        <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                        <div class="flex items-center gap-4 text-sm text-neutral-500 mb-4">
                             @php
                                 $rating = round($product->rating ?? 0, 1);
                             @endphp
@@ -48,13 +48,13 @@
                                         @elseif($i === $full + 1 && $half)
                                             <x-icon.star-half class="w-4 h-4 text-yellow-400"/>
                                         @else
-                                            <x-icon.star class="w-4 h-4 text-gray-300"/>
+                                            <x-icon.star class="w-4 h-4 text-neutral-300"/>
                                         @endif
                                     @endfor
                                 </div>
                                 <span>({{ number_format($rating, 1) }})</span>
                             @else
-                                <div class="text-gray-500">No reviews yet</div>
+                                <div class="text-neutral-500">No reviews yet</div>
                             @endif
 
                             <span class="ml-4">{{ $product->sold_count }} sold</span>
@@ -62,17 +62,17 @@
 
                         {{-- Description --}}
                         @if($product->description)
-                            <p class="text-gray-700 text-sm">{{ $product->description }}</p>
+                            <p class="text-neutral-700 text-sm">{{ $product->description }}</p>
                         @endif
 
                         {{-- Prix & Stock --}}
                         <div class="mt-6 grid grid-cols-2 gap-6 text-sm">
                             <div>
-                                <span class="block text-gray-500 mb-1">Price</span>
+                                <span class="block text-neutral-500 mb-1">Price</span>
                                 <span class="text-2xl font-bold text-primary">${{ number_format($product->price, 2) }}</span>
                             </div>
                             <div>
-                                <span class="block text-gray-500 mb-1">Stock</span>
+                                <span class="block text-neutral-500 mb-1">Stock</span>
                                 <span class="text-lg font-medium {{ $product->stock > 0 ? 'text-success-600' : 'text-red-600' }}">
                                     {{ $product->stock > 0 ? 'In Stock' : 'Out of Stock' }}
                                 </span>

@@ -24,10 +24,10 @@
         type="button"
         @click="open = !open"
         @click.away="open = false"
-        class="relative w-full cursor-pointer rounded-md bg-white py-1.5  pr-8 text-sm border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition"
+        class="relative w-full cursor-pointer rounded-md bg-white py-1.5  pr-8 text-sm border border-neutral-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition"
     ><span class="block truncate" x-text="selectedLabel"></span>
         <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-            <svg class="h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <svg class="h-4 w-4 text-neutral-400" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.19l3.71-3.96a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
             </svg>
         </span>

@@ -51,7 +51,7 @@
                         ->prepend(['value' => '', 'label' => 'Min Rating'])" :selected="request('rating')" />
                 </div>
                 {{-- In Stock --}}
-                <div class="flex items-center gap-2 text-sm text-gray-700">
+                <div class="flex items-center gap-2 text-sm text-neutral-700">
                     <x-ui.checkbox name="in_stock" value="1" :checked="request('in_stock')" id="in_stock" />
                     <label for="in_stock" class="cursor-pointer">Only show products in stock</label>
                 </div>

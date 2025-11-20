@@ -157,7 +157,7 @@
   @endphp
 
 
-  <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+  <nav x-data="{ open: false }" class="bg-white border-b border-neutral-100">
 
       <!-- Top bar -->
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -203,7 +203,7 @@
                   <x-ui.dropdown align="right" width="48">
                       <x-slot name="trigger">
                           <button
-                              class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                              class="inline-flex items-center px-3 py-2 text-sm font-medium text-neutral-500 bg-white hover:text-neutral-700 focus:outline-none transition">
                               <div>{{ $user?->name ?? 'Guest' }}</div>
                               <div class="ms-1">
                                   <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
@@ -239,7 +239,7 @@
               <!-- Hamburger -->
               <div class="-me-2 flex items-center sm:hidden">
                   <button @click="open = ! open"
-                      class="p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-100 rounded-md">
+                      class="p-2 text-neutral-400 hover:text-neutral-500 hover:bg-neutral-100 rounded-md">
                       <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24">
                           <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
                               stroke="currentColor" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -269,11 +269,11 @@
           </div>
 
           <!-- Mobile User Info -->
-          <div class="pt-4 pb-1 border-t border-gray-200">
+          <div class="pt-4 pb-1 border-t border-neutral-200">
               <div class="px-4">
                   @if ($user)
                       <div class="text-base text-primary">{{ $user->name }}</div>
-                      <div class="text-sm text-gray-500">{{ $user->email }}</div>
+                      <div class="text-sm text-neutral-500">{{ $user->email }}</div>
                   @else
                       <div class="text-base text-primary">Guest</div>
                   @endif

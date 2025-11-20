@@ -14,7 +14,7 @@
                     <!-- Shipping and Payment Column -->
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                         <!-- Shipping Address Selection -->
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Shipping Address</h3>
+                        <h3 class="text-lg font-medium text-neutral-900 mb-4">Shipping Address</h3>
                         
                         <div class="space-y-4" x-data="{ selectedAddress: '{{ $shippingAddresses->first()->id ?? '' }}' }">
                             @forelse ($shippingAddresses as $address)
@@ -22,7 +22,7 @@
                                     <x-ui.radio name="shipping_address_id" :value="$address->id" x-model="selectedAddress" />
                                     <div class="ml-4">
                                         <p class="text-primary">{{ $address->address_line_1 }}</p>
-                                        <p class="text-gray-600">{{ $address->city }}, {{ $address->postal_code }}</p>
+                                        <p class="text-neutral-600">{{ $address->city }}, {{ $address->postal_code }}</p>
                                     </div>
                                 </label>
                             @empty
@@ -41,7 +41,7 @@
                         <x-ui.input-error :messages="$errors->get('new_address.*')" class="mt-2" />
 
                         <!-- Payment Method Selection -->
-                        <h3 class="text-lg font-medium text-gray-900 mt-8 mb-4">Payment Method</h3>
+                        <h3 class="text-lg font-medium text-neutral-900 mt-8 mb-4">Payment Method</h3>
                         <div class="space-y-4">
                             <label class="flex items-center p-4 border rounded-lg cursor-pointer">
                                 <x-ui.radio name="payment_method" value="stripe" checked />
@@ -57,13 +57,13 @@
 
                     <!-- Cart Summary Column -->
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 h-fit">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Order Summary</h3>
+                        <h3 class="text-lg font-medium text-neutral-900 mb-4">Order Summary</h3>
                         <div class="space-y-4">
                             @foreach ($cart->items as $item)
                                 <div class="flex justify-between items-center">
                                     <div>
                                         <p class="font-medium">{{ $item->product->name }}</p>
-                                        <p class="text-sm text-gray-600">Quantity: {{ $item->quantity }}</p>
+                                        <p class="text-sm text-neutral-600">Quantity: {{ $item->quantity }}</p>
                                     </div>
                                     <p class="text-primary">${{ number_format($item->product->price * $item->quantity, 2) }}</p>
                                 </div>
