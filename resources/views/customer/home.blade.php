@@ -31,7 +31,7 @@
                 <h3 class="text-lg font-semibold text-primary mb-4">Shop by Category</h3>
                 <div class="flex flex-wrap gap-4">
                     @foreach($categories ?? [] as $category)
-                        <a href="{{ route('products.index', ['category' => $category->id]) }}" class="bg-primary text-primary px-4 py-2 rounded-lg font-medium hover:bg-primary">{{ $category->name }}</a>
+                        <a href="{{ route('products.index', ['category' => $category->id]) }}" class="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-primary">{{ $category->name }}</a>
                     @endforeach
                 </div>
             </div>
