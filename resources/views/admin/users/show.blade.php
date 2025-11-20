@@ -12,7 +12,7 @@
   
         <div class="mt-4 flex space-x-4">
           <a href="{{ route('admin.users.edit', $user) }}" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Edit</a>
-          <a href="{{ route('admin.users.index') }}" class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">Back to list</a>
+          <a href="{{ route('admin.users.index') }}" class="px-4 py-2 bg-gray-300 text-primary rounded hover:bg-gray-400">Back to list</a>
         </div>
       </div>
     </div>

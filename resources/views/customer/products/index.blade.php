@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="mb-6">
-            <h2 class="text-3xl font-bold text-gray-800 tracking-tight">🛍️ Discover Our Products</h2>
+            <h2 class="text-3xl font-bold text-primary tracking-tight">🛍️ Discover Our Products</h2>
             <p class="text-sm text-gray-500">Free shipping on orders over $50</p>
         </div>
 

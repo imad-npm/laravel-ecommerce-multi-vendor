@@ -167,7 +167,7 @@
                   <!-- Logo -->
                   <div class="shrink-0 flex items-center">
                       <a href="{{ getUserHomeRoute() }}">
-                          <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                          <x-application-logo class="block h-9 w-auto fill-current text-primary" />
                       </a>
                   </div>
 
@@ -272,10 +272,10 @@
           <div class="pt-4 pb-1 border-t border-gray-200">
               <div class="px-4">
                   @if ($user)
-                      <div class="text-base text-gray-800">{{ $user->name }}</div>
+                      <div class="text-base text-primary">{{ $user->name }}</div>
                       <div class="text-sm text-gray-500">{{ $user->email }}</div>
                   @else
-                      <div class="text-base text-gray-800">Guest</div>
+                      <div class="text-base text-primary">Guest</div>
                   @endif
               </div>
 

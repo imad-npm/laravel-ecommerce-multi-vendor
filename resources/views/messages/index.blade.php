@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-primary leading-tight">
             Chat with {{ $otherUser->name }} @if($conversation->product) about {{ $conversation->product->name }} @endif
         </h2>
     </x-slot>
@@ -12,7 +12,7 @@
                     <div class="flex flex-col space-y-4">
                         @foreach ($messages as $message)
                             <div class="flex @if ($message->sender_id === Auth::id()) justify-end @else justify-start @endif">
-                                <div class="@if ($message->sender_id === Auth::id()) bg-primary text-white @else bg-gray-200 text-gray-800 @endif p-3 rounded-lg max-w-xs">
+                                <div class="@if ($message->sender_id === Auth::id()) bg-primary text-white @else bg-gray-200 text-primary @endif p-3 rounded-lg max-w-xs">
                                     <p class="text-sm">{{ $message->message }}</p>
                                     <span class="text-xs opacity-75">{{ $message->created_at->diffForHumans() }}</span>
                                 </div>

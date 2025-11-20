@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <div>
-                <h2 class="text-4xl font-extrabold text-gray-800 tracking-tight">Store</h2>
+                <h2 class="text-4xl font-extrabold text-primary tracking-tight">Store</h2>
                 <p class="text-sm text-gray-500 mt-1">Your store's public profile and settings.</p>
             </div>
             <x-ui.button :href="route('vendor.store.edit')" variant="primary" size="lg" class="rounded-full">
@@ -37,7 +37,7 @@
 
                     {{-- Info --}}
                     <div class="flex-1">
-                        <h3 class="text-3xl font-semibold text-gray-800">{{ $store->name }}</h3>
+                        <h3 class="text-3xl font-semibold text-primary">{{ $store->name }}</h3>
                         <p class="text-gray-600 text-base mt-2 leading-relaxed">
                             {{ $store->description ?? 'No description provided.' }}
                         </p>

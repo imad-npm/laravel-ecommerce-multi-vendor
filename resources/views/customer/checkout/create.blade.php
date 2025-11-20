@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-primary leading-tight">
             {{ __('Checkout') }}
         </h2>
     </x-slot>
@@ -21,7 +21,7 @@
                                 <label class="flex items-center p-4 border rounded-lg cursor-pointer">
                                     <x-ui.radio name="shipping_address_id" :value="$address->id" x-model="selectedAddress" />
                                     <div class="ml-4">
-                                        <p class="text-gray-800">{{ $address->address_line_1 }}</p>
+                                        <p class="text-primary">{{ $address->address_line_1 }}</p>
                                         <p class="text-gray-600">{{ $address->city }}, {{ $address->postal_code }}</p>
                                     </div>
                                 </label>
@@ -45,11 +45,11 @@
                         <div class="space-y-4">
                             <label class="flex items-center p-4 border rounded-lg cursor-pointer">
                                 <x-ui.radio name="payment_method" value="stripe" checked />
-                                <span class="ml-4 text-gray-800">Credit Card (Stripe)</span>
+                                <span class="ml-4 text-primary">Credit Card (Stripe)</span>
                             </label>
                             <label class="flex items-center p-4 border rounded-lg cursor-pointer">
                                 <x-ui.radio name="payment_method" value="paypal" />
-                                <span class="ml-4 text-gray-800">PayPal</span>
+                                <span class="ml-4 text-primary">PayPal</span>
                             </label>
                         </div>
                         <x-ui.input-error :messages="$errors->get('payment_method')" class="mt-2" />
@@ -65,7 +65,7 @@
                                         <p class="font-medium">{{ $item->product->name }}</p>
                                         <p class="text-sm text-gray-600">Quantity: {{ $item->quantity }}</p>
                                     </div>
-                                    <p class="text-gray-800">${{ number_format($item->product->price * $item->quantity, 2) }}</p>
+                                    <p class="text-primary">${{ number_format($item->product->price * $item->quantity, 2) }}</p>
                                 </div>
                             @endforeach
                         </div>

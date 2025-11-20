@@ -1,13 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-2xl font-bold text-gray-800">Add New Product</h2>
+        <h2 class="text-2xl font-bold text-primary">Add New Product</h2>
     </x-slot>
 
     <div class="py-10 bg-gray-100">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-lg rounded-lg overflow-hidden">
                 <div class="px-6 py-4 border-b">
-                    <h3 class="text-xl font-semibold text-gray-800">Product Details</h3>
+                    <h3 class="text-xl font-semibold text-primary">Product Details</h3>
                 </div>
 
                 <form action="{{ route('vendor.products.store') }}" method="POST" enctype="multipart/form-data" class="px-6 py-6 space-y-6">
