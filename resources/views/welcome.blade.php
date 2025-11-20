@@ -28,7 +28,7 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="relative flex items-center justify-center px-6 pt-32 pb-20 bg-gradient-to-b from-primary/5 dark:from-neutral">
+  <section class="relative flex items-center justify-center px-6 pt-32 pb-20 l">
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       
       <!-- Text Content -->

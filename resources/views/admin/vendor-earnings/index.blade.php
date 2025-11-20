@@ -28,7 +28,7 @@
                                     {{ __('Payout') }}
                                 </x-table.header>
                                 <x-table.header>
-                                    <span class="sr-only">Edit</span>
+                                   Actions
                                 </x-table.header>
                             </x-table.row>
                         </x-table.head>
