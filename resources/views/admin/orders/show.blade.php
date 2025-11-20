@@ -39,7 +39,7 @@
             </div>
             <div class="mb-8">
                 <div class="text-sm text-gray-500">Order Total</div>
-                <div class="text-2xl font-bold text-indigo-700">${{ number_format($order->total, 2) }}</div>
+                <div class="text-2xl font-bold text-primary">${{ number_format($order->total, 2) }}</div>
             </div>
             <div>
                 <h3 class="font-semibold text-lg mb-3 text-gray-800">Ordered Items</h3>
@@ -65,7 +65,7 @@
                     </x-table.index>
             </div>
             <div class="mt-8">
-                <a href="{{ route('admin.orders.index') }}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded shadow transition">Back to Orders</a>
+                <a href="{{ route('admin.orders.index') }}" class="inline-block bg-primary hover:bg-primary text-white px-5 py-2 rounded shadow transition">Back to Orders</a>
             </div>
         </div>
     </div>

@@ -17,12 +17,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-10">
 
             {{-- 🚀 Promo Banner --}}
-            <div class="rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 p-6 flex items-center justify-between shadow-lg">
+            <div class="rounded-xl bg-gradient-to-r from-primary to-purple-600 p-6 flex items-center justify-between shadow-lg">
                 <div>
                     <h3 class="text-2xl font-bold text-white mb-1">Big Summer Sale!</h3>
                     <p class="text-white text-sm">Up to 50% off on selected products. Limited time only.</p>
                 </div>
-                <a href="{{ route('products.index') }}" class="bg-white text-indigo-700 font-semibold px-6 py-2 rounded-lg shadow hover:bg-gray-100 transition">Shop Now</a>
+                <a href="{{ route('products.index') }}" class="bg-white text-primary font-semibold px-6 py-2 rounded-lg shadow hover:bg-gray-100 transition">Shop Now</a>
             </div>
 
         
@@ -31,7 +31,7 @@
                 <h3 class="text-lg font-semibold text-gray-800 mb-4">Shop by Category</h3>
                 <div class="flex flex-wrap gap-4">
                     @foreach($categories ?? [] as $category)
-                        <a href="{{ route('products.index', ['category' => $category->id]) }}" class="bg-indigo-50 text-indigo-700 px-4 py-2 rounded-lg font-medium hover:bg-indigo-100">{{ $category->name }}</a>
+                        <a href="{{ route('products.index', ['category' => $category->id]) }}" class="bg-primary text-primary px-4 py-2 rounded-lg font-medium hover:bg-primary">{{ $category->name }}</a>
                     @endforeach
                 </div>
             </div>
@@ -39,10 +39,10 @@
             {{-- ⚡ Quick Actions --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 <a href="{{ route('products.index') }}"
-                   class="bg-white border border-indigo-200 p-6 rounded-xl shadow hover:shadow-lg transition group">
+                   class="bg-white border border-primary p-6 rounded-xl shadow hover:shadow-lg transition group">
                     <div class="flex items-center justify-between">
-                        <h4 class="text-lg font-semibold text-indigo-700 group-hover:underline">🛒 Browse Products</h4>
-                        <svg class="h-5 w-5 text-indigo-400 group-hover:translate-x-1 transition" fill="none"
+                        <h4 class="text-lg font-semibold text-primary group-hover:underline">🛒 Browse Products</h4>
+                        <svg class="h-5 w-5 text-primary group-hover:translate-x-1 transition" fill="none"
                              stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                   d="M9 5l7 7-7 7"/>
@@ -102,7 +102,7 @@
                                 <div class="w-24 h-24 bg-gray-200 rounded mb-2 flex items-center justify-center text-gray-400">No Image</div>
                             @endif
                             <div class="font-semibold text-gray-700 text-center">{{ $product->name }}</div>
-                            <div class="font-bold mt-1 text-indigo-600">${{ number_format($product->price, 2) }}</div>
+                            <div class="font-bold mt-1 text-primary">${{ number_format($product->price, 2) }}</div>
                             <x-ui.link variant="primary" href="{{ route('products.show', $product) }}" class="mt-2 text-sm">View</x-ui.link>
                         </div>
                     @endforeach
@@ -121,7 +121,7 @@
                                 <div class="w-24 h-24 bg-gray-200 rounded mb-2 flex items-center justify-center text-gray-400">No Image</div>
                             @endif
                             <div class="font-semibold text-gray-700 text-center">{{ $product->name }}</div>
-                            <div class="font-bold mt-1 text-indigo-600">${{ number_format($product->price, 2) }}</div>
+                            <div class="font-bold mt-1 text-primary">${{ number_format($product->price, 2) }}</div>
                             <x-ui.link variant="primary" href="{{ route('products.show', $product) }}" class="mt-2 text-sm">View</x-ui.link>
                         </div>
                     @endforeach
@@ -165,7 +165,7 @@
                     <h3 class="text-lg font-semibold text-gray-800 mb-1">Need Help?</h3>
                     <p class="text-gray-600 text-sm">Our support team is here for you 24/7.</p>
                 </div>
-                <a href="#" class="bg-indigo-600 text-white px-6 py-2 rounded-lg font-semibold shadow hover:bg-indigo-700 transition">Contact Support</a>
+                <a href="#" class="bg-primary text-white px-6 py-2 rounded-lg font-semibold shadow hover:bg-primary transition">Contact Support</a>
             </div>
         </div>
     </div>

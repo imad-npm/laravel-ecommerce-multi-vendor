@@ -16,14 +16,14 @@
                         <label for="name" class="block text-sm font-medium text-gray-700">Product Name</label>
                         <input type="text" name="name" id="name" required
                             value="{{ old('name', $product->name) }}"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
                     </div>
 
                     <!-- Description -->
                     <div>
                         <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
                         <textarea name="description" id="description" rows="4"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">{{ old('description', $product->description) }}</textarea>
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-primary focus:border-primary sm:text-sm">{{ old('description', $product->description) }}</textarea>
                     </div>
 
                     <!-- Price & Stock -->
@@ -32,13 +32,13 @@
                             <label for="price" class="block text-sm font-medium text-gray-700">Price ($)</label>
                             <input type="number" name="price" id="price" step="0.01" required
                                 value="{{ old('price', $product->price) }}"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
                         </div>
                         <div>
                             <label for="stock" class="block text-sm font-medium text-gray-700">Stock</label>
                             <input type="number" name="stock" id="stock" required
                                 value="{{ old('stock', $product->stock) }}"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-primary focus:border-primary sm:text-sm">
                         </div>
                     </div>
 
@@ -60,7 +60,7 @@
                             Cancel
                         </a>
                         <button type="submit"
-                            class="bg-indigo-600 text-white px-6 py-2 rounded shadow hover:bg-indigo-700 transition text-sm">
+                            class="bg-primary text-white px-6 py-2 rounded shadow hover:bg-primary transition text-sm">
                             ✅ Update Product
                         </button>
                     </div>

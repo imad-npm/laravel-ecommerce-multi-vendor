@@ -22,7 +22,7 @@
                             <div class="text-gray-600 text-sm">
                                 <p><strong>Quantity:</strong> {{ $item->quantity }}</p>
                                 <p><strong>Price per item:</strong> ${{ number_format($item->price, 2) }}</p>
-                                <p><strong>Total:</strong> <span class="font-medium text-indigo-600">${{ number_format($item->quantity * $item->price, 2) }}</span></p>
+                                <p><strong>Total:</strong> <span class="font-medium text-primary">${{ number_format($item->quantity * $item->price, 2) }}</span></p>
                             </div>
                         </div>
 
@@ -36,7 +36,7 @@
                                         $statusClass = match($item->order->status) {
                                             OrderStatus::PENDING => 'bg-yellow-100 text-yellow-800',
                                             OrderStatus::PAID => 'bg-green-100 text-green-800',
-                                            OrderStatus::SHIPPED => 'bg-blue-100 text-blue-800',
+                                            OrderStatus::SHIPPED => 'bg-primary text-primary',
                                             OrderStatus::CANCELLED => 'bg-red-100 text-red-800',
                                             default => 'bg-gray-100 text-gray-800'
                                         };

@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h3 class="text-2xl font-bold mb-6">Payout History</h3>
 
-                    <div class="bg-blue-500 text-white p-6 rounded-lg shadow-lg mb-6">
+                    <div class="bg-primary text-white p-6 rounded-lg shadow-lg mb-6">
                         <h4 class="text-lg font-semibold">Total Unpaid Earnings</h4>
                         <p class="text-3xl font-bold mt-2">${{ number_format($unpaidEarnings, 2) }}</p>
                     </div>

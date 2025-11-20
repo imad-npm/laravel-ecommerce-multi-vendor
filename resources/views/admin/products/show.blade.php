@@ -26,7 +26,7 @@
                     <div class="flex items-center space-x-6 mt-4">
                         <div>
                             <span class="block text-sm text-gray-500">Price</span>
-                            <span class="text-xl font-bold text-indigo-600">${{ number_format($product->price, 2) }}</span>
+                            <span class="text-xl font-bold text-primary">${{ number_format($product->price, 2) }}</span>
                         </div>
                         <div>
                             <span class="block text-sm text-gray-500">Stock</span>

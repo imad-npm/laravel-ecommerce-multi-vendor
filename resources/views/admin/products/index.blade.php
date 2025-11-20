@@ -52,7 +52,7 @@
                                     <x-table.data>
                                         @if ($product->category)
                                             <span
-                                                class="inline-block px-2 py-1 text-xs font-semibold text-indigo-700 bg-indigo-100 rounded-full">
+                                                class="inline-block px-2 py-1 text-xs font-semibold text-primary bg-primary rounded-full">
                                                 {{ $product->category->name }}
                                             </span>
                                         @else

@@ -11,7 +11,7 @@
                 <!-- Shipping Address -->
                 <div class="mb-6">
                     <label class="block text-sm font-medium text-gray-700">Shipping Address</label>
-                    <input type="text" name="address" required class="mt-1 block w-full border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                    <input type="text" name="address" required class="mt-1 block w-full border-gray-300 rounded-md p-2 focus:ring-primary focus:border-primary">
                 </div>
 
                 <!-- Payment Method -->
@@ -21,19 +21,19 @@
                      
                         <!-- Credit Card -->
                         <div class="flex items-center gap-3">
-                            <input type="radio" id="payment_card" name="payment_method" value="card" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                            <input type="radio" id="payment_card" name="payment_method" value="card" class="h-4 w-4 text-primary border-gray-300 focus:ring-primary">
                             <label for="payment_card" class="text-gray-700">Credit Card</label>
                         </div>
 
                         <!-- PayPal -->
                         <div class="flex items-center gap-3">
-                            <input type="radio" id="payment_paypal" name="payment_method" value="paypal" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                            <input type="radio" id="payment_paypal" name="payment_method" value="paypal" class="h-4 w-4 text-primary border-gray-300 focus:ring-primary">
                             <label for="payment_paypal" class="text-gray-700">PayPal</label>
                         </div>
 
                         <!-- Stripe -->
                         <div class="flex items-center gap-3">
-                            <input type="radio" id="payment_stripe" name="payment_method" value="stripe" class="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                            <input type="radio" id="payment_stripe" name="payment_method" value="stripe" class="h-4 w-4 text-primary border-gray-300 focus:ring-primary">
                             <label for="payment_stripe" class="text-gray-700">Stripe</label>
                         </div>
                     </div>
@@ -44,16 +44,16 @@
                     <!-- Credit Card Details -->
                     <div id="credit-card-details" class="hidden">
                         <label class="block text-sm font-medium text-gray-700">Card Number</label>
-                        <input type="text" name="card_number" placeholder="1234 5678 9012 3456" class="mt-1 block w-full border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        <input type="text" name="card_number" placeholder="1234 5678 9012 3456" class="mt-1 block w-full border-gray-300 rounded-md p-2 focus:ring-primary focus:border-primary">
 
                         <div class="grid grid-cols-2 gap-4 mt-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Expiry Date</label>
-                                <input type="text" name="expiry_date" placeholder="MM/YY" class="mt-1 block w-full border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                <input type="text" name="expiry_date" placeholder="MM/YY" class="mt-1 block w-full border-gray-300 rounded-md p-2 focus:ring-primary focus:border-primary">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">CVV</label>
-                                <input type="text" name="cvv" placeholder="123" class="mt-1 block w-full border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                <input type="text" name="cvv" placeholder="123" class="mt-1 block w-full border-gray-300 rounded-md p-2 focus:ring-primary focus:border-primary">
                             </div>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                     </span>
                 </div>
 
-                <button type="submit" class="mt-6 w-full bg-indigo-600 text-white py-3 rounded hover:bg-indigo-700 transition">
+                <button type="submit" class="mt-6 w-full bg-primary text-white py-3 rounded hover:bg-primary transition">
                     Confirm Order
                 </button>
             </form>

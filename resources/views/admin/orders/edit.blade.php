@@ -36,7 +36,7 @@
                 <div class="mb-6">
                     <label class="block text-sm font-medium text-gray-700">Status</label>
                     <select name="status" required
-                            class="mt-1 block w-full border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            class="mt-1 block w-full border-gray-300 rounded-md p-2 focus:ring-primary focus:border-primary">
                         @foreach(OrderStatus::cases() as $status)
                             <option value="{{ $status->value }}" {{ old('status', $order->status->value) === $status->value ? 'selected' : '' }}>
                                 {{ ucfirst($status->value) }}
@@ -54,7 +54,7 @@
                 </div>
 
                 <button type="submit"
-                        class="w-full bg-indigo-600 text-white py-3 rounded hover:bg-indigo-700 transition">
+                        class="w-full bg-primary text-white py-3 rounded hover:bg-primary transition">
                     Update Order
                 </button>
             </form>

@@ -34,7 +34,7 @@
         <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
                 <x-ui.link variant="default"
-                    class="underline text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    class="underline text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
                     href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </x-ui.link>

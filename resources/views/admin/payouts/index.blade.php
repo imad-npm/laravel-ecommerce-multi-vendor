@@ -12,7 +12,7 @@
                     <div class="flex justify-end mb-4">
                         <form action="{{ route('admin.payouts.payAll') }}" method="POST">
                             @csrf
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <button type="submit" class="bg-primary hover:bg-primary text-white font-bold py-2 px-4 rounded">
                                 {{ __('Pay All Unpaid Earnings') }}
                             </button>
                         </form>

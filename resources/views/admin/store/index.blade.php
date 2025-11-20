@@ -16,7 +16,7 @@
                 class="mb-4 w-full max-w-2xl flex flex-wrap gap-2 items-center bg-gray-50 p-3 rounded shadow-sm">
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by name..."
                     class="flex-1 min-w-0 px-4 py-2 border border-gray-300 rounded-lg" />
-                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg"> Search</button>
+                <button type="submit" class="px-4 py-2 bg-primary text-white rounded-lg"> Search</button>
             </form>
             <x-table.index>
                 <x-table.head>

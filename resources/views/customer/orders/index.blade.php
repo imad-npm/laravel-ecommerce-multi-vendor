@@ -15,7 +15,7 @@ use App\Enums\OrderStatus;
                 <div class="bg-white p-6 rounded-lg shadow text-center text-gray-600">
                     <p class="text-lg font-semibold">You haven't placed any orders yet.</p>
                     <a href="{{ route('products.index') }}"
-                        class="mt-4 inline-block px-5 py-2 bg-indigo-600 text-white text-sm rounded shadow hover:bg-indigo-700 transition">
+                        class="mt-4 inline-block px-5 py-2 bg-primary text-white text-sm rounded shadow hover:bg-primary transition">
                         Browse Products
                     </a>
                 </div>
@@ -38,7 +38,7 @@ use App\Enums\OrderStatus;
                             <x-table.body>
                                 @foreach ($orders as $order)
                                     <x-table.row>
-                                        <x-table.data class="font-bold text-indigo-700">#{{ $order->id }}</x-table.data>
+                                        <x-table.data class="font-bold text-primary">#{{ $order->id }}</x-table.data>
                                         <x-table.data class="text-gray-500">{{ $order->created_at->format('M d, Y H:i') }}</x-table.data>
                                         <x-table.data>
                                             <div class="flex flex-col gap-2">
@@ -65,7 +65,7 @@ use App\Enums\OrderStatus;
                                                 $statusClass = match ($order->status) {
                                                     OrderStatus::PENDING => 'bg-yellow-100 text-yellow-700',
                                                     OrderStatus::PAID => 'bg-green-100 text-green-700',
-                                                    OrderStatus::SHIPPED => 'bg-blue-100 text-blue-700',
+                                                    OrderStatus::SHIPPED => 'bg-primary text-primary',
                                                     OrderStatus::CANCELLED => 'bg-red-100 text-red-700',
                                                     default => 'bg-gray-100 text-gray-700',
                                                 };
@@ -103,10 +103,10 @@ use App\Enums\OrderStatus;
                                             @endif
                                         </x-table.data>
                                         <x-table.actions class="flex gap-2">
-                                            <a href="{{ route('customer.orders.show', $order->id) }}" class="inline-block px-4 py-2 bg-indigo-600 text-white text-xs rounded shadow hover:bg-indigo-700 transition">Show</a>
+                                            <a href="{{ route('customer.orders.show', $order->id) }}" class="inline-block px-4 py-2 bg-primary text-white text-xs rounded shadow hover:bg-primary transition">Show</a>
 
                                             @if ($order->status === OrderStatus::PENDING)
-                                                <a href="{{ route('customer.orders.checkout', $order->id) }}" class="inline-block px-4 py-2 bg-indigo-600 text-white text-xs rounded shadow hover:bg-indigo-700 transition">Pay</a>
+                                                <a href="{{ route('customer.orders.checkout', $order->id) }}" class="inline-block px-4 py-2 bg-primary text-white text-xs rounded shadow hover:bg-primary transition">Pay</a>
                                                 <form action="{{ route('customer.orders.cancel', $order->id) }}" method="POST" class="inline-block"
                                                       onsubmit="return confirm('Are you sure you want to cancel this order?')">
                                                     @csrf @method('PATCH')
