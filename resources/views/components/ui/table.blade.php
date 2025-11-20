@@ -5,7 +5,7 @@
 ])
 
 <table {{ $attributes->class('min-w-full table-auto text-sm') }}>
-    <thead class="bg-gray-100 text-gray-600 font-semibold text-xs uppercase">
+    <thead class="bg-neutral-100 text-neutral-600 font-semibold text-xs uppercase">
         <tr>
             @foreach($columns as $key => $label)
                 <th class="px-3 py-2 text-left">{{ $label }}</th>
@@ -13,9 +13,9 @@
         </tr>
     </thead>
 
-    <tbody class="divide-y divide-gray-200">
+    <tbody class="divide-y divide-neutral-200">
         @forelse($rows as $row)
-            <tr class="hover:bg-gray-50">
+            <tr class="hover:bg-neutral-50">
                 @foreach($columns as $key => $label)
                     <td class="px-3 py-2">
                         {{-- Render the slot for this column if defined --}}
@@ -30,7 +30,7 @@
             </tr>
         @empty
             <tr>
-                <td colspan="{{ count($columns) }}" class="px-3 py-4 text-center text-gray-500 italic">
+                <td colspan="{{ count($columns) }}" class="px-3 py-4 text-center text-neutral-500 italic">
                     {{ $empty }}
                 </td>
             </tr>

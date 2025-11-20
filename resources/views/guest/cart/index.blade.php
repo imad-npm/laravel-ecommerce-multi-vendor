@@ -9,10 +9,10 @@
         $items = $cart->items ?? collect();
     @endphp
 
-    <div class="py-12 bg-gray-50">
+    <div class="py-12 bg-neutral-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             @if ($items->isEmpty())
-                <div class="bg-white p-10 text-center rounded-2xl shadow-lg text-gray-500 text-lg">
+                <div class="bg-white p-10 text-center rounded-2xl shadow-lg text-neutral-500 text-lg">
                     <p>Your cart is empty.</p>
                     <x-ui.button :href="route('products.index')" variant="primary" class="mt-4">
                         Start Shopping
@@ -23,16 +23,16 @@
                     {{-- Liste des articles --}}
                     <div class="lg:col-span-2 bg-white rounded-2xl shadow-lg p-6 space-y-6">
                         @foreach($items as $item)
-                            <div class="flex flex-col md:flex-row items-center justify-between border-b border-gray-200 pb-6 gap-4">
+                            <div class="flex flex-col md:flex-row items-center justify-between border-b border-neutral-200 pb-6 gap-4">
                                 <div class="flex items-center gap-5 w-full md:w-auto">
                                     <img src="{{ asset('storage/' . $item->product->image) }}"
                                          alt="{{ $item->product->name }}"
                                          class="w-24 h-24 object-cover rounded-lg shadow-sm">
                                     <div>
                                         <h3 class="text-lg font-semibold text-primary">{{ $item->product->name }}</h3>
-                                        <p class="text-sm text-gray-600 mt-1">
+                                        <p class="text-sm text-neutral-600 mt-1">
                                             ${{ number_format($item->product->price, 2) }} × {{ $item->quantity }}
-                                            <span class="ml-2 text-gray-500">= ${{ number_format($item->product->price * $item->quantity, 2) }}</span>
+                                            <span class="ml-2 text-neutral-500">= ${{ number_format($item->product->price * $item->quantity, 2) }}</span>
                                         </p>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                     <div class="bg-white rounded-2xl shadow-lg p-6 h-fit sticky top-20">
                         <h3 class="text-xl font-semibold text-primary mb-4">Order Summary</h3>
 
-                        <div class="space-y-2 text-sm text-gray-700">
+                        <div class="space-y-2 text-sm text-neutral-700">
                             @foreach($items as $item)
                                 <div class="flex justify-between">
                                     <span>{{ $item->product->name }} × {{ $item->quantity }}</span>
@@ -80,7 +80,7 @@
                                 Proceed to Checkout
                             </x-ui.button>
                         @else
-                            <div class="mt-6 text-sm text-center text-gray-500">
+                            <div class="mt-6 text-sm text-center text-neutral-500">
                                 <x-ui.link variant="primary" href="{{ route('login') }}">Login</x-ui.link> to checkout.
                             </div>
                         @endauth

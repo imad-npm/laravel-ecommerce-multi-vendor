@@ -3,7 +3,7 @@
         <h2 class="text-2xl font-bold text-primary">Add New Product</h2>
     </x-slot>
 
-    <div class="py-10 bg-gray-100">
+    <div class="py-10 bg-neutral-100">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-lg rounded-lg overflow-hidden">
                 <div class="px-6 py-4 border-b">

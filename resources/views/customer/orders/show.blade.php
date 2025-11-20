@@ -17,9 +17,9 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-8">
-                <h1 class="text-3xl font-extrabold text-gray-900 mb-6">Order #{{ $order->id }}</h1>
+                <h1 class="text-3xl font-extrabold text-neutral-900 mb-6">Order #{{ $order->id }}</h1>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 mb-8 text-gray-700">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 mb-8 text-neutral-700">
                     <div>
                         
                         <p class="text-lg"><strong class="font-semibold">Status:</strong> <span class="ml-2 px-3 py-1 rounded-full text-sm font-medium {{ $statusClass }}">{{ ucfirst($order->status->value) }}</span></p>
@@ -35,21 +35,21 @@
                 </div>
 
                 <h3 class="text-2xl font-bold text-primary mb-4 border-b pb-2">Items</h3>
-                <div class="bg-gray-50 rounded-lg p-4 mb-8">
-                    <ul class="divide-y divide-gray-200">
+                <div class="bg-neutral-50 rounded-lg p-4 mb-8">
+                    <ul class="divide-y divide-neutral-200">
                         @foreach($order->items as $item)
                             <li class="flex justify-between items-center py-3">
                                 <div class="flex-1">
-                                    <p class="text-lg font-medium text-gray-900">{{ $item->product->name }}</p>
-                                    <p class="text-sm text-gray-500">Quantity: {{ $item->quantity }}</p>
+                                    <p class="text-lg font-medium text-neutral-900">{{ $item->product->name }}</p>
+                                    <p class="text-sm text-neutral-500">Quantity: {{ $item->quantity }}</p>
                                 </div>
-                                <span class="text-lg font-semibold text-gray-900">${{ number_format($item->price, 2) }}</span>
+                                <span class="text-lg font-semibold text-neutral-900">${{ number_format($item->price, 2) }}</span>
                             </li>
                         @endforeach
                     </ul>
                 </div>
                 <div class="mt-8 flex items-center gap-4">
-                    <a href="{{ route('customer.orders.index') }}" class="inline-flex items-center px-6 py-3 bg-primary border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition ease-in-out duration-150">
+                    <a href="{{ route('customer.orders.index') }}" class="inline-flex items-center px-6 py-3 bg-primary border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-neutral-700 active:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition ease-in-out duration-150">
                         Back to Orders
                     </a>
                     @if($order->status === OrderStatus::PENDING)

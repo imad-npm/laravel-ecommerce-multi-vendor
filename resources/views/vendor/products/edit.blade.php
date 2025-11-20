@@ -1,9 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-3xl font-bold text-gray-900">Edit Product</h2>
+        <h2 class="text-3xl font-bold text-neutral-900">Edit Product</h2>
     </x-slot>
 
-    <div class="py-12 bg-gray-50">
+    <div class="py-12 bg-neutral-50">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white p-8 shadow-md rounded-lg">
                 <form action="{{ route('vendor.products.update', $product) }}" method="POST" enctype="multipart/form-data" class="space-y-6">

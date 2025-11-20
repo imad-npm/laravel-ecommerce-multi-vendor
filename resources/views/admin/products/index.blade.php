@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-10 bg-gray-100">
+    <div class="py-10 bg-neutral-100">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-md rounded-lg p-6">
                 <div class="flex justify-between items-center mb-6">
@@ -19,7 +19,7 @@
                 ])
 
                 @if ($products->isEmpty())
-                    <p class="text-gray-500">You haven’t added any products yet.</p>
+                    <p class="text-neutral-500">You haven’t added any products yet.</p>
                 @else
                     <x-table.index>
                         <x-table.head>
@@ -41,10 +41,10 @@
                                             <img src="{{ asset('storage/' . $product->image) }}"
                                                 alt="{{ $product->name }}" class="w-12 h-12 object-cover rounded">
                                         @else
-                                            <span class="text-gray-400 italic">No Image</span>
+                                            <span class="text-neutral-400 italic">No Image</span>
                                         @endif
                                     </x-table.data>
-                                    <x-table.data class="font-medium text-gray-900">
+                                    <x-table.data class="font-medium text-neutral-900">
                                         {{ $product->name }}
                                     </x-table.data>
                                     <x-table.data>${{ number_format($product->price, 2) }}</x-table.data>
@@ -56,7 +56,7 @@
                                                 {{ $product->category->name }}
                                             </span>
                                         @else
-                                            <span class="text-gray-400 italic text-sm">N/A</span>
+                                            <span class="text-neutral-400 italic text-sm">N/A</span>
                                         @endif
                                     </x-table.data>
                                     <x-table.data>

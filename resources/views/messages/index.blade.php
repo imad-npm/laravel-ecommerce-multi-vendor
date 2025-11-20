@@ -8,11 +8,11 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+                <div class="p-6 text-neutral-900">
                     <div class="flex flex-col space-y-4">
                         @foreach ($messages as $message)
                             <div class="flex @if ($message->sender_id === Auth::id()) justify-end @else justify-start @endif">
-                                <div class="@if ($message->sender_id === Auth::id()) bg-primary text-white @else bg-gray-200 text-primary @endif p-3 rounded-lg max-w-xs">
+                                <div class="@if ($message->sender_id === Auth::id()) bg-primary text-white @else bg-neutral-200 text-primary @endif p-3 rounded-lg max-w-xs">
                                     <p class="text-sm">{{ $message->message }}</p>
                                     <span class="text-xs opacity-75">{{ $message->created_at->diffForHumans() }}</span>
                                 </div>
