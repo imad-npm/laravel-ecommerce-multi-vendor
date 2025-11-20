@@ -8,7 +8,7 @@
             <div class="flex justify-between items-center mb-6">
                 <h3 class="text-lg font-semibold text-primary">Store List</h3>
                 <a href="{{ route('admin.stores.create') }}"
-                    class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm">
+                    class="bg-success-600 hover:bg-success-700 text-white px-4 py-2 rounded text-sm">
                     + New Store
                 </a>
             </div>

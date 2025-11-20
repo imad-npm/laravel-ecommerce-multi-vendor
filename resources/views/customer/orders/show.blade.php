@@ -2,7 +2,7 @@
     use App\Enums\OrderStatus;
 
        $statusClass = match($order->status) {
-                            OrderStatus::PAID => 'bg-green-100 text-green-700',
+                            OrderStatus::PAID => 'bg-success-100 text-success-700',
                             OrderStatus::PENDING => 'bg-yellow-100 text-yellow-700',
                             default => 'bg-red-100 text-red-700'
                         };
@@ -23,7 +23,7 @@
                     <div>
                         
                         <p class="text-lg"><strong class="font-semibold">Status:</strong> <span class="ml-2 px-3 py-1 rounded-full text-sm font-medium {{ $statusClass }}">{{ ucfirst($order->status->value) }}</span></p>
-                        <p class="text-lg mt-2"><strong class="font-semibold">Total:</strong> <span class="text-green-600 text-xl font-bold">${{ number_format($order->total, 2) }}</span></p>
+                        <p class="text-lg mt-2"><strong class="font-semibold">Total:</strong> <span class="text-success-600 text-xl font-bold">${{ number_format($order->total, 2) }}</span></p>
                     </div>
                     <div>
                         <p class="text-lg"><strong class="font-semibold">Address:</strong> {{ $order->shipping_address_line_1 ?? 'N/A' }}</p>
@@ -53,7 +53,7 @@
                         Back to Orders
                     </a>
                     @if($order->status === OrderStatus::PENDING)
-                        <a href="{{ route('customer.orders.checkout', $order) }}" class="inline-flex items-center px-6 py-3 bg-green-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-green-500 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                        <a href="{{ route('customer.orders.checkout', $order) }}" class="inline-flex items-center px-6 py-3 bg-success-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-success-500 active:bg-success-700 focus:outline-none focus:ring-2 focus:ring-success-500 focus:ring-offset-2 transition ease-in-out duration-150">
                             Pay Now
                         </a>
                     @endif

@@ -16,7 +16,7 @@
                 <div class="mt-4 md:mt-0">
                     @php
                         $statusClass = match($order->status) {
-                            OrderStatus::PAID => 'bg-green-100 text-green-700',
+                            OrderStatus::PAID => 'bg-success-100 text-success-700',
                             OrderStatus::PENDING => 'bg-yellow-100 text-yellow-700',
                             default => 'bg-red-100 text-red-700'
                         };

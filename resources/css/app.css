@@ -35,7 +35,16 @@
   --color-text-muted: #98a2b3;  /* secondary text */
 
   /* === Status Colors === */
-  --color-success: #16a34a;
+/* Success / Green scale */
+--color-success-100: #dcfce7;  /* very light */
+--color-success-200: #bbf7d0;
+--color-success-300: #86efac;
+--color-success-400: #4ade80;
+--color-success-500: #22c55e;  /* Tailwind 500 equivalent */
+--color-success-600: #16a34a;  /* your base */
+--color-success-700: #15803d;
+--color-success-800: #166534;
+--color-success-900: #14532d;  /* very dark */
   --color-warning: #eab308;
   --color-danger:  #ef4444;
 }

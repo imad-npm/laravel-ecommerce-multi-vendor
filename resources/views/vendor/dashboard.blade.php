@@ -18,7 +18,7 @@
                             </x-ui.button>
                         </div>
                     @else
-                        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6" role="alert">
+                        <div class="bg-success-100 border-l-4 border-success-500 text-success-700 p-4 mb-6" role="alert">
                             <p class="font-bold">Stripe Account Connected</p>
                             <p>Your Stripe account is successfully connected. You are ready to receive payouts.</p>
                             <form action="{{ route('vendor.stripe.disconnect') }}" method="POST" class="inline-block mt-2">
@@ -40,7 +40,7 @@
                         </div>
 
                         <!-- Total Orders -->
-                        <div class="bg-green-500 text-white p-6 rounded-lg shadow-lg">
+                        <div class="bg-success-500 text-white p-6 rounded-lg shadow-lg">
                             <h4 class="text-lg font-semibold">Total Orders</h4>
                             <p class="text-3xl font-bold mt-2">{{ $totalOrders }}</p>
                         </div>
