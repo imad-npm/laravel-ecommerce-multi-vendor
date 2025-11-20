@@ -9,6 +9,7 @@
   /* === Brand Colors === */
   --color-primary: #1f1f1f;       /* Elegant dark main */
   --color-primary-dark: #121212;  /* Darker variant for hover/active */
+--color-background:           #1f1f1f;  /* main background */
 
   --color-secondary: #3bb29d;     /* Muted emerald */
   --color-secondary-dark: #2d8d7b;
