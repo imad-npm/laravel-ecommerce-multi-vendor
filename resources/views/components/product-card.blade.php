@@ -74,7 +74,7 @@
         <div class="mt-2 flex items-center justify-between">
             <span class="text-primary text-sm font-bold">${{ number_format($product->price, 2) }}</span>
             <span class="text-[10px] px-1.5 py-0.5 rounded-full
-                {{ $product->stock > 0 ? 'bg-success-100 text-success-700' : 'bg-red-100 text-red-700' }}">
+                {{ $product->stock > 0 ? 'bg-success-50 text-success-700' : 'bg-red-100 text-red-700' }}">
                 {{ $product->stock > 0 ? 'In Stock' : 'Out' }}
             </span>
         </div>

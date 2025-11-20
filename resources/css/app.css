@@ -24,17 +24,17 @@
   --color-text: #f8f9fb;        /* main text */
   --color-text-muted: #98a2b3;  /* secondary text */
 
-  /* === Status Colors === */
-/* Success / Green scale */
---color-success-100: oklch(0.95 0.17 162.48);
-  --color-success-200: oklch(0.87 0.17 162.48);
-  --color-success-300: oklch(0.78 0.17 162.48);
-  --color-success-400: oklch(0.70 0.17 162.48);
-  --color-success-500: oklch(0.62 0.17 162.48);
-  --color-success-600: oklch(0.55 0.17 162.48);
-  --color-success-700: oklch(0.47 0.17 162.48);
-  --color-success-800: oklch(0.38 0.17 162.48);
-  --color-success-900: oklch(0.30 0.17 162.48);
+  --color-success-50: oklch(0.979 0.029 183.31);
+  --color-success-100: oklch(0.936 0.093 184.02);
+  --color-success-200: oklch(0.845 0.15 184.02);
+  --color-success-300: oklch(0.768 0.136 183.87);
+  --color-success-400: oklch(0.683 0.121 184.25);
+  --color-success-500: oklch(0.605 0.107 184.15);
+  --color-success-600: oklch(0.514 0.091 183.79);
+  --color-success-700: oklch(0.414 0.073 184.26);
+  --color-success-800: oklch(0.32 0.057 183.92);
+  --color-success-900: oklch(0.227 0.04 186.34);
+  --color-success-950: oklch(0.184 0.033 183.93);
 
   --color-warning: #eab308;
   --color-danger:  #ef4444;
