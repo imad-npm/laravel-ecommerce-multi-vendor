@@ -64,7 +64,7 @@ use App\Enums\OrderStatus;
                                             @php
                                                 $statusClass = match ($order->status) {
                                                     OrderStatus::PENDING => 'bg-yellow-100 text-yellow-700',
-                                                    OrderStatus::PAID => 'bg-success-100 text-success-700',
+                                                    OrderStatus::PAID => 'bg-success-50 text-success-700',
                                                     OrderStatus::SHIPPED => 'bg-primary text-primary',
                                                     OrderStatus::CANCELLED => 'bg-red-100 text-red-700',
                                                     default => 'bg-neutral-100 text-neutral-700',
