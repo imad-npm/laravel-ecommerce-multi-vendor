@@ -28,7 +28,7 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="relative flex items-center justify-center px-6 pt-32 pb-20 bg-gradient-to-b from-primary dark:from-gray">
+  <section class="relative flex items-center justify-center px-6 pt-32 pb-20 bg-gradient-to-b from-primary/5 dark:from-gray">
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       
       <!-- Text Content -->
@@ -90,7 +90,7 @@
   <!-- How It Works -->
   <section class="py-24 bg-primary dark:bg-gray">
     <div class="max-w-5xl mx-auto px-6 text-center">
-      <h2 class="text-3xl font-bold mb-16 text-gray dark:text-gray">How It Works</h2>
+      <h2 class="text-3xl font-bold mb-16 text-white dark:text-gray">How It Works</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
         <div class="p-8 rounded-3xl bg-white dark:bg-gray shadow-lg hover:shadow-2xl transition-all duration-300">
           <h3 class="font-semibold text-xl mb-2 text-primary dark:text-primary">1. Browse Products</h3>
