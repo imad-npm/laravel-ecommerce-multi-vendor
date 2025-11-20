@@ -25,7 +25,7 @@
             <option value="{{ UserRole::VENDOR->value }}" {{ request('role') == UserRole::VENDOR->value ? 'selected' : '' }}>Vendor</option>
             <option value="{{ UserRole::CUSTOMER->value }}" {{ request('role') == UserRole::CUSTOMER->value ? 'selected' : '' }}>Customer</option>
           </select>
-          <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg"> Search</button>
+          <button type="submit" class="px-4 py-2 bg-primary text-white rounded-lg"> Search</button>
         </form>
         <x-table.index>
             <x-table.head>

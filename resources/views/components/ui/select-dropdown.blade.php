@@ -24,7 +24,7 @@
         type="button"
         @click="open = !open"
         @click.away="open = false"
-        class="relative w-full cursor-pointer rounded-md bg-white py-1.5  pr-8 text-sm border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 transition"
+        class="relative w-full cursor-pointer rounded-md bg-white py-1.5  pr-8 text-sm border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition"
     ><span class="block truncate" x-text="selectedLabel"></span>
         <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
             <svg class="h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -41,8 +41,8 @@
         @foreach ($options as $option)
             <div 
                 @click="selectedLabel = '{{ addslashes($option['label']) }}'; selectedValue = '{{ $option['value'] }}'; open = false"
-                class="cursor-pointer select-none py-1.5 pl-3 pr-8 hover:bg-indigo-600 hover:text-white transition"
-                :class="{ 'bg-indigo-600 text-white': selectedValue == '{{ $option['value'] }}' }"
+                class="cursor-pointer select-none py-1.5 pl-3 pr-8 hover:bg-primary hover:text-white transition"
+                :class="{ 'bg-primary text-white': selectedValue == '{{ $option['value'] }}' }"
             >
                 <span class="block truncate" :class="{ 'font-semibold': selectedValue == '{{ $option['value'] }}' }">
                     {{ $option['label'] }}

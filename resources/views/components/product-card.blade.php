@@ -28,7 +28,7 @@
             </h3>
 
             @if($product->store)
-                <div class="text-[11px] text-indigo-700 font-medium whitespace-nowrap truncate">
+                <div class="text-[11px] text-primary font-medium whitespace-nowrap truncate">
                     Store:
                     <x-ui.link variant="primary" href="{{ route('stores.show', $product->store) }}">
                 <p class="text-sm font-medium text-gray-900">{{ $product->store->name }}</p>
@@ -37,7 +37,7 @@
             @endif
 
             @if($product->category)
-                <div class="text-[11px] text-indigo-500 whitespace-nowrap truncate">
+                <div class="text-[11px] text-primary whitespace-nowrap truncate">
                     {{ $product->category->name }}
                 </div>
         
@@ -72,7 +72,7 @@
 
         {{-- Price & Stock --}}
         <div class="mt-2 flex items-center justify-between">
-            <span class="text-indigo-600 text-sm font-bold">${{ number_format($product->price, 2) }}</span>
+            <span class="text-primary text-sm font-bold">${{ number_format($product->price, 2) }}</span>
             <span class="text-[10px] px-1.5 py-0.5 rounded-full
                 {{ $product->stock > 0 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
                 {{ $product->stock > 0 ? 'In Stock' : 'Out' }}

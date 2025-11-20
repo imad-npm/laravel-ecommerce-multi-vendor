@@ -13,14 +13,14 @@
                 <div class="flex items-center justify-center">
                     <div class="w-1/3">
                         <div class="text-center">
-                            <div class="mx-auto h-10 w-10 rounded-full flex items-center justify-center {{ request()->routeIs('customer.checkout.shipping') ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-600' }}">1</div>
+                            <div class="mx-auto h-10 w-10 rounded-full flex items-center justify-center {{ request()->routeIs('customer.checkout.shipping') ? 'bg-primary text-white' : 'bg-gray-300 text-gray-600' }}">1</div>
                             <p class="mt-2 text-sm font-medium">Shipping</p>
                         </div>
                     </div>
-                    <div class="flex-1 h-1 {{ request()->routeIs('customer.checkout.payment') ? 'bg-blue-500' : 'bg-gray-300' }}"></div>
+                    <div class="flex-1 h-1 {{ request()->routeIs('customer.checkout.payment') ? 'bg-primary' : 'bg-gray-300' }}"></div>
                     <div class="w-1/3">
                         <div class="text-center">
-                            <div class="mx-auto h-10 w-10 rounded-full flex items-center justify-center {{ request()->routeIs('customer.checkout.payment') ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-600' }}">2</div>
+                            <div class="mx-auto h-10 w-10 rounded-full flex items-center justify-center {{ request()->routeIs('customer.checkout.payment') ? 'bg-primary text-white' : 'bg-gray-300 text-gray-600' }}">2</div>
                             <p class="mt-2 text-sm font-medium">Payment</p>
                         </div>
                     </div>

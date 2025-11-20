@@ -12,7 +12,7 @@
                 <h3 class="text-lg font-semibold text-gray-800 mb-6">Order List</h3>
                 <form method="GET" action="{{ route('admin.orders.index') }}" class="mb-4 w-full max-w-2xl flex flex-wrap gap-2 items-center bg-gray-50 p-3 rounded shadow-sm">
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Order ID, customer name or email..." class="flex-1 min-w-0 px-4 py-2 border border-gray-300 rounded-lg" />
-                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg"> Search</button>
+                    <button type="submit" class="px-4 py-2 bg-primary text-white rounded-lg"> Search</button>
                 </form>
                 <x-table.index>
                         <x-table.head>
@@ -37,7 +37,7 @@
                                             $statusClass = match($order->status) {
                                                 OrderStatus::PENDING => 'bg-yellow-100 text-yellow-800',
                                                 OrderStatus::PAID => 'bg-green-100 text-green-800',
-                                                OrderStatus::SHIPPED => 'bg-blue-100 text-blue-800',
+                                                OrderStatus::SHIPPED => 'bg-primary text-primary',
                                                 OrderStatus::CANCELLED => 'bg-red-100 text-red-800',
                                                 default => 'bg-gray-100 text-gray-800'
                                             };

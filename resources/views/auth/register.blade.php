@@ -60,7 +60,7 @@
 
 
         <div class="flex items-center justify-end mt-4">
-            <x-ui.link variant="default" class="underline text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
+            <x-ui.link variant="default" class="underline text-sm rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="{{ route('login') }}">
     {{ __('Already registered?') }}
 </x-ui.link>
 

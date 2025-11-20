@@ -186,7 +186,7 @@
                                   {{ __($link['label']) }}
                                   @if ($link['label'] === 'Shopping Cart' && $cartCount > 0)
                                       <span
-                                          class="ml-1.5 relative inline-flex w-5 h-5 text-xs items-center justify-center bg-indigo-600 text-white font-semibold rounded-full ring-2 ring-white shadow">
+                                          class="ml-1.5 relative inline-flex w-5 h-5 text-xs items-center justify-center bg-primary text-white font-semibold rounded-full ring-2 ring-white shadow">
                                           {{ $cartCount }}
                                       </span>
                                   @endif
