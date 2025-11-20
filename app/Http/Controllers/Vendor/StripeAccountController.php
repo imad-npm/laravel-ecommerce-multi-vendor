@@ -8,10 +8,28 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Stripe\OAuth;
 use Stripe\Stripe;
+use Stripe\Account;
 
 class StripeAccountController extends Controller
 {
 
+    public function index()
+    {
+        $user = Auth::user();
+        $stripeAccount = null;
+
+        if ($user->stripe_account_id) {
+            try {
+                Stripe::setApiKey(config('services.stripe.secret'));
+                $stripeAccount = Account::retrieve($user->stripe_account_id);
+            } catch (\Exception $e) {
+                Log::error('Stripe account retrieval failed for user ' . $user->id . ': ' . $e->getMessage());
+                // Optionally, handle the error in the view
+            }
+        }
+
+        return view('vendor.stripe.index', compact('stripeAccount'));
+    }
 
     public function connect()
     {
