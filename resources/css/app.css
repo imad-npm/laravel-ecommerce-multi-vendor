@@ -26,15 +26,16 @@
 
   /* === Status Colors === */
 /* Success / Green scale */
---color-success-100: #dcfce7;  /* very light */
---color-success-200: #bbf7d0;
---color-success-300: #86efac;
---color-success-400: #4ade80;
---color-success-500: #22c55e;  /* Tailwind 500 equivalent */
---color-success-600: #16a34a;  /* your base */
---color-success-700: #15803d;
---color-success-800: #166534;
---color-success-900: #14532d;  /* very dark */
+--color-success-100: oklch(0.95 0.17 162.48);
+  --color-success-200: oklch(0.87 0.17 162.48);
+  --color-success-300: oklch(0.78 0.17 162.48);
+  --color-success-400: oklch(0.70 0.17 162.48);
+  --color-success-500: oklch(0.62 0.17 162.48);
+  --color-success-600: oklch(0.55 0.17 162.48);
+  --color-success-700: oklch(0.47 0.17 162.48);
+  --color-success-800: oklch(0.38 0.17 162.48);
+  --color-success-900: oklch(0.30 0.17 162.48);
+
   --color-warning: #eab308;
   --color-danger:  #ef4444;
 }
