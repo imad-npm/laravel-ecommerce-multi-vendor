@@ -35,7 +35,7 @@
                                     @php
                                         $statusClass = match($item->order->status) {
                                             OrderStatus::PENDING => 'bg-yellow-100 text-yellow-800',
-                                            OrderStatus::PAID => 'bg-green-100 text-green-800',
+                                            OrderStatus::PAID => 'bg-success-100 text-success-800',
                                             OrderStatus::SHIPPED => 'bg-primary text-primary',
                                             OrderStatus::CANCELLED => 'bg-red-100 text-red-800',
                                             default => 'bg-gray-100 text-primary'

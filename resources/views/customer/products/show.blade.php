@@ -73,7 +73,7 @@
                             </div>
                             <div>
                                 <span class="block text-gray-500 mb-1">Stock</span>
-                                <span class="text-lg font-medium {{ $product->stock > 0 ? 'text-green-600' : 'text-red-600' }}">
+                                <span class="text-lg font-medium {{ $product->stock > 0 ? 'text-success-600' : 'text-red-600' }}">
                                     {{ $product->stock > 0 ? 'In Stock' : 'Out of Stock' }}
                                 </span>
                             </div>

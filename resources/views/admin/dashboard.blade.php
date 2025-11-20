@@ -19,7 +19,7 @@
                         </div>
 
                         <!-- Total Orders -->
-                        <div class="bg-green-500 text-white p-6 rounded-lg shadow-lg">
+                        <div class="bg-success-500 text-white p-6 rounded-lg shadow-lg">
                             <h4 class="text-lg font-semibold">Total Orders</h4>
                             <p class="text-3xl font-bold mt-2">{{ $totalOrders }}</p>
                         </div>

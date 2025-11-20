@@ -52,10 +52,10 @@
                 </a>
 
                 <a href="{{ route('customer.orders.index') }}"
-                   class="bg-white border border-green-200 p-6 rounded-xl shadow hover:shadow-lg transition group">
+                   class="bg-white border border-success-200 p-6 rounded-xl shadow hover:shadow-lg transition group">
                     <div class="flex items-center justify-between">
-                        <h4 class="text-lg font-semibold text-green-700 group-hover:underline">📦 My Orders</h4>
-                        <svg class="h-5 w-5 text-green-400 group-hover:translate-x-1 transition" fill="none"
+                        <h4 class="text-lg font-semibold text-success-700 group-hover:underline">📦 My Orders</h4>
+                        <svg class="h-5 w-5 text-success-400 group-hover:translate-x-1 transition" fill="none"
                              stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                   d="M9 5l7 7-7 7"/>
@@ -145,7 +145,7 @@
                             </div>
                             @php
                                 $statusClass = match($order->status) {
-                                    OrderStatus::PAID => 'text-green-600',
+                                    OrderStatus::PAID => 'text-success-600',
                                     OrderStatus::PENDING => 'text-yellow-600',
                                     default => 'text-gray-600',
                                 };
