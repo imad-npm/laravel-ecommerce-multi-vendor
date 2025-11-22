@@ -45,7 +45,7 @@ class OrderController extends Controller
 
         $shippingAddresses = $user->shippingAddresses;
 
-        return view('customer.checkout.create', compact('cart', 'shippingAddresses'));
+        return view('customer.orders.create', compact('cart', 'shippingAddresses'));
     }
 
     public function store(StoreOrderRequest $request)
