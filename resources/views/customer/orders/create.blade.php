@@ -1,119 +1,85 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-2xl font-bold text-primary">Checkout</h2>
+        <h2 class="font-semibold text-xl text-primary leading-tight">
+            {{ __('Checkout') }}
+        </h2>
     </x-slot>
 
-    <div class="py-10 bg-neutral-50">
-        <div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
-            <form method="POST" action="{{ route('customer.orders.store') }}" id="checkout-form">
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <form action="{{ route('customer.orders.store') }}" method="POST" id="checkout-form">
                 @csrf
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
-                <!-- Shipping Address -->
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-neutral-700">Shipping Address</label>
-                    <input type="text" name="address" required class="mt-1 block w-full border-neutral-300 rounded-md p-2 focus:ring-primary focus:border-primary">
-                </div>
+                    <!-- Shipping and Payment Column -->
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                        <!-- Shipping Address Selection -->
+                        <h3 class="text-lg font-medium text-neutral-900 mb-4">Shipping Address</h3>
 
-                <!-- Payment Method -->
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-neutral-700 mb-2">Payment Method</label>
-                    <div class="space-y-4">
-                     
-                        <!-- Credit Card -->
-                        <div class="flex items-center gap-3">
-                            <input type="radio" id="payment_card" name="payment_method" value="card" class="h-4 w-4 text-primary border-neutral-300 focus:ring-primary">
-                            <label for="payment_card" class="text-neutral-700">Credit Card</label>
-                        </div>
+                        <div class="space-y-4" x-data="{ selectedAddress: '{{ $shippingAddresses->first()->id ?? '' }}' }">
+                            @forelse ($shippingAddresses as $address)
+                                <label class="flex items-center p-4 border rounded-lg cursor-pointer">
+                                    <x-ui.radio name="shipping_address_id" :value="$address->id"
+                                        x-model="selectedAddress" />
+                                    <div class="ml-4">
+                                        <p class="text-primary">{{ $address->address_line_1 }}</p>
+                                        <p class="text-neutral-600">{{ $address->city }}, {{ $address->postal_code }}
+                                        </p>
+                                    </div>
+                                </label>
+                            @empty
+                                <p>You have no saved shipping addresses.</p>
+                            @endforelse
 
-                        <!-- PayPal -->
-                        <div class="flex items-center gap-3">
-                            <input type="radio" id="payment_paypal" name="payment_method" value="paypal" class="h-4 w-4 text-primary border-neutral-300 focus:ring-primary">
-                            <label for="payment_paypal" class="text-neutral-700">PayPal</label>
-                        </div>
-
-                        <!-- Stripe -->
-                        <div class="flex items-center gap-3">
-                            <input type="radio" id="payment_stripe" name="payment_method" value="stripe" class="h-4 w-4 text-primary border-neutral-300 focus:ring-primary">
-                            <label for="payment_stripe" class="text-neutral-700">Stripe</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Conditional Fields -->
-                <div id="payment-details" class="hidden space-y-4">
-                    <!-- Credit Card Details -->
-                    <div id="credit-card-details" class="hidden">
-                        <label class="block text-sm font-medium text-neutral-700">Card Number</label>
-                        <input type="text" name="card_number" placeholder="1234 5678 9012 3456" class="mt-1 block w-full border-neutral-300 rounded-md p-2 focus:ring-primary focus:border-primary">
-
-                        <div class="grid grid-cols-2 gap-4 mt-4">
-                            <div>
-                                <label class="block text-sm font-medium text-neutral-700">Expiry Date</label>
-                                <input type="text" name="expiry_date" placeholder="MM/YY" class="mt-1 block w-full border-neutral-300 rounded-md p-2 focus:ring-primary focus:border-primary">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-neutral-700">CVV</label>
-                                <input type="text" name="cvv" placeholder="123" class="mt-1 block w-full border-neutral-300 rounded-md p-2 focus:ring-primary focus:border-primary">
+                            <!-- Link to add a new address -->
+                            <div class="mt-4">
+                                <x-ui.link variant="primary"
+                                    href="{{ route('customer.addresses.create', ['redirect' => 'checkout']) }}"
+                                    class="font-medium">
+                                    Add New Address
+                                </x-ui.link>
                             </div>
                         </div>
+
+                        <x-ui.input-error :messages="$errors->get('shipping_address_id')" class="mt-2" />
+                        <x-ui.input-error :messages="$errors->get('new_address.*')" class="mt-2" />
+
+                        <!-- Payment Method Selection -->
+                      
+                       
                     </div>
 
-                    <!-- PayPal Details -->
-                    <div id="paypal-details" class="hidden">
-                        <p class="text-sm text-neutral-600">You will be redirected to PayPal to complete your payment.</p>
+                    <!-- Cart Summary Column -->
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 h-fit">
+                        <h3 class="text-lg font-medium text-neutral-900 mb-4">Order Summary</h3>
+                        <div class="space-y-4">
+                            @foreach ($cart->items as $item)
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <p class="font-medium">{{ $item->product->name }}</p>
+                                        <p class="text-sm text-neutral-600">Quantity: {{ $item->quantity }}</p>
+                                    </div>
+                                    <p class="text-primary">
+                                        ${{ number_format($item->product->price * $item->quantity, 2) }}</p>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="border-t mt-4 pt-4 flex justify-between items-center">
+                            <p class="text-lg font-semibold">Total</p>
+                            <p class="text-lg font-semibold">
+                                ${{ number_format($cart->items->sum(fn($i) => $i->product->price * $i->quantity), 2) }}
+                            </p>
+                        </div>
+                        <div class="mt-6">
+                            <x-ui.button type="submit" variant="primary" class="w-full justify-center">
+                                Place Order and Proceed to Payment
+                            </x-ui.button>
+                        </div>
                     </div>
 
-                    <!-- Stripe Details -->
-                    <div id="stripe-details" class="hidden">
-                        <p class="text-sm text-neutral-600">You will be redirected to Stripe to complete your payment.</p>
-                    </div>
                 </div>
-
-                <!-- Total and Submit Button -->
-                <div class="flex justify-between items-center border-t pt-4 mt-6">
-                    <span class="text-lg font-bold">Total:</span>
-                    <span class="text-lg font-bold">
-                        ${{ number_format($cart->items->sum(fn($i) => $i->product->price * $i->quantity), 2) }}
-                    </span>
-                </div>
-
-                <button type="submit" class="mt-6 w-full bg-primary text-white py-3 rounded hover:bg-primary transition">
-                    Confirm Order
-                </button>
             </form>
         </div>
     </div>
-
-    <!-- JavaScript for Conditional Fields -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const paymentMethodRadios = document.querySelectorAll('input[name="payment_method"]');
-            const paymentDetailsContainer = document.getElementById('payment-details');
-            const creditCardDetails = document.getElementById('credit-card-details');
-            const paypalDetails = document.getElementById('paypal-details');
-            const stripeDetails = document.getElementById('stripe-details');
-
-            paymentMethodRadios.forEach(radio => {
-                radio.addEventListener('change', () => {
-                    // Hide all details first
-                    paymentDetailsContainer.classList.add('hidden');
-                    creditCardDetails.classList.add('hidden');
-                    paypalDetails.classList.add('hidden');
-                    stripeDetails.classList.add('hidden');
-
-                    // Show relevant details based on selected payment method
-                    if (radio.value === 'card') {
-                        paymentDetailsContainer.classList.remove('hidden');
-                        creditCardDetails.classList.remove('hidden');
-                    } else if (radio.value === 'paypal') {
-                        paymentDetailsContainer.classList.remove('hidden');
-                        paypalDetails.classList.remove('hidden');
-                    } else if (radio.value === 'stripe') {
-                        paymentDetailsContainer.classList.remove('hidden');
-                        stripeDetails.classList.remove('hidden');
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 </x-app-layout>
