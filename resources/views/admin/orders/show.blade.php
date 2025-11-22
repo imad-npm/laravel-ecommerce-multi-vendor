@@ -65,7 +65,7 @@
                     </x-table.index>
             </div>
             <div class="mt-8">
-                <a href="{{ route('admin.orders.index') }}" class="inline-block bg-primary hover:bg-primary text-white px-5 py-2 rounded shadow transition">Back to Orders</a>
+                <x-ui.button :href="route('admin.orders.index')" variant="outline">Back to Orders</x-ui.button>
             </div>
         </div>
     </div>

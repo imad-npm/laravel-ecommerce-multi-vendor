@@ -22,9 +22,9 @@
                         <p class="block text-neutral-700 text-sm font-bold mb-2">{{ __('Status') }}: {{ $payout->status }}</p>
                     </div>
                     <div class="flex items-center justify-between">
-                        <a href="{{ route('admin.payouts.index') }}" class="bg-neutral-500 hover:bg-neutral-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        <x-ui.button :href="route('admin.payouts.index')" variant="outline">
                             {{ __('Back to list') }}
-                        </a>
+                        </x-ui.button>
                     </div>
                 </div>
             </div>
