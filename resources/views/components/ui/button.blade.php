@@ -33,7 +33,7 @@
         'primary' =>
             'bg-primary border border-transparent text-white hover:bg-neutral-700 focus:bg-neutral-700 active:bg-neutral-900 focus:ring-primary rounded-md',
         'secondary' =>
-            'bg-white border border-neutral-300 text-neutral-700 hover:bg-neutral-50 focus:ring-primary rounded-md',
+            'bg-secondary border border-transparent text-primary hover:bg-secondary-700 focus:ring-primary rounded-md',
         'danger' =>
             'bg-red-600 border border-transparent text-white hover:bg-red-500 focus:bg-red-700 active:bg-red-900 focus:ring-red-500 rounded-md',
         'outline' =>
