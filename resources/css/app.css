@@ -7,22 +7,31 @@
 
 @theme {
   /* === Brand Colors === */
-  --color-primary: #1f1f1f;       /* Elegant dark main */
-  --color-primary-dark: #121212;  /* Darker variant for hover/active */
---color-background:           #1f1f1f;  /* main background */
+  --color-primary: #1f1f1f;
+  /* Elegant dark main */
+  --color-primary-dark: #121212;
+  /* Darker variant for hover/active */
+  --color-background: #1f1f1f;
+  /* main background */
 
-  --color-secondary: #3bb29d;     /* Muted emerald */
+  --color-secondary: oklch(0.97 0 0);
+  /* Muted emerald */
   --color-secondary-dark: #2d8d7b;
 
- 
+
   /* === Surface / Background Colors === */
-  --color-bg: #121212;          /* main background */
-  --color-bg-muted: #1f1f1f;    /* muted background */
-  --color-bg-card: #1d1d1d;     /* card surfaces */
+  --color-bg: #121212;
+  /* main background */
+  --color-bg-muted: #1f1f1f;
+  /* muted background */
+  --color-bg-card: #1d1d1d;
+  /* card surfaces */
 
   /* === Text Colors === */
-  --color-text: #f8f9fb;        /* main text */
-  --color-text-muted: #98a2b3;  /* secondary text */
+  --color-text: #f8f9fb;
+  /* main text */
+  --color-text-muted: #98a2b3;
+  /* secondary text */
 
   --color-success-50: oklch(0.979 0.029 183.31);
   --color-success-100: oklch(0.936 0.093 184.02);
@@ -37,5 +46,5 @@
   --color-success-950: oklch(0.184 0.033 183.93);
 
   --color-warning: #eab308;
-  --color-danger:  #ef4444;
+  --color-danger: #ef4444;
 }
