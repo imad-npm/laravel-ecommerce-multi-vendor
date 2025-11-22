@@ -64,9 +64,9 @@
 
                     <!-- Submit -->
                     <div class="flex justify-end">
-                        <x-ui.link variant="secondary" href="{{ route('vendor.dashboard') }}" class="mr-2">
+                        <x-ui.button variant="outline" :href="route('vendor.dashboard')" class="mr-2">
                             Cancel
-                        </x-ui.link>
+                        </x-ui.button>
                         <x-ui.button type="submit" variant="primary">
                             ✅ Update Product
                         </x-ui.button>

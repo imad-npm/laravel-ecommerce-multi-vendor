@@ -7,10 +7,7 @@
         <div class="bg-white shadow-md rounded-lg p-6">
             <div class="flex justify-between items-center mb-6">
                 <h3 class="text-lg font-semibold text-primary">Store List</h3>
-                <a href="{{ route('admin.stores.create') }}"
-                    class="bg-success-600 hover:bg-success-700 text-white px-4 py-2 rounded text-sm">
-                    + New Store
-                </a>
+                <x-ui.button :href="route('admin.stores.create')" variant="primary">+ New Store</x-ui.button>
             </div>
             <form method="GET" action="{{ route('admin.stores.index') }}"
                 class="mb-4 w-full max-w-2xl flex flex-wrap gap-2 items-center bg-neutral-50 p-3 rounded shadow-sm">

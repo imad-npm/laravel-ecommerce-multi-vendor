@@ -42,7 +42,7 @@
             </div>
 
             <div class="mt-6 flex justify-end">
-                <x-ui.button variant="secondary" x-on:click="$dispatch('close')">
+                <x-ui.button variant="outline" x-on:click="$dispatch('close')">
                     {{ __('Cancel') }}
                 </x-ui.button>
 
