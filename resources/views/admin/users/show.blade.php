@@ -11,8 +11,8 @@
         <p><strong>Joined:</strong> {{ $user->created_at->format('Y-m-d') }}</p>
   
         <div class="mt-4 flex space-x-4">
-          <a href="{{ route('admin.users.edit', $user) }}" class="px-4 py-2 bg-primary text-white rounded hover:bg-yellow-600">Edit</a>
-          <a href="{{ route('admin.users.index') }}" class="px-4 py-2 bg-neutral-300 text-primary rounded hover:bg-neutral-400">Back to list</a>
+          <x-ui.button :href="route('admin.users.edit', $user)" variant="primary">Edit</x-ui.button>
+          <x-ui.button :href="route('admin.users.index')" variant="outline">Back to list</x-ui.button>
         </div>
       </div>
     </div>

@@ -35,14 +35,12 @@
                     </div>
 
                     <div class="mt-6 flex space-x-3">
-                        <a href="{{ route('admin.products.edit', $product) }}"
-                           class="inline-flex items-center px-4 py-2 bg-yellow-500 text-white text-sm font-semibold rounded hover:bg-yellow-600">
+                        <x-ui.button :href="route('admin.products.edit', $product)" variant="primary">
                             ✏️ Edit
-                        </a>
-                        <a href="{{ route('admin.dashboard') }}"
-                           class="inline-flex items-center px-4 py-2 bg-neutral-200 text-primary text-sm font-medium rounded hover:bg-neutral-300">
+                        </x-ui.button>
+                        <x-ui.button :href="route('admin.dashboard')" variant="outline">
                             ← Back to Dashboard
-                        </a>
+                        </x-ui.button>
                     </div>
                 </div>
             </div>
