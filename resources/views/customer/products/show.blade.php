@@ -86,7 +86,7 @@
     ? route('customer.cart-items.store') 
     : route('cart-items.store') }}">                            @csrf
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            <x-ui.button type="submit" variant="success">
+                            <x-ui.button type="submit" variant="primary">
                                 🛒 Add to Cart
                             </x-ui.button>
                         </form>

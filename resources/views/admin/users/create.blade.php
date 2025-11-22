@@ -47,7 +47,7 @@
             <x-ui.input id="password_confirmation" type="password" name="password_confirmation" required class="mt-1 w-full" />
           </div>
   
-          <x-ui.button variant="success" type="submit" class="w-full justify-center">
+          <x-ui.button variant="primary" type="submit" class="w-full justify-center">
             Create User
           </x-ui.button>
         </form>

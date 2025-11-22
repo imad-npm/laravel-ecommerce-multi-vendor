@@ -22,7 +22,7 @@
             <x-ui.input id="logo" type="file" name="logo" class="mt-1 w-full" />
             <x-ui.input-error :messages="$errors->get('logo')" class="mt-2" />
           </div>
-          <x-ui.button variant="success" type="submit" class="w-full justify-center">Create Store</x-ui.button>
+          <x-ui.button variant="primary" type="submit" class="w-full justify-center">Create Store</x-ui.button>
         </form>
       </div>
     </div>
