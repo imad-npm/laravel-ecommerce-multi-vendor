@@ -14,7 +14,7 @@
         </div>
         {{-- Button to open advanced filters modal --}}
         <div class="w-full sm:w-auto flex justify-end">
-            <x-ui.button type="button" @click="showFilters = true" variant="secondary" size="md" class="w-full sm:w-auto">
+            <x-ui.button type="button" @click="showFilters = true" variant="outline" size="md" class="w-full sm:w-auto">
                 <span class="hidden sm:inline">More Filters</span>
                 <span class="sm:hidden">Filters</span>
             </x-ui.button>
@@ -33,7 +33,7 @@
                 tabindex="-1" x-ref="modal" @keydown.window.escape="showFilters = false" x-init="$watch('showFilters', v => { if(v) { setTimeout(() => $refs.modal.querySelector('input,select,button').focus(), 50) } })">
                 <div class="flex justify-between items-center border-b pb-2 mb-4">
                     <h2 class="text-lg font-semibold text-primary">Advanced Filters</h2>
-                    <x-ui.button @click="showFilters = false"  aria-label="Close">&times;</x-ui.button>
+                    <x-ui.button @click="showFilters = false"  aria-label="Close" variant="text">&times;</x-ui.button>
                 </div>
                 {{-- Price Range --}}
                 <div class="flex flex-col sm:flex-row gap-4">
@@ -66,7 +66,7 @@
                     ])" :selected="request('sort')" />
                 </div>
                 <div class="flex flex-col sm:flex-row justify-end gap-2 pt-4 border-t">
-                    <x-ui.button @click="showFilters = false" type="button" variant="secondary" size="md" class="w-full sm:w-auto">
+                    <x-ui.button @click="showFilters = false" type="button" variant="outline" size="md" class="w-full sm:w-auto">
                         Cancel
                     </x-ui.button>
                     <x-ui.button type="submit" variant="primary" size="md" class="w-full sm:w-auto">

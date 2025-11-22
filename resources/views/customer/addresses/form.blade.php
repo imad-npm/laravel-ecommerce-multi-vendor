@@ -20,9 +20,9 @@
 </div>
 
 <div class="flex justify-end mt-6">
-    <x-ui.link variant="secondary" href="{{ request()->query('redirect') === 'checkout' ? route('customer.orders.create') : route('customer.addresses.index') }}">
+    <x-ui.button variant="outline" :href="request()->query('redirect') === 'checkout' ? route('customer.orders.create') : route('customer.addresses.index')">
         Cancel
-    </x-ui.link>
+    </x-ui.button>
     <x-ui.button variant="primary" type="submit" class="ml-4">
         {{ $buttonText ?? 'Save' }}
     </x-ui.button>

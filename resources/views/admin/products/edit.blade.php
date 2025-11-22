@@ -56,9 +56,9 @@
                     <input type="hidden" name="category_id" value={{$product->category_id}} />
                     <!-- Submit -->
                     <div class="flex justify-end">
-                        <a href="{{ route('admin.products.index') }}" class="bg-neutral-200 text-neutral-700 px-4 py-2 rounded mr-2 hover:bg-neutral-300 text-sm">
+                        <x-ui.button variant="outline" :href="route('admin.products.index')">
                             Cancel
-                        </a>
+                        </x-ui.button>
                         <button type="submit"
                             class="bg-primary text-white px-6 py-2 rounded shadow hover:bg-primary transition text-sm">
                             ✅ Update Product

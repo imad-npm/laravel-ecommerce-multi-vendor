@@ -11,10 +11,7 @@
       <div class="bg-white shadow-md rounded-lg p-6">
         <div class="flex justify-between items-center mb-6">
           <h3 class="text-lg font-semibold text-primary">User List</h3>
-          <a href="{{ route('admin.users.create') }}"
-             class="bg-success-600 hover:bg-success-700 text-white px-4 py-2 rounded text-sm">
-            + New User
-          </a>
+          <x-ui.button :href="route('admin.users.create')" variant="primary">+ New User</x-ui.button>
         </div>
         <form method="GET" action="{{ route('admin.users.index') }}" class="mb-4 w-full max-w-2xl flex flex-wrap gap-2 items-center bg-neutral-50 p-3 rounded shadow-sm">
           <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by name or email..." class="flex-1 min-w-0 px-4 py-2 border border-neutral-300 rounded-lg" />

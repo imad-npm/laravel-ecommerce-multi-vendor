@@ -18,7 +18,7 @@
                         </div>
 
                         <div class="flex items-center justify-end mt-4">
-                            <x-ui.button class="ml-4">
+                            <x-ui.button class="ml-4" variant="primary">
                                 {{ __('Create') }}
                             </x-ui.button>
                         </div>

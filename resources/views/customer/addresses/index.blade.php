@@ -11,9 +11,7 @@
                 <div class="p-6 bg-white border-b border-neutral-200">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-lg font-medium text-neutral-900">Manage Your Addresses</h3>
-                        <a href="{{ route('customer.addresses.create', ['redirect' => request()->query('redirect')]) }}" class="inline-flex items-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-neutral-700 active:bg-neutral-900 focus:outline-none focus:border-neutral-900 focus:ring ring-neutral-300 disabled:opacity-25 transition ease-in-out duration-150">
-                            {{ __('Add New Address') }}
-                        </a>
+                        <x-ui.button :href="route('customer.addresses.create', ['redirect' => request()->query('redirect')])" variant="primary">{{ __('Add New Address') }}</x-ui.button>
                     </div>
 
                     @if (session('success'))

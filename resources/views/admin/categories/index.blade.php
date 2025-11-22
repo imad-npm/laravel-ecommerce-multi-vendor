@@ -7,10 +7,7 @@
       <div class="bg-white shadow-md rounded-lg p-6">
         <div class="flex justify-between items-center mb-6">
           <h3 class="text-lg font-semibold text-primary">Category List</h3>
-          <a href="{{ route('admin.categories.create') }}"
-             class="bg-success-600 hover:bg-success-700 text-white px-4 py-2 rounded text-sm">
-            + New Category
-          </a>
+          <x-ui.button :href="route('admin.categories.create')" variant="primary">+ New Category</x-ui.button>
         </div>
         <x-table.index>
             <x-table.head>
