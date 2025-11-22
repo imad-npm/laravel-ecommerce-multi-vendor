@@ -27,7 +27,7 @@
         </div>
         {{-- Advanced Filters Modal --}}
         <div x-show="showFilters" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-            class="fixed inset-0 z-40 bg-black bg-opacity-40 flex items-center justify-center px-0 sm:px-4" style="display: none">
+            class="fixed inset-0 z-40 bg-black/40 flex items-center justify-center px-0 sm:px-4" style="display: none">
             <div @click.away="showFilters = false" x-transition
                 class="bg-white w-full h-full sm:h-auto sm:w-full max-w-xl rounded-none sm:rounded-lg shadow-lg p-6 space-y-4 flex flex-col justify-center relative overflow-y-auto"
                 tabindex="-1" x-ref="modal" @keydown.window.escape="showFilters = false" x-init="$watch('showFilters', v => { if(v) { setTimeout(() => $refs.modal.querySelector('input,select,button').focus(), 50) } })">
