@@ -19,11 +19,11 @@ class GoogleAuthController extends Controller
         $googleUser = Socialite::driver('google')->user();
 
         $user = User::updateOrCreate(
-            ['email' => $googleUser->getEmail()],
+            ['email' => $googleUser->email],
             [
-                'name'      => $googleUser->getName(),
-                'google_id' => $googleUser->getId(),
-                'avatar'    => $googleUser->getAvatar(),
+                'name'      => $googleUser->name,
+                'google_id' => $googleUser->id,
+                'avatar'    => $googleUser->avatar,
                 'password'  => bcrypt(str()->random(32)), // Not used
             ]
         );
