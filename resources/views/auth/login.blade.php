@@ -4,6 +4,11 @@
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
+<a href="{{ route('google.redirect') }}"
+   class="px-4 py-2 bg-white border rounded flex items-center gap-2 shadow">
+    <img src="/icons/google.svg" class="w-5 h-5">
+    Login with Google
+</a>
 
         <!-- Email Address -->
         <div>
