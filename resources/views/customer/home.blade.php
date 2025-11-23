@@ -27,7 +27,7 @@
 
         
             {{-- 🏷️ Categories --}}
-            <div class="bg-white rounded-xl shadow p-6 border border-neutral-100">
+            <div class="bg-white rounded-xl shadow p-6 border border-neutral-300">
                 <h3 class="text-lg font-semibold text-primary mb-4">Shop by Category</h3>
                 <div class="flex flex-wrap gap-4">
                     @foreach($categories ?? [] as $category)
@@ -39,7 +39,7 @@
             {{-- ⚡ Quick Actions --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 <a href="{{ route('products.index') }}"
-                   class="bg-white border border-primary p-6 rounded-xl shadow hover:shadow-lg transition group">
+                   class="bg-white border border-neutral-300 p-6 rounded-xl shadow hover:shadow-lg transition group">
                     <div class="flex items-center justify-between">
                         <h4 class="text-lg font-semibold text-primary group-hover:underline">🛒 Browse Products</h4>
                         <svg class="h-5 w-5 text-primary group-hover:translate-x-1 transition" fill="none"
@@ -52,10 +52,10 @@
                 </a>
 
                 <a href="{{ route('customer.orders.index') }}"
-                   class="bg-white border border-success-200 p-6 rounded-xl shadow hover:shadow-lg transition group">
+                   class="bg-white border border-neutral-300 p-6 rounded-xl shadow hover:shadow-lg transition group">
                     <div class="flex items-center justify-between">
-                        <h4 class="text-lg font-semibold text-success-700 group-hover:underline">📦 My Orders</h4>
-                        <svg class="h-5 w-5 text-success-400 group-hover:translate-x-1 transition" fill="none"
+                        <h4 class="text-lg font-semibold  group-hover:underline">📦 My Orders</h4>
+                        <svg class="h-5 w-5  group-hover:translate-x-1 transition" fill="none"
                              stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                   d="M9 5l7 7-7 7"/>
@@ -77,10 +77,10 @@
                     <p class="text-sm text-neutral-500 mt-2">Change name, email or password securely.</p>
                 </a>
                 <a href="{{ route('cart-items.index') }}"
-                   class="bg-white border border-yellow-200 p-6 rounded-xl shadow hover:shadow-lg transition group">
+                   class="bg-white border border-neutral-300 p-6 rounded-xl shadow hover:shadow-lg transition group">
                     <div class="flex items-center justify-between">
-                        <h4 class="text-lg font-semibold text-yellow-700 group-hover:underline">🛒 View Cart</h4>
-                        <svg class="h-5 w-5 text-yellow-400 group-hover:translate-x-1 transition" fill="none"
+                        <h4 class="text-lg font-semibold  group-hover:underline">🛒 View Cart</h4>
+                        <svg class="h-5 w-5  group-hover:translate-x-1 transition" fill="none"
                              stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                   d="M9 5l7 7-7 7"/>
@@ -91,11 +91,11 @@
             </div>
 
             {{-- 🌟 Featured Products --}}
-            <div class="bg-white rounded-xl shadow p-6 border border-neutral-100">
+            <div class="bg-white rounded-xl shadow p-6 border border-neutral-300">
                 <h3 class="text-lg font-semibold text-primary mb-4">Featured Products</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                     @foreach($featured as $product)
-                        <div class="bg-neutral-50 rounded-lg p-4 flex flex-col items-center shadow hover:shadow-md transition">
+                        <div class="bg-neutral-50 border border-neutral-300 rounded-lg p-4 flex flex-col items-center shadow hover:shadow-md transition">
                             @if($product->image)
                                 <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-24 h-24 object-cover rounded mb-2">
                             @else
@@ -110,11 +110,11 @@
             </div>
 
             {{-- 🤖 Personalized Recommendations --}}
-            <div class="bg-white rounded-xl shadow p-6 border border-neutral-100">
+            <div class="bg-white rounded-xl shadow p-6 border border-neutral-300">
                 <h3 class="text-lg font-semibold text-primary mb-4">Recommended for You</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                     @foreach($recommended as $product)
-                        <div class="bg-neutral-50 rounded-lg p-4 flex flex-col items-center shadow hover:shadow-md transition">
+                        <div class="bg-neutral-50 border border-neutral-300 rounded-lg p-4 flex flex-col items-center shadow hover:shadow-md transition">
                             @if($product->image)
                                 <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-24 h-24 object-cover rounded mb-2">
                             @else
@@ -129,7 +129,7 @@
             </div>
 
             {{-- 🕘 Recent Orders --}}
-            <div class="bg-white rounded-xl shadow p-6 border border-neutral-100">
+            <div class="bg-white rounded-xl shadow p-6 border border-neutral-300">
                 <h3 class="text-lg font-semibold text-primary mb-4">Recent Orders</h3>
                 <div class="space-y-4">
                     @forelse($orders as $order)
@@ -160,7 +160,7 @@
             </div>
 
             {{-- 💬 Support --}}
-            <div class="bg-white rounded-xl shadow p-6 border border-neutral-100 flex items-center justify-between">
+            <div class="bg-white rounded-xl shadow p-6 border border-neutral-300 flex items-center justify-between">
                 <div>
                     <h3 class="text-lg font-semibold text-primary mb-1">Need Help?</h3>
                     <p class="text-neutral-600 text-sm">Our support team is here for you 24/7.</p>

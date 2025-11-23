@@ -162,7 +162,7 @@
   @endphp
 
 
-  <nav x-data="{ open: false }" class="bg-white border-b border-neutral-100">
+  <nav x-data="{ open: false }" class="bg-white border-b border-neutral-300">
 
       <!-- Top bar -->
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
