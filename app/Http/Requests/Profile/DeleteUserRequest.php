@@ -14,6 +14,10 @@ class DeleteUserRequest extends FormRequest
 
     public function rules(): array
     {
+        if ($this->user()->google_id !== null) {
+            return [];
+        }
+
         return [
             'password' => ['required', 'current_password'],
         ];
