@@ -103,10 +103,10 @@ use App\Enums\OrderStatus;
                                             @endif
                                         </x-table.data>
                                         <x-table.actions class="flex gap-2">
-                                            <a href="{{ route('customer.orders.show', $order->id) }}" class="inline-block px-4 py-2 bg-primary text-white text-xs rounded shadow hover:bg-primary transition">Show</a>
+                                            <x-ui.link  href="{{ route('customer.orders.show', $order->id) }}" >Show</x-ui.link>
 
                                             @if ($order->status === OrderStatus::PENDING)
-                                                <a href="{{ route('customer.orders.checkout', $order->id) }}" class="inline-block px-4 py-2 bg-primary text-white text-xs rounded shadow hover:bg-primary transition">Pay</a>
+                                                <x-ui.link href="{{ route('customer.orders.checkout', $order->id) }}" >Pay</x-ui.link>
                                                 <form action="{{ route('customer.orders.cancel', $order->id) }}" method="POST" class="inline-block"
                                                       onsubmit="return confirm('Are you sure you want to cancel this order?')">
                                                     @csrf @method('PATCH')
