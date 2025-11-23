@@ -56,4 +56,16 @@ class StoreService
         }
         return $store->delete();
     }
+
+    public function getTopVendors(int $limit = 5)
+    {
+        return Store::leftJoin('products', 'stores.id', '=', 'products.store_id')
+            ->leftJoin('order_items', 'products.id', '=', 'order_items.product_id')
+            ->leftJoin('orders', 'order_items.order_id', '=', 'orders.id')
+            ->selectRaw('stores.*, count(DISTINCT orders.id) as total_orders_count')
+            ->groupBy('stores.id')
+            ->orderBy('total_orders_count', 'desc')
+            ->take($limit)
+            ->get();
+    }
 }

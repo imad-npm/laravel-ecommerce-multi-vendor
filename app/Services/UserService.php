@@ -44,5 +44,15 @@ class UserService
     {
         return User::where('role', UserRole::VENDOR)->get();
     }
+
+    public function getTotalVendors(): int
+    {
+        return User::where('role', UserRole::VENDOR)->count();
+    }
+
+    public function getTotalCustomers(): int
+    {
+        return User::where('role', UserRole::CUSTOMER)->count();
+    }
 }
             
