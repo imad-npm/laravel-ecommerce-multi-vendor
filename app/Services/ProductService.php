@@ -115,4 +115,12 @@ class ProductService
 
         return $product->delete();
     }
+
+    public function getTopProducts(int $limit = 5)
+    {
+        return Product::withCount('orders')
+            ->orderBy('orders_count', 'desc')
+            ->take($limit)
+            ->get();
+    }
 }

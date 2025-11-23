@@ -11,11 +11,17 @@
                 <div class="p-6 bg-white border-b border-neutral-200">
                     <h3 class="text-2xl font-bold mb-6">Dashboard Analytics</h3>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3  gap-6">
                         <!-- Total Sales -->
                         <div class="bg-primary text-white p-6 rounded-lg shadow-lg">
                             <h4 class="text-lg font-semibold">Total Sales</h4>
                             <p class="text-3xl font-bold mt-2">${{ number_format($totalSales, 2) }}</p>
+                        </div>
+
+                        <!-- Total Commission -->
+                        <div class="bg-secondary text-primary border border-neutral-300 p-6 rounded-lg shadow-lg">
+                            <h4 class="text-lg font-semibold">Total Commission</h4>
+                            <p class="text-3xl font-bold mt-2">${{ number_format($totalCommission, 2) }}</p>
                         </div>
 
                         <!-- Total Orders -->
@@ -29,39 +35,76 @@
                             <h4 class="text-lg font-semibold">Total Customers</h4>
                             <p class="text-3xl font-bold mt-2">{{ $totalCustomers }}</p>
                         </div>
+
+                        <!-- Total Vendors -->
+                        <div class="bg-white border border-neutral-300 text-primary p-6 rounded-lg shadow-lg">
+                            <h4 class="text-lg font-semibold">Total Vendors</h4>
+                            <p class="text-3xl font-bold mt-2">{{ $totalVendors }}</p>
+                        </div>
                     </div>
 
-                    <!-- Top Selling Products -->
-                    <div class="mt-8">
-                        <h4 class="text-xl font-bold mb-4">Top Selling Products</h4>
-                        <x-table.index>
-                                <x-table.head>
-                                    <x-table.row>
-                                        <x-table.header>Product</x-table.header>
-                                        <x-table.header>Price</x-table.header>
-                                        <x-table.header>Orders</x-table.header>
-                                    </x-table.row>
-                                </x-table.head>
-                                <x-table.body>
-                                    @forelse ($topProducts as $product)
-                                    <x-table.row>
-                                        <x-table.header scope="row">
-                                            {{ $product->name }}
-                                        </x-table.header>
-                                        <x-table.data>
-                                            ${{ number_format($product->price, 2) }}
-                                        </x-table.data>
-                                        <x-table.data>
-                                            {{ $product->orders_count }}
-                                        </x-table.data>
-                                    </x-table.row>
-                                    @empty
-                                    <x-table.empty>
-                                        No products found.
-                                    </x-table.empty>
-                                    @endforelse
-                                </x-table.body>
-                            </x-table.index>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+                        <!-- Top Selling Products -->
+                        <div>
+                            <h4 class="text-xl font-bold mb-4">Top Selling Products</h4>
+                            <x-table.index>
+                                    <x-table.head>
+                                        <x-table.row>
+                                            <x-table.header>Product</x-table.header>
+                                            <x-table.header>Price</x-table.header>
+                                            <x-table.header>Orders</x-table.header>
+                                        </x-table.row>
+                                    </x-table.head>
+                                    <x-table.body>
+                                        @forelse ($topProducts as $product)
+                                        <x-table.row>
+                                            <x-table.header scope="row">
+                                                {{ $product->name }}
+                                            </x-table.header>
+                                            <x-table.data>
+                                                ${{ number_format($product->price, 2) }}
+                                            </x-table.data>
+                                            <x-table.data>
+                                                {{ $product->orders_count }}
+                                            </x-table.data>
+                                        </x-table.row>
+                                        @empty
+                                        <x-table.empty>
+                                            No products found.
+                                        </x-table.empty>
+                                        @endforelse
+                                    </x-table.body>
+                                </x-table.index>
+                        </div>
+
+                        <!-- Top Vendors -->
+                        <div>
+                            <h4 class="text-xl font-bold mb-4">Top Vendors</h4>
+                            <x-table.index>
+                                    <x-table.head>
+                                        <x-table.row>
+                                            <x-table.header>Vendor</x-table.header>
+                                            <x-table.header>Orders</x-table.header>
+                                        </x-table.row>
+                                    </x-table.head>
+                                    <x-table.body>
+                                        @forelse ($topVendors as $vendor)
+                                        <x-table.row>
+                                            <x-table.header scope="row">
+                                                {{ $vendor->name }}
+                                            </x-table.header>
+                                            <x-table.data>
+                                                {{ $vendor->total_orders_count }}
+                                            </x-table.data>
+                                        </x-table.row>
+                                        @empty
+                                        <x-table.empty>
+                                            No vendors found.
+                                        </x-table.empty>
+                                        @endforelse
+                                    </x-table.body>
+                                </x-table.index>
+                        </div>
                     </div>
                 </div>
             </div>

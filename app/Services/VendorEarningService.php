@@ -52,4 +52,9 @@ class VendorEarningService
             ->with('vendor')
             ->get();
     }
+
+    public function getTotalCommission(): float
+    {
+        return VendorEarning::sum('commission');
+    }
 }

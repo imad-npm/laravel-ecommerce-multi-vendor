@@ -117,4 +117,14 @@ class OrderService
 
         return $order;
     }
+
+    public function getTotalSales(): float
+    {
+        return Order::where('status', OrderStatus::PAID)->sum('total');
+    }
+
+    public function getTotalOrders(): int
+    {
+        return Order::count();
+    }
 }
