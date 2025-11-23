@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleAuthController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Customer\ProductController;
 use App\Http\Controllers\StoreController;
@@ -27,6 +29,11 @@ require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';
 require __DIR__.'/customer.php';
 require __DIR__.'/vendor.php';
+
+
+Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('google.redirect');
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('google.callback');
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/conversations', [ConversationController::class, 'index'])->name('conversations.index');
