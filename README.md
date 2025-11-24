@@ -33,12 +33,11 @@ A complete multi-vendor e-commerce platform built with **Laravel**, featuring ro
 * **Stripe Checkout / Elements** for secure customer payments.
 * **Stripe Webhooks** for real-time order status synchronization.
 * **Stripe Connect Payouts**
-  Automated vendor payouts via scheduled console jobs (daily or configurable).
+  Automated vendor payouts.
 
 ### Account Management
 
 * User profiles, store settings, vendor onboarding, admin controls.
-* Optional Stripe Connect onboarding wizard.
 
 ### Developer Features
 
@@ -104,7 +103,13 @@ STRIPE_KEY=
 STRIPE_SECRET=
 STRIPE_WEBHOOK_SECRET=
 STRIPE_CLIENT_ID=
-STRIPE_STATIC_VENDOR_ACCOUNT_ID=   # Optional fallback
+STRIPE_STATIC_VENDOR_ACCOUNT_ID=   
+
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GOOGLE_REDIRECT_URI=
+
+
 ```
 
 ---
@@ -157,7 +162,7 @@ php artisan serve
 
 The platform is structured for easy extension:
 
-* Add payment gateways (PayPal, Wise, Payoneer).
+* Add another payment gateways (PayPal, Wise, Payoneer).
 * Add shipping integrations (Shippo, EasyPost, custom rules).
 * Add analytics dashboards.
 * Add marketplace fees, tax rules, or invoice generation.
