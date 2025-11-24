@@ -27,6 +27,28 @@
           };
       }
 
+      function getIconForLink($label)
+      {
+          return match ($label) {
+              'Users' => 'heroicon-o-users',
+              'Stores' => 'heroicon-o-building-storefront',
+              'Products' => 'heroicon-o-shopping-bag',
+              'Categories' => 'heroicon-o-tag',
+              'Orders' => 'heroicon-o-clipboard-document-list',
+              'Payouts' => 'heroicon-o-banknotes',
+              'Vendor Earnings' => 'heroicon-o-currency-dollar',
+              'Conversations' => 'heroicon-o-chat-bubble-left-right',
+              'Store' => 'heroicon-o-building-storefront',
+              'Create Store' => 'heroicon-o-plus-circle',
+              'Reviews' => 'heroicon-o-star',
+              'Stripe Account' => 'heroicon-o-credit-card',
+              'Browse Products' => 'heroicon-o-shopping-bag',
+              'My Orders' => 'heroicon-o-clipboard-document-list',
+              'Shopping Cart' => 'heroicon-o-shopping-cart',
+              default => '',
+          };
+      }
+
       function linksForRole($role, $user): array
       {
           return match ($role) {
@@ -189,8 +211,8 @@
                       @foreach ($roleLinks as $link)
                           <x-ui.nav-link :href="$link['route']" :active="$link['active']">
                               <span class="relative inline-flex items-center">
-                                  @if ($link['label'] === 'Shopping Cart')
-                                      <x-heroicon-o-shopping-cart class="w-5 h-5 mr-2" />
+                                  @if(getIconForLink($link['label']))
+                                      <x-dynamic-component :component="getIconForLink($link['label'])" class="w-5 h-5 mr-2" />
                                   @endif
                                   {{ __($link['label']) }}
                                   @if ($link['label'] === 'Shopping Cart' && $cartCount > 0)
@@ -281,8 +303,8 @@
           
               @foreach ($roleLinks as $link)
                   <x-ui.responsive-nav-link :href="$link['route']" :active="$link['active']">
-                      @if ($link['label'] === 'Shopping Cart')
-                          <x-heroicon-o-shopping-cart class="w-5 h-5 mr-2" />
+                      @if(getIconForLink($link['label']))
+                          <x-dynamic-component :component="getIconForLink($link['label'])" class="w-5 h-5 mr-2" />
                       @endif
                       {{ __($link['label']) }}
                   </x-ui.responsive-nav-link>

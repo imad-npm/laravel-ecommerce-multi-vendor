@@ -4,7 +4,10 @@ use App\Enums\OrderStatus;
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-2xl font-bold text-primary">🧾 My Orders</h2>
+        <h2 class="text-2xl font-bold text-primary flex items-center">
+            <x-heroicon-o-clipboard-document-list class="w-6 h-6 mr-2" />
+            My Orders
+        </h2>
     </x-slot>
 
     <div class="py-10 bg-neutral-100">
