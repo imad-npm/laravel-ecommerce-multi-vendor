@@ -90,7 +90,8 @@
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
                             <x-ui.button type="submit" variant="primary">
-                                🛒 Add to Cart
+                                <x-heroicon-o-shopping-cart class="w-5 h-5 mr-2" />
+                                Add to Cart
                             </x-ui.button>
                         </form>
                         @auth
@@ -98,11 +99,7 @@
                                 @if ($conversation)
                                     <x-ui.button :href="route('conversations.messages.index', ['conversation' => $conversation->id])"
                                          variant="secondary" class="flex items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H16.5m3.065-12.69a11.955 11.955 0 0 1 .965 3.53l-1.798-.91c-.302-.152-.543-.413-.697-.72L16.5 4.5l1.798-.91c.302-.152.543-.413.697-.72ZM5.73 3.22a11.955 11.955 0 0 1 3.53.965l-.91 1.798c-.152.302-.413.543-.72.697L4.5 7.5l-.91-1.798a2.25 2.25 0 0 0-.72-.697A11.955 11.955 0 0 1 3.22 3.22Zm12.69 0a11.955 11.955 0 0 1-3.53.965l.91 1.798c.152.302.413.543.72.697L19.5 7.5l.91-1.798a2.25 2.25 0 0 0 .72-.697A11.955 11.955 0 0 1 18.91 3.22ZM3.22 5.73a11.955 11.955 0 0 1 .965 3.53l1.798-.91c-.302-.152-.543-.413-.697-.72L7.5 4.5l.91 1.798a2.25 2.25 0 0 0 .72.697A11.955 11.955 0 0 1 5.73 3.22Z" />
-                                        </svg>
+                                        <x-heroicon-o-chat-bubble-left-right class="w-5 h-5 mr-2" />
                                         Message Vendor
                                     </x-ui.button>
                                 @else
@@ -112,19 +109,16 @@
                                         <x-ui.input type="hidden" name="product_id" :value="$product->id" />
                                         <x-ui.button 
                                          variant="secondary" class="flex items-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H16.5m3.065-12.69a11.955 11.955 0 0 1 .965 3.53l-1.798-.91c-.302-.152-.543-.413-.697-.72L16.5 4.5l1.798-.91c.302-.152.543-.413.697-.72ZM5.73 3.22a11.955 11.955 0 0 1 3.53.965l-.91 1.798c-.152.302-.413.543-.72.697L4.5 7.5l-.91-1.798a2.25 2.25 0 0 0-.72-.697A11.955 11.955 0 0 1 3.22 3.22Zm12.69 0a11.955 11.955 0 0 1-3.53.965l.91 1.798c.152.302.413.543.72.697L19.5 7.5l.91-1.798a2.25 2.25 0 0 0 .72-.697A11.955 11.955 0 0 1 18.91 3.22ZM3.22 5.73a11.955 11.955 0 0 1 .965 3.53l1.798-.91c-.302-.152-.543-.413-.697-.72L7.5 4.5l.91 1.798a2.25 2.25 0 0 0 .72.697A11.955 11.955 0 0 1 5.73 3.22Z" />
-                                        </svg>
-                                        Message Vendor
-                                    </x-ui.button>
+                                            <x-heroicon-o-chat-bubble-left-right class="w-5 h-5 mr-2" />
+                                            Message Vendor
+                                        </x-ui.button>
                                     </form>
                                 @endif
                             @endif
                         @endauth
                         <x-ui.button :href="route('products.index')" variant="outline">
-                            ← Back to Products
+                            <x-heroicon-o-arrow-left class="w-5 h-5 mr-2" />
+                            Back to Products
                         </x-ui.button>
                     </div>
                 </div>

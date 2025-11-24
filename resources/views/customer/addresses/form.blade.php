@@ -21,9 +21,11 @@
 
 <div class="flex justify-end mt-6">
     <x-ui.button variant="outline" :href="request()->query('redirect') === 'checkout' ? route('customer.orders.create') : route('customer.addresses.index')">
+        <x-heroicon-o-x-mark class="w-5 h-5 mr-2" />
         Cancel
     </x-ui.button>
     <x-ui.button variant="primary" type="submit" class="ml-4">
+        <x-heroicon-o-check class="w-5 h-5 mr-2" />
         {{ $buttonText ?? 'Save' }}
     </x-ui.button>
 </div>

@@ -65,7 +65,10 @@
                     </x-table.index>
             </div>
             <div class="mt-8">
-                <x-ui.button :href="route('admin.orders.index')" variant="outline">Back to Orders</x-ui.button>
+                <x-ui.button :href="route('admin.orders.index')" variant="outline">
+                    <x-heroicon-o-arrow-left class="w-5 h-5 mr-2" />
+                    Back to Orders
+                </x-ui.button>
             </div>
         </div>
     </div>

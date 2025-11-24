@@ -180,6 +180,7 @@
                   <div class="hidden sm:flex space-x-8 sm:ms-10">
                     @auth
                        <x-ui.nav-link :href="getUserHomeRoute()" :active="dashboard_active()">
+                          <x-heroicon-o-home class="w-5 h-5 mr-2" />
                           {{ __('Dashboard') }}
                       </x-ui.nav-link>
 
@@ -188,6 +189,9 @@
                       @foreach ($roleLinks as $link)
                           <x-ui.nav-link :href="$link['route']" :active="$link['active']">
                               <span class="relative inline-flex items-center">
+                                  @if ($link['label'] === 'Shopping Cart')
+                                      <x-heroicon-o-shopping-cart class="w-5 h-5 mr-2" />
+                                  @endif
                                   {{ __($link['label']) }}
                                   @if ($link['label'] === 'Shopping Cart' && $cartCount > 0)
                                       <span
@@ -223,6 +227,7 @@
                       <x-slot name="content">
                           @if ($user)
                               <x-ui.dropdown-link :href="profile_route()">
+                                  <x-heroicon-o-user class="w-5 h-5 mr-2" />
                                   {{ __('Profile') }}
                               </x-ui.dropdown-link>
 
@@ -230,12 +235,19 @@
                                   @csrf
                                   <x-ui.dropdown-link href="{{ route('logout') }}"
                                       onclick="event.preventDefault(); this.closest('form').submit();">
+                                      <x-heroicon-o-arrow-left-on-rectangle class="w-5 h-5 mr-2" />
                                       {{ __('Log Out') }}
                                   </x-ui.dropdown-link>
                               </form>
                           @else
-                              <x-ui.dropdown-link :href="route('login')">Login</x-ui.dropdown-link>
-                              <x-ui.dropdown-link :href="route('register')">Register</x-ui.dropdown-link>
+                              <x-ui.dropdown-link :href="route('login')">
+                                <x-heroicon-o-arrow-right-on-rectangle class="w-5 h-5 mr-2" />
+                                Login
+                              </x-ui.dropdown-link>
+                              <x-ui.dropdown-link :href="route('register')">
+                                <x-heroicon-o-user-plus class="w-5 h-5 mr-2" />
+                                Register
+                              </x-ui.dropdown-link>
                           @endif
                       </x-slot>
                   </x-ui.dropdown>
@@ -261,6 +273,7 @@
           <div class="pt-2 pb-3 space-y-1">
             @auth
                     <x-ui.responsive-nav-link :href="getUserHomeRoute()" :active="dashboard_active()">
+                  <x-heroicon-o-home class="w-5 h-5 mr-2" />
                   {{ __('Dashboard') }}
               </x-ui.responsive-nav-link>
 
@@ -268,6 +281,9 @@
           
               @foreach ($roleLinks as $link)
                   <x-ui.responsive-nav-link :href="$link['route']" :active="$link['active']">
+                      @if ($link['label'] === 'Shopping Cart')
+                          <x-heroicon-o-shopping-cart class="w-5 h-5 mr-2" />
+                      @endif
                       {{ __($link['label']) }}
                   </x-ui.responsive-nav-link>
               @endforeach
@@ -287,6 +303,7 @@
               <div class="mt-3 space-y-1">
                   @if ($user)
                       <x-ui.responsive-nav-link :href="profile_route()">
+                          <x-heroicon-o-user class="w-5 h-5 mr-2" />
                           {{ __('Profile') }}
                       </x-ui.responsive-nav-link>
 
@@ -294,12 +311,19 @@
                           @csrf
                           <x-ui.responsive-nav-link href="{{ route('logout') }}"
                               onclick="event.preventDefault(); this.closest('form').submit();">
+                              <x-heroicon-o-arrow-left-on-rectangle class="w-5 h-5 mr-2" />
                               {{ __('Log Out') }}
                           </x-ui.responsive-nav-link>
                       </form>
                   @else
-                      <x-ui.responsive-nav-link :href="route('login')">Login</x-ui.responsive-nav-link>
-                      <x-ui.responsive-nav-link :href="route('register')">Register</x-ui.responsive-nav-link>
+                      <x-ui.responsive-nav-link :href="route('login')">
+                        <x-heroicon-o-arrow-right-on-rectangle class="w-5 h-5 mr-2" />
+                        Login
+                      </x-ui.responsive-nav-link>
+                      <x-ui.responsive-nav-link :href="route('register')">
+                        <x-heroicon-o-user-plus class="w-5 h-5 mr-2" />
+                        Register
+                      </x-ui.responsive-nav-link>
                   @endif
               </div>
           </div>
