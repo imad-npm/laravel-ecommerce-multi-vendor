@@ -28,16 +28,17 @@
             </h3>
 
             @if($product->store)
-                <div class="text-[11px] text-primary font-medium whitespace-nowrap truncate">
-                    Store:
+                <div class="text-[11px] text-primary font-medium whitespace-nowrap truncate flex items-center">
+                    <x-heroicon-o-building-storefront class="w-4 h-4 mr-1" />
                     <x-ui.link variant="primary" href="{{ route('stores.show', $product->store) }}">
-                <p class="text-sm font-medium text-neutral-900">{{ $product->store->name }}</p>
-            </x-ui.link>
+                        <p class="text-sm font-medium text-neutral-900">{{ $product->store->name }}</p>
+                    </x-ui.link>
                 </div>
             @endif
 
             @if($product->category)
-                <div class="text-[11px] text-primary whitespace-nowrap truncate">
+                <div class="text-[11px] text-primary whitespace-nowrap truncate flex items-center">
+                    <x-heroicon-o-tag class="w-4 h-4 mr-1" />
                     {{ $product->category->name }}
                 </div>
         
@@ -56,26 +57,37 @@
 
                 @for($i = 1; $i <= 5; $i++)
                     @if($i <= $fullStars)
-                        <svg class="w-3 h-3 fill-current" viewBox="0 0 20 20"><path d="..." /></svg>
+                        <x-heroicon-s-star class="w-3 h-3" />
                     @elseif($i === $fullStars + 1 && $hasHalfStar)
-                        <svg class="w-3 h-3" viewBox="0 0 20 20"><defs>...</defs><path fill="url(#half-grad)" d="..." /></svg>
+                        <x-icon.star-half class="w-3 h-3" />
                     @else
-                        <svg class="w-3 h-3 text-neutral-300" fill="currentColor" viewBox="0 0 20 20"><path d="..." /></svg>
+                        <x-heroicon-o-star class="w-3 h-3 text-neutral-300" />
                     @endif
                 @endfor
 
                 <span class="text-[10px] text-neutral-500 ml-1 truncate">({{ number_format($rating, 1) }})</span>
             </div>
 
-            <div class="text-[10px] text-neutral-400 truncate">{{ $product->sold_count ?? 0 }} units sold</div>
+            <div class="text-[10px] text-neutral-400 truncate flex items-center">
+                <x-heroicon-o-archive-box class="w-4 h-4 mr-1" />
+                {{ $product->sold_count ?? 0 }} units sold
+            </div>
         </div>
 
         {{-- Price & Stock --}}
         <div class="mt-2 flex items-center justify-between">
-            <span class="text-primary text-sm font-bold">${{ number_format($product->price, 2) }}</span>
-            <span class="text-[10px] px-1.5 py-0.5 rounded-full
+            <span class="text-primary text-sm font-bold flex items-center">
+                ${{ number_format($product->price, 2) }} 
+            </span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded-full flex items-center
                 {{ $product->stock > 0 ? 'bg-success-50 text-success-700' : 'bg-red-100 text-red-700' }}">
-                {{ $product->stock > 0 ? 'In Stock' : 'Out' }}
+                @if($product->stock > 0)
+                    <x-heroicon-o-check-circle class="w-3 h-3 mr-1" />
+                    In Stock
+                @else
+                    <x-heroicon-o-x-circle class="w-3 h-3 mr-1" />
+                    Out
+                @endif
             </span>
         </div>
     </div>
