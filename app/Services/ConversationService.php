@@ -21,7 +21,7 @@ class ConversationService
             $query->where('user_one_id', $user->id)
                   ->orWhere('user_two_id', $user->id);
         })
-        ->whereHas('messages') // Ensure the conversation has at least one message
+      //  ->whereHas('messages') // Ensure the conversation has at least one message
         ->with(['userOne', 'userTwo', 'product', 'messages' => function($query) {
             $query->latest()->take(1); // Get the last message for each conversation
         }])

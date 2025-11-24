@@ -24,6 +24,7 @@
                         @csrf
                         <x-ui.textarea name="message" rows="3" class="w-full" placeholder="Type your message..."></x-ui.textarea>
                         <x-ui.button variant="primary" type="submit" class="mt-2">
+                            <x-heroicon-o-paper-airplane class="w-5 h-5 mr-2" />
                             Send Message
                         </x-ui.button>
                     </form>
