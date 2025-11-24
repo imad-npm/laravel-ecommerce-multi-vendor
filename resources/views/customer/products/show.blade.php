@@ -99,7 +99,7 @@
                                 @if ($conversation)
                                     <x-ui.button :href="route('conversations.messages.index', ['conversation' => $conversation->id])"
                                          variant="secondary" class="flex items-center">
-                                        <x-heroicon-o-chat-bubble-left-right class="w-6 h-6 " />
+                                        <x-heroicon-o-chat-bubble-left-right class="w-6 h-6 mr-2 " />
                                         Message Vendor
                                     </x-ui.button>
                                 @else
@@ -109,7 +109,7 @@
                                         <x-ui.input type="hidden" name="product_id" :value="$product->id" />
                                         <x-ui.button 
                                          variant="secondary" class="flex items-center">
-                                            <x-heroicon-o-chat-bubble-left-right class="w-6 h-6" />
+                                            <x-heroicon-o-chat-bubble-left-right class="w-6 h-6 mr-2" />
                                             Message Vendor
                                         </x-ui.button>
                                     </form>
