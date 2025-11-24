@@ -23,7 +23,7 @@
                     <div>
                         
                         <p class="text-lg"><strong class="font-semibold">Status:</strong> <span class="ml-2 px-3 py-1 rounded-full text-sm font-medium {{ $statusClass }}">{{ ucfirst($order->status->value) }}</span></p>
-                        <p class="text-lg mt-2"><strong class="font-semibold">Total:</strong> <span class="text-success-600 text-xl font-bold">${{ number_format($order->total, 2) }}</span></p>
+                        <p class="text-lg mt-2"><strong class="font-semibold">Total:</strong> <span class=" text-xl font-bold">${{ number_format($order->total, 2) }}</span></p>
                     </div>
                     <div>
                         <p class="text-lg"><strong class="font-semibold">Address:</strong> {{ $order->shipping_address_line_1 ?? 'N/A' }}</p>
@@ -49,13 +49,14 @@
                     </ul>
                 </div>
                 <div class="mt-8 flex items-center gap-4">
-                    <a href="{{ route('customer.orders.index') }}" class="inline-flex items-center px-6 py-3 bg-primary border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-neutral-700 active:bg-neutral-900 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition ease-in-out duration-150">
-                        Back to Orders
-                    </a>
+                    <x:ui.button href="{{ route('customer.orders.index') }}" variant="outline" >
+                     Back to Orders
+
+                    </x:ui.button>
                     @if($order->status === OrderStatus::PENDING)
-                        <a href="{{ route('customer.orders.checkout', $order) }}" class="inline-flex items-center px-6 py-3 bg-success-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-success-500 active:bg-success-700 focus:outline-none focus:ring-2 focus:ring-success-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                            Pay Now
-                        </a>
+                        <x:ui.button variant="primary" href="{{ route('customer.orders.checkout', $order) }}" 
+>                            Pay Now
+                        </x:ui.button>
                     @endif
                 </div>
             </div>
