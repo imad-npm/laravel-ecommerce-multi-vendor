@@ -101,16 +101,7 @@
                 </h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                     @foreach($featured as $product)
-                        <div class="bg-neutral-50 border border-neutral-300 rounded-lg p-4 flex flex-col items-center shadow hover:shadow-md transition">
-                            @if($product->image)
-                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-24 h-24 object-cover rounded mb-2">
-                            @else
-                                <div class="w-24 h-24 bg-neutral-200 rounded mb-2 flex items-center justify-center text-neutral-400">No Image</div>
-                            @endif
-                            <div class="font-semibold text-neutral-700 text-center">{{ $product->name }}</div>
-                            <div class="font-bold mt-1 text-primary">${{ number_format($product->price, 2) }}</div>
-                            <x-ui.link variant="primary" href="{{ route('products.show', $product) }}" class="mt-2 text-sm">View</x-ui.link>
-                        </div>
+                        <x-product-card :product="$product" />
                     @endforeach
                 </div>
             </div>
@@ -123,16 +114,7 @@
                 </h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                     @foreach($recommended as $product)
-                        <div class="bg-neutral-50 border border-neutral-300 rounded-lg p-4 flex flex-col items-center shadow hover:shadow-md transition">
-                            @if($product->image)
-                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-24 h-24 object-cover rounded mb-2">
-                            @else
-                                <div class="w-24 h-24 bg-neutral-200 rounded mb-2 flex items-center justify-center text-neutral-400">No Image</div>
-                            @endif
-                            <div class="font-semibold text-neutral-700 text-center">{{ $product->name }}</div>
-                            <div class="font-bold mt-1 text-primary">${{ number_format($product->price, 2) }}</div>
-                            <x-ui.link variant="primary" href="{{ route('products.show', $product) }}" class="mt-2 text-sm">View</x-ui.link>
-                        </div>
+                        <x-product-card :product="$product" />
                     @endforeach
                 </div>
             </div>
