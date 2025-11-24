@@ -1,10 +1,10 @@
 <?php
 
 namespace App\DataTransferObjects\Store;
+use Illuminate\Http\UploadedFile;
 
 class StoreDTO
 
-class StoreDTO
 {
     public function __construct(
         public readonly string $name,
