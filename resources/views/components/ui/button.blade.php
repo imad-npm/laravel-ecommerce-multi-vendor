@@ -10,20 +10,14 @@
     $baseClasses =
         ' inline-flex font-semibold text-xs uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150';
 
-    if ($variant == 'text') {
-        $sizeClasses = [
-            'sm' => ' text-xs',
-            'md' => ' text-sm',
-            'lg' => ' text-base',
-        ];
-    } else {
+    
         $sizeClasses = ['sm' => 'px-3 py-1.5 text-xs', 'md' => 'px-4 py-2 text-sm', 'lg' => 'px-6 py-3 text-base'];
-    }
+    
 
     $variantColors = [
         'primary' => 'gray',
         'secondary' => 'gray',
-        'danger' => 'red',
+        'danger' => 'danger',
         'success' => 'green',
         'outline' => 'gray',
     ];
@@ -40,11 +34,11 @@
             'bg-transparent border border-neutral-300 text-neutral-700 hover:bg-neutral-100 focus:ring-primary rounded-md',
         'success' =>
             'bg-success-600 border border-transparent text-white hover:bg-success-700 focus:bg-success-700 active:bg-success-900 focus:ring-success-500 rounded-md',
-        'text' => "text-{$resolvedColor}-600 hover:text-{$resolvedColor}-900  ", // New text variant
+        'text' => "text-{$resolvedColor}-600  hover:bg-red-100   ", // New text variant
     ];
 
     if ($variant === 'text') {
-        $classes = " {$sizeClasses[$size]} {$variantClasses[$variant]}";
+        $classes = " {$baseClasses} {$sizeClasses[$size]} {$variantClasses[$variant]}";
     } else {
         $classes = "{$baseClasses} {$variantClasses[$variant]} {$sizeClasses[$size]}";
     }

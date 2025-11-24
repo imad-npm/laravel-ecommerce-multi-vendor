@@ -46,5 +46,17 @@
   --color-success-950: oklch(0.184 0.033 183.93);
 
   --color-warning: #eab308;
-  --color-danger: #ef4444;
+
+  --color-danger-50:  #fef2f2;  /* very light red */
+  --color-danger-100: #fee2e2;
+  --color-danger-200: #fecaca;
+  --color-danger-300: #fca5a5;
+  --color-danger-400: #f87171;
+  --color-danger-500: #ef4444;  /* base danger */
+  --color-danger-600: #dc2626;
+  --color-danger-700: #b91c1c;
+  --color-danger-800: #991b1b;
+  --color-danger-900: #7f1d1d;
+  --color-danger-950: #450a0a;  /* very dark red */
+
 }

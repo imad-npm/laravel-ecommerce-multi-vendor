@@ -1,6 +1,6 @@
 @props(['product'])
 
-<div class="group relative bg-white border border-neutral-200 
+<div class="group relative bg-white border border-neutral-300
    rounded-2xl shadow-sm hover:shadow-md w-full
    transition duration-300 col-span-1 flex flex-col h-72">
 
