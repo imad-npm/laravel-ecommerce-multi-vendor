@@ -90,7 +90,7 @@
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
                             <x-ui.button type="submit" variant="primary">
-                                <x-heroicon-o-shopping-cart class="w-5 h-5 mr-2" />
+                                <x-heroicon-o-shopping-cart class="w-6 h-6 " />
                                 Add to Cart
                             </x-ui.button>
                         </form>
@@ -99,7 +99,7 @@
                                 @if ($conversation)
                                     <x-ui.button :href="route('conversations.messages.index', ['conversation' => $conversation->id])"
                                          variant="secondary" class="flex items-center">
-                                        <x-heroicon-o-chat-bubble-left-right class="w-5 h-5 mr-2" />
+                                        <x-heroicon-o-chat-bubble-left-right class="w-6 h-6 " />
                                         Message Vendor
                                     </x-ui.button>
                                 @else
@@ -109,7 +109,7 @@
                                         <x-ui.input type="hidden" name="product_id" :value="$product->id" />
                                         <x-ui.button 
                                          variant="secondary" class="flex items-center">
-                                            <x-heroicon-o-chat-bubble-left-right class="w-5 h-5 mr-2" />
+                                            <x-heroicon-o-chat-bubble-left-right class="w-6 h-6" />
                                             Message Vendor
                                         </x-ui.button>
                                     </form>
@@ -117,7 +117,7 @@
                             @endif
                         @endauth
                         <x-ui.button :href="route('products.index')" variant="outline">
-                            <x-heroicon-o-arrow-left class="w-5 h-5 mr-2" />
+                            <x-heroicon-o-arrow-left class="w-6 h-6 mr-2 " />
                             Back to Products
                         </x-ui.button>
                     </div>
