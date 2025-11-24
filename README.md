@@ -53,16 +53,14 @@ A complete multi-vendor e-commerce platform built with **Laravel**, featuring ro
 
 ```
 app/
-  Http/Controllers     → Web, dashboard, Stripe, messaging, products, orders
+  Http/Controllers     
   Services            
   DataTransferObjects  → OrderDTO, ProductDTO, PayoutDTO, etc.
   Models               → User, Vendor, Product, Order, Review, Conversation...
 routes/
-  web.php, admin.php, vendor.php, customer.php, console.php
+ auth.php, web.php, admin.php, vendor.php, customer.php, console.php
 resources/views/       → Modular Blade components & layouts
-resources/js/          → 
-database/seeders/      → Default admin/vendor/customer + demo data
-config/stripe.php      → Stripe keys, webhook secrets, Connect config
+
 ```
 
 ---
