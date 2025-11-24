@@ -49,14 +49,15 @@
                     </ul>
                 </div>
                 <div class="mt-8 flex items-center gap-4">
-                    <x:ui.button href="{{ route('customer.orders.index') }}" variant="outline" >
-                     Back to Orders
-
-                    </x:ui.button>
+                    <x-ui.button href="{{ route('customer.orders.index') }}" variant="outline" >
+                        <x-heroicon-o-arrow-left class="w-5 h-5 mr-2" />
+                        Back to Orders
+                    </x-ui.button>
                     @if($order->status === OrderStatus::PENDING)
-                        <x:ui.button variant="primary" href="{{ route('customer.orders.checkout', $order) }}" 
->                            Pay Now
-                        </x:ui.button>
+                        <x-ui.button variant="primary" href="{{ route('customer.orders.checkout', $order) }}" >
+                            <x-heroicon-o-credit-card class="w-5 h-5 mr-2" />
+                            Pay Now
+                        </x-ui.button>
                     @endif
                 </div>
             </div>

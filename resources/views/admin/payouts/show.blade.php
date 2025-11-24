@@ -23,6 +23,7 @@
                     </div>
                     <div class="flex items-center justify-between">
                         <x-ui.button :href="route('admin.payouts.index')" variant="outline">
+                            <x-heroicon-o-arrow-left class="w-5 h-5 mr-2" />
                             {{ __('Back to list') }}
                         </x-ui.button>
                     </div>

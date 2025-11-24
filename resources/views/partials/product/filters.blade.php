@@ -15,6 +15,7 @@
         {{-- Button to open advanced filters modal --}}
         <div class="w-full sm:w-auto flex justify-end">
             <x-ui.button type="button" @click="showFilters = true" variant="outline" size="md" class="w-full sm:w-auto">
+                <x-heroicon-o-adjustments-horizontal class="w-5 h-5 sm:mr-2" />
                 <span class="hidden sm:inline">More Filters</span>
                 <span class="sm:hidden">Filters</span>
             </x-ui.button>
@@ -22,7 +23,9 @@
         {{-- Submit --}}
         <div class="w-full sm:w-auto flex justify-end">
             <x-ui.button type="submit" variant="primary" size="md" class="w-full sm:w-auto">
-                Search
+                <x-heroicon-o-magnifying-glass class="w-5 h-5 sm:mr-2" />
+                <span class="hidden sm:inline">Search</span>
+                <span class="sm:hidden">Go</span>
             </x-ui.button>
         </div>
         {{-- Advanced Filters Modal --}}

@@ -69,6 +69,7 @@
                     <!-- Submit Button -->
                     <div class="flex justify-end">
                         <x-ui.button variant="primary" type="submit">
+                            <x-heroicon-o-check class="w-5 h-5 mr-2" />
                             {{ __('Save Product') }}
                         </x-ui.button>
                     </div>

@@ -32,7 +32,10 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-ui.button>{{ __('Save') }}</x-ui.button>
+            <x-ui.button>
+                <x-heroicon-o-check class="w-5 h-5 mr-2" />
+                {{ __('Save') }}
+            </x-ui.button>
 
             @if (session('status') === 'password-updated')
                 <p
@@ -40,8 +43,11 @@
                     x-show="show"
                     x-transition
                     x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-neutral-600"
-                >{{ __('Saved.') }}</p>
+                    class="text-sm text-neutral-600 flex items-center"
+                >
+                    <x-heroicon-o-check-circle class="w-5 h-5 mr-2" />
+                    {{ __('Saved.') }}
+                </p>
             @endif
         </div>
     </form>
