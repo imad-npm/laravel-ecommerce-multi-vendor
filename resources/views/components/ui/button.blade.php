@@ -8,7 +8,8 @@
 
 @php
     $baseClasses =
-        ' inline-flex font-semibold text-xs uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150';
+        ' inline-flex font-semibold text-xs uppercase tracking-widest rounded-md
+rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150';
 
     
         $sizeClasses = ['sm' => 'px-3 py-1.5 text-xs', 'md' => 'px-4 py-2 text-sm', 'lg' => 'px-6 py-3 text-base'];
@@ -25,15 +26,15 @@
     $resolvedColor = $variantColors[$color] ?? 'gray';
     $variantClasses = [
         'primary' =>
-            'bg-primary border border-transparent text-white hover:bg-neutral-700 focus:bg-neutral-700 active:bg-neutral-900 focus:ring-primary rounded-md',
+            'bg-primary border border-transparent text-white hover:bg-neutral-700 focus:bg-neutral-700 active:bg-neutral-900 focus:ring-primary ',
         'secondary' =>
-            'bg-secondary border border-transparent text-primary hover:bg-secondary-700 focus:ring-primary rounded-md',
+            'bg-secondary border border-transparent text-primary hover:bg-secondary-700 focus:ring-primary ',
         'danger' =>
-            'bg-red-600 border border-transparent text-white hover:bg-red-500 focus:bg-red-700 active:bg-red-900 focus:ring-red-500 rounded-md',
+            'bg-red-600 border border-transparent text-white hover:bg-red-500 focus:bg-red-700 active:bg-red-900 focus:ring-red-500 ',
         'outline' =>
-            'bg-transparent border border-neutral-300 text-neutral-700 hover:bg-neutral-100 focus:ring-primary rounded-md',
+            'bg-transparent border border-neutral-300 text-neutral-700 hover:bg-neutral-100 focus:ring-primary ',
         'success' =>
-            'bg-success-600 border border-transparent text-white hover:bg-success-700 focus:bg-success-700 active:bg-success-900 focus:ring-success-500 rounded-md',
+            'bg-success-600 border border-transparent text-white hover:bg-success-700 focus:bg-success-700 active:bg-success-900 focus:ring-success-500 ',
         'text' => "text-{$resolvedColor}-600  hover:bg-red-100   ", // New text variant
     ];
 
