@@ -90,7 +90,7 @@
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
                             <x-ui.button type="submit" variant="primary">
-                                <x-heroicon-o-shopping-cart class="w-6 h-6 " />
+                                <x-heroicon-o-shopping-cart class="w-6 h-6 mr-2 " />
                                 Add to Cart
                             </x-ui.button>
                         </form>
