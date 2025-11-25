@@ -16,7 +16,7 @@
                     <p class="text-sm mt-2 text-neutral-400">Try different filters or explore other categories</p>
                 </div>
             @else
-                <div class="grid grid-cols-2 gap-3 md:gap-6 sm:grid-cols-3 lg:grid-cols-4">
+                <div class="grid grid-cols-1 gap-3 md:gap-6 sm:grid-cols-3 lg:grid-cols-4">
                     @foreach($products as $product)
                         <x-product-card :product="$product" />
                     @endforeach

@@ -2,7 +2,7 @@
 
 <div class="group relative bg-white border border-neutral-300
    rounded-2xl shadow-sm hover:shadow-md w-full
-   transition duration-300 col-span-1 flex flex-col h-72">
+   transition duration-300 col-span-1 flex flex-col ">
 
 
 <a href="{{ route('products.show', $product) }}"
@@ -23,12 +23,12 @@
     {{-- Content --}}
     <div class="flex flex-col justify-between p-3 flex-grow overflow-hidden">
         <div class="space-y-1 overflow-hidden">
-            <h3 class="text-sm font-semibold text-neutral-900 truncate group-hover:underline">
+            <h3 class=" font-semibold text-neutral-900 truncate group-hover:underline">
                 {{ $product->name }}
             </h3>
 
             @if($product->store)
-                <div class="text-[11px] text-primary font-medium whitespace-nowrap truncate flex items-center">
+                <div class="text-[9px] text-primary font-medium whitespace-nowrap truncate flex items-center">
                     <x-heroicon-o-building-storefront class="w-4 h-4 mr-1" />
                     <x-ui.link variant="primary" href="{{ route('stores.show', $product->store) }}">
                         <p class="text-sm font-medium text-neutral-900">{{ $product->store->name }}</p>
