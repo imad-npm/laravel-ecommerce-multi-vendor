@@ -98,29 +98,29 @@
 
 <!-- Sidebar -->
 <div class="flex flex-col w-48  bg-white border-r border-neutral-300">
-    <div class="flex items-center justify-center h-16 shrink-0">
+    <div class="flex items-center justify-center h-14 shrink-0">
         <a href="{{ getUserHomeRoute() }}">
             <x-application-logo class="block h-9 w-auto fill-current text-primary" />
         </a>
     </div>
     <nav class="flex-1 flex flex-col overflow-y-auto">
-        <div class="p-4 flex flex-col  space-y-3">
+        <div class="p-4 flex flex-col  space-y-2">
             @auth
-                <x-ui.nav-link :href="getUserHomeRoute()" :active="dashboard_active()" class="pb-2">
+                <x-ui.sidebar-nav-link :href="getUserHomeRoute()" :active="dashboard_active()">
                     <x-heroicon-o-home class="w-5 h-5 mr-2" />
                     {{ __('Dashboard') }}
-                </x-ui.nav-link>
+                </x-ui.sidebar-nav-link>
             @endauth
 
             @foreach ($roleLinks as $link)
-                <x-ui.nav-link :href="$link['route']" :active="$link['active']" class="pb-2">
+                <x-ui.sidebar-nav-link :href="$link['route']" :active="$link['active']" class="pb-2">
                     <span class="relative inline-flex items-center">
                         @if(getIconForLink($link['label']))
                             <x-dynamic-component :component="getIconForLink($link['label'])" class="w-5 h-5 mr-2" />
                         @endif
                         {{ __($link['label']) }}
                     </span>
-                </x-ui.nav-link>
+                </x-ui.sidebar-nav-link>
             @endforeach
         </div>
     </nav>
@@ -128,30 +128,30 @@
         @if ($user)
             <div class="text-sm font-medium text-neutral-500">{{ $user->name }}</div>
             <div class="mt-3 space-y-1">
-                <x-ui.nav-link :href="profile_route()">
+                <x-ui.sidebar-nav-link :href="profile_route()">
                     <x-heroicon-o-user class="w-5 h-5 mr-2" />
                     {{ __('Profile') }}
-                </x-ui.nav-link>
+                </x-ui.sidebar-nav-link>
 
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <x-ui.nav-link href="{{ route('logout') }} " class="pb-2"
+                    <x-ui.sidebar-nav-link href="{{ route('logout') }} " class="pb-2"
                         onclick="event.preventDefault(); this.closest('form').submit();">
                         <x-heroicon-o-arrow-left-on-rectangle class="w-5 h-5 mr-2" />
                         {{ __('Log Out') }}
-                    </x-ui.nav-link>
+                    </x-ui.sidebar-nav-link>
                 </form>
             </div>
         @else
             <div class="mt-3 space-y-1">
-                <x-ui.nav-link :href="route('login')">
+                <x-ui.sidebar-nav-link :href="route('login')">
                     <x-heroicon-o-arrow-right-on-rectangle class="w-5 h-5 mr-2" />
                     Login
-                </x-ui.nav-link>
-                <x-ui.nav-link :href="route('register')">
+                </x-ui.sidebar-nav-link>
+                <x-ui.sidebar-nav-link :href="route('register')">
                     <x-heroicon-o-user-plus class="w-5 h-5 mr-2" />
                     Register
-                </x-ui.nav-link>
+                </x-ui.sidebar-nav-link>
             </div>
         @endif
     </div>
