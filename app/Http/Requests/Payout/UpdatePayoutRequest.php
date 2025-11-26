@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Payout;
 
+use App\Enums\PayoutStatus;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StorePayoutRequest extends FormRequest
+class UpdatePayoutRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,6 +27,7 @@ class StorePayoutRequest extends FormRequest
             'vendor_id' => ['required', 'exists:users,id'],
             'amount' => ['required', 'numeric', 'min:0'],
             'transaction_id' => ['nullable', 'string', 'max:255'],
+            'status' => ['required', 'string', Rule::in(array_column(PayoutStatus::cases(), 'value'))],
         ];
     }
 }

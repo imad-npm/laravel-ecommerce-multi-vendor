@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\DataTransferObjects\VendorEarning\VendorEarningDTO;
-use App\Http\Requests\Admin\UpdateVendorEarningRequest;
+use App\Http\Requests\VendorEarning\UpdateVendorEarningRequest;
 use App\Models\VendorEarning;
 use App\Services\PayoutService;
 use App\Services\VendorEarningService;
