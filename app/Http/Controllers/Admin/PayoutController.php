@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\DataTransferObjects\Payout\PayoutDTO;
-use App\Http\Requests\Admin\UpdatePayoutRequest;
+use App\Http\Requests\Payout\UpdatePayoutRequest;
 use App\Jobs\DispatchVendorPayouts;
 use App\Models\Payout;
 use App\Services\PayoutService;
