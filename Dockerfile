@@ -21,7 +21,6 @@ FROM php:8.2-cli-alpine AS composer
 
 WORKDIR /app
 
-# System dependencies required by PHP extensions / Composer
 RUN apk add --no-cache \
     git \
     unzip \
@@ -31,7 +30,6 @@ RUN apk add --no-cache \
     postgresql-dev \
     sqlite-dev
 
-# PHP extensions required by Laravel / packages
 RUN docker-php-ext-install \
     bcmath \
     intl \
@@ -42,18 +40,19 @@ RUN docker-php-ext-install \
     pdo_sqlite \
     zip
 
-# Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copy Composer files first for Docker layer caching
 COPY composer.json composer.lock ./
 
-# These files are required by Laravel's Composer scripts
-COPY artisan ./artisan
-COPY app ./app
-COPY bootstrap ./bootstrap
+COPY . .
 
-# Install production PHP dependencies
+RUN mkdir -p \
+    storage/framework/cache \
+    storage/framework/sessions \
+    storage/framework/views \
+    storage/logs \
+    bootstrap/cache
+
 RUN composer install \
     --no-dev \
     --no-interaction \
@@ -69,7 +68,6 @@ FROM php:8.2-fpm-alpine
 
 WORKDIR /var/www/html
 
-# System dependencies
 RUN apk add --no-cache \
     icu-dev \
     libzip-dev \
@@ -77,7 +75,6 @@ RUN apk add --no-cache \
     postgresql-dev \
     sqlite-dev
 
-# PHP extensions
 RUN docker-php-ext-install \
     bcmath \
     intl \
@@ -89,33 +86,35 @@ RUN docker-php-ext-install \
     pdo_sqlite \
     zip
 
-# Copy Composer dependencies
 COPY --from=composer /app/vendor ./vendor
 
-# Copy Laravel application
 COPY . .
 
-# Copy production Vite build
 COPY --from=frontend /app/public/build ./public/build
 
-# Laravel writable directories
-RUN chown -R www-data:www-data \
-        storage \
-        bootstrap/cache \
-    && chmod -R 775 \
-        storage \
-        bootstrap/cache
+RUN mkdir -p \
+    storage/framework/cache \
+    storage/framework/sessions \
+    storage/framework/views \
+    storage/logs \
+    bootstrap/cache
 
-# Production PHP configuration
+RUN chown -R www-data:www-data \
+    storage \
+    bootstrap/cache
+
+RUN chmod -R 775 \
+    storage \
+    bootstrap/cache
+
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-# OPcache
 RUN { \
-        echo "opcache.enable=1"; \
-        echo "opcache.validate_timestamps=0"; \
-        echo "opcache.memory_consumption=128"; \
-        echo "opcache.max_accelerated_files=10000"; \
-    } > /usr/local/etc/php/conf.d/opcache.ini
+    echo "opcache.enable=1"; \
+    echo "opcache.validate_timestamps=0"; \
+    echo "opcache.memory_consumption=128"; \
+    echo "opcache.max_accelerated_files=10000"; \
+} > /usr/local/etc/php/conf.d/opcache.ini
 
 EXPOSE 9000
 
