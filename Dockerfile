@@ -1,106 +1,122 @@
-# syntax=docker/dockerfile:1
-
-##########################
-# 1. Frontend build stage
-##########################
+# ============================================================
+# 1. Frontend build
+# ============================================================
 FROM node:20-alpine AS frontend
 
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
+COPY package*.json ./
+
 RUN npm ci
 
-COPY resources/ resources/
-COPY vite.config.js ./
-COPY public/ public/
+COPY . .
 
 RUN npm run build
 
 
-##########################
-# 2. PHP dependencies stage
-##########################
-FROM composer:2 AS vendor
+# ============================================================
+# 2. Composer dependencies
+# ============================================================
+FROM php:8.2-cli-alpine AS composer
 
 WORKDIR /app
 
+# System dependencies required by PHP extensions / Composer
+RUN apk add --no-cache \
+    git \
+    unzip \
+    icu-dev \
+    libzip-dev \
+    oniguruma-dev \
+    postgresql-dev \
+    sqlite-dev
+
+# PHP extensions required by Laravel / packages
+RUN docker-php-ext-install \
+    bcmath \
+    intl \
+    mbstring \
+    pdo \
+    pdo_mysql \
+    pdo_pgsql \
+    pdo_sqlite \
+    zip
+
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Copy Composer files first for Docker layer caching
 COPY composer.json composer.lock ./
 
-# Install deps without running scripts (artisan isn't available yet)
+# These files are required by Laravel's Composer scripts
+COPY artisan ./artisan
+COPY app ./app
+COPY bootstrap ./bootstrap
+
+# Install production PHP dependencies
 RUN composer install \
     --no-dev \
-    --no-scripts \
     --no-interaction \
     --no-progress \
     --prefer-dist \
     --optimize-autoloader
 
 
-##########################
-# 3. Final runtime image
-##########################
-FROM php:8.2-fpm-alpine AS app
-
-# ---- system packages ----
-RUN apk add --no-cache \
-    bash \
-    curl \
-    git \
-    icu-dev \
-    libzip-dev \
-    libpng-dev \
-    libjpeg-turbo-dev \
-    freetype-dev \
-    oniguruma-dev \
-    postgresql-dev \
-    supervisor \
-    nginx \
-    shadow \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) \
-        pdo_mysql \
-        pdo_pgsql \
-        mbstring \
-        exif \
-        pcntl \
-        bcmath \
-        gd \
-        zip \
-        intl \
-        opcache
-
-# ---- php config ----
-COPY docker/php/php.ini /usr/local/etc/php/conf.d/99-custom.ini
-COPY docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
-
-# ---- nginx + supervisor config ----
-COPY docker/nginx/default.conf /etc/nginx/http.d/default.conf
-COPY docker/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# ============================================================
+# 3. Production Laravel application
+# ============================================================
+FROM php:8.2-fpm-alpine
 
 WORKDIR /var/www/html
 
-# ---- app code ----
+# System dependencies
+RUN apk add --no-cache \
+    icu-dev \
+    libzip-dev \
+    oniguruma-dev \
+    postgresql-dev \
+    sqlite-dev
+
+# PHP extensions
+RUN docker-php-ext-install \
+    bcmath \
+    intl \
+    mbstring \
+    opcache \
+    pdo \
+    pdo_mysql \
+    pdo_pgsql \
+    pdo_sqlite \
+    zip
+
+# Copy Composer dependencies
+COPY --from=composer /app/vendor ./vendor
+
+# Copy Laravel application
 COPY . .
 
-# vendor from composer stage
-COPY --from=vendor /app/vendor ./vendor
-
-# built frontend assets
+# Copy production Vite build
 COPY --from=frontend /app/public/build ./public/build
 
-# permissions: www-data needs to own storage & bootstrap/cache
-RUN addgroup -g 1000 www \
-    && adduser -G www -g www -s /bin/bash -D www \
-    && chown -R www:www /var/www/html \
-    && chmod -R 775 storage bootstrap/cache
+# Laravel writable directories
+RUN chown -R www-data:www-data \
+        storage \
+        bootstrap/cache \
+    && chmod -R 775 \
+        storage \
+        bootstrap/cache
 
-# generate optimized autoloader with dev scripts now that artisan exists
-RUN composer dump-autoload --optimize --no-dev
+# Production PHP configuration
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+# OPcache
+RUN { \
+        echo "opcache.enable=1"; \
+        echo "opcache.validate_timestamps=0"; \
+        echo "opcache.memory_consumption=128"; \
+        echo "opcache.max_accelerated_files=10000"; \
+    } > /usr/local/etc/php/conf.d/opcache.ini
 
-EXPOSE 80
+EXPOSE 9000
 
-ENTRYPOINT ["entrypoint.sh"]
-CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD ["php-fpm"]
