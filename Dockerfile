@@ -1,5 +1,5 @@
 # =========================
-# 1. Build frontend assets
+# 1. Build frontend
 # =========================
 FROM node:20-alpine AS frontend
 
@@ -9,16 +9,35 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
-
 RUN npm run build
 
 
 # =========================
-# 2. Install PHP dependencies
+# 2. PHP + Composer
 # =========================
-FROM composer:2 AS composer
+FROM php:8.2-cli-alpine AS composer
 
 WORKDIR /app
+
+RUN apk add --no-cache \
+    git \
+    unzip \
+    icu-dev \
+    libzip-dev \
+    oniguruma-dev \
+    postgresql-dev \
+    sqlite-dev \
+    && docker-php-ext-install \
+        bcmath \
+        intl \
+        mbstring \
+        pdo \
+        pdo_mysql \
+        pdo_pgsql \
+        pdo_sqlite \
+        zip
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 COPY composer.json composer.lock ./
 
@@ -31,21 +50,18 @@ RUN composer install \
 
 
 # =========================
-# 3. Production Laravel app
+# 3. Production Laravel
 # =========================
 FROM php:8.2-fpm-alpine
 
 WORKDIR /var/www/html
 
-# System dependencies
 RUN apk add --no-cache \
     icu-dev \
     libzip-dev \
     oniguruma-dev \
     postgresql-dev \
     sqlite-dev \
-    unzip \
-    git \
     && docker-php-ext-install \
         bcmath \
         intl \
@@ -57,16 +73,12 @@ RUN apk add --no-cache \
         pdo_sqlite \
         zip
 
-# Copy Composer dependencies
 COPY --from=composer /app/vendor ./vendor
 
-# Copy application
 COPY . .
 
-# Copy built Vite assets
 COPY --from=frontend /app/public/build ./public/build
 
-# Laravel permissions
 RUN chown -R www-data:www-data \
         storage \
         bootstrap/cache \
@@ -74,10 +86,8 @@ RUN chown -R www-data:www-data \
         storage \
         bootstrap/cache
 
-# PHP production configuration
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-# Opcache configuration
 RUN { \
         echo "opcache.enable=1"; \
         echo "opcache.validate_timestamps=0"; \
