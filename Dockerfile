@@ -116,6 +116,8 @@ RUN { \
     echo "opcache.max_accelerated_files=10000"; \
 } > /usr/local/etc/php/conf.d/opcache.ini
 
+RUN touch database/database.sqlite
+
 EXPOSE 10000
 
-CMD ["sh", "-c", "php artisan serve --host=0.0.0.0 --port=${PORT:-10000}"]
+CMD ["sh", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-10000}"]
