@@ -116,6 +116,6 @@ RUN { \
     echo "opcache.max_accelerated_files=10000"; \
 } > /usr/local/etc/php/conf.d/opcache.ini
 
-EXPOSE 9000
+EXPOSE 10000
 
-CMD ["php-fpm"]
+CMD ["sh", "-c", "php artisan serve --host=0.0.0.0 --port=${PORT:-10000}"]
