@@ -23,7 +23,7 @@ class ProductFactory extends Factory
             'description' => $this->faker->sentence(),
             'price' => $this->faker->randomFloat(2, 5, 500), // entre 5.00 et 500.00
             'stock' => $this->faker->numberBetween(0, 100),
-            'image' => "products/random_img.jpg", // faux lien image
+            'image' => "https://img.magnific.com/premium-vector/image-placeholder-icon_990473-9495.jpg?semt=ais_hybrid&w=740&q=80", // faux lien image
         ];
     }
 }
