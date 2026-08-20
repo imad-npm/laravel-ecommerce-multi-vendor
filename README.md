@@ -4,6 +4,9 @@
 A complete multi-vendor e-commerce platform built with **Laravel**, featuring role-based dashboards, Stripe payments, automated vendor payouts, modular architecture, and a built-in customer–vendor messaging.
 
 ---
+## 🚀 Live Demo
+
+**[View Live Demo](https://laravel-ecommerce-multi-vendor.onrender.com/)**
 
 ## 🚀 Features
 
