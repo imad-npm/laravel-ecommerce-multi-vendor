@@ -55,8 +55,7 @@
 
       <!-- Hero Image -->
       <div class="w-full rounded-3xl overflow-hidden shadow-2xl ring-1 ring-neutral dark:ring-neutral transition-transform hover:scale-[1.02]">
-        <img src="https://img.magnific.com/premium-vector/image-placeholder-icon_990473-9495.jpg?semt=ais_hybrid&w=500&q=80" alt="Featured Product" class="object-cover w-full h-full max-h-[600px]"/>
-      </div>
+        <img src="{{ asset('storage/products/random_img.jpg') }}" alt="Featured Product" class="object-cover w-full h-full max-h-[600px]"/>      </div>
     </div>
   </section>
 
