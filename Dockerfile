@@ -34,4 +34,4 @@ RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 EXPOSE 8000
 
-CMD sh -c "mkdir -p database && touch database/database.sqlite && chown -R www-data:www-data database && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000"
+CMD sh -c "mkdir -p database && touch database/database.sqlite && chown -R www-data:www-data database storage bootstrap/cache && php artisan storage:link --force && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8000}"
