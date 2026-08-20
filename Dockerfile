@@ -31,8 +31,7 @@ COPY --from=frontend-builder /app/public/build /var/www/public/build
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
-RUN touch database/database.sqlite
 
 EXPOSE 8000
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD sh -c "mkdir -p database && touch database/database.sqlite && chown -R www-data:www-data database && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000"
