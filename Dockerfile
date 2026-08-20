@@ -28,7 +28,7 @@ COPY . /var/www
 # Copy the compiled Tailwind assets from Stage 1
 COPY --from=frontend-builder /app/public/build /var/www/public/build
 
-RUN composer install --no-interaction --optimize-autoloader --no-dev
+RUN composer install --no-interaction --optimize-autoloader
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 
