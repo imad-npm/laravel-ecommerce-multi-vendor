@@ -1,108 +1,36 @@
-# ============================================================
-# 1. Frontend
-# ============================================================
-FROM node:20-alpine AS frontend
+# Use the official PHP image with CLI and Alpine Linux for a lightweight image
+FROM php:8.3-cli-alpine
 
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm ci
-
-COPY . .
-RUN npm run build
-
-
-# ============================================================
-# 2. Composer dependencies
-# ============================================================
-FROM php:8.2-cli-alpine AS dependencies
-
-WORKDIR /app
-
+# Install system dependencies required for Laravel
 RUN apk add --no-cache \
-    git \
+    bash \
+    curl \
+    libpng-dev \
+    libxml2-dev \
+    zip \
     unzip \
-    icu-dev \
-    libzip-dev \
-    oniguruma-dev \
-    postgresql-dev \
-    sqlite-dev
+    git
 
-RUN docker-php-ext-install \
-    bcmath \
-    intl \
-    mbstring \
-    pdo \
-    pdo_mysql \
-    pdo_pgsql \
-    pdo_sqlite \
-    zip
+# Install PHP extensions required by Laravel
+RUN docker-php-ext-install pdo pdo_mysql gd bcmath
 
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Copy Composer from the official stable image
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-COPY composer.json composer.lock ./
+# Set the working directory inside the container
+WORKDIR /var/www
 
-RUN composer install \
-    --no-dev \
-    --no-interaction \
-    --no-progress \
-    --prefer-dist \
-    --optimize-autoloader \
-    --no-scripts
+# Copy the existing application code to the container
+COPY . /var/www
 
-COPY . .
+# Install Laravel dependencies
+RUN composer install --no-interaction --optimize-autoloader --no-dev
 
-RUN composer dump-autoload --optimize
+# Set permissions for Laravel storage and cache directories
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
+# Expose port 8000 to access the Laravel server outside the container
+EXPOSE 8000
 
-# ============================================================
-# 3. Production
-# ============================================================
-FROM php:8.2-cli-alpine
-
-WORKDIR /var/www/html
-
-RUN apk add --no-cache \
-    icu-dev \
-    libzip-dev \
-    oniguruma-dev \
-    postgresql-dev \
-    sqlite-dev
-
-RUN docker-php-ext-install \
-    bcmath \
-    intl \
-    mbstring \
-    opcache \
-    pdo \
-    pdo_mysql \
-    pdo_pgsql \
-    pdo_sqlite \
-    zip
-
-COPY --from=dependencies /app/vendor ./vendor
-COPY --from=frontend /app/public/build ./public/build
-COPY . .
-
-RUN mkdir -p \
-    storage/framework/cache \
-    storage/framework/sessions \
-    storage/framework/views \
-    storage/logs \
-    bootstrap/cache \
-    && chown -R www-data:www-data storage bootstrap/cache
-
-RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
-
-RUN printf '%s\n' \
-    'opcache.enable=1' \
-    'opcache.validate_timestamps=0' \
-    'opcache.memory_consumption=128' \
-    'opcache.max_accelerated_files=10000' \
-    > /usr/local/etc/php/conf.d/opcache.ini
-
-RUN touch database/database.sqlite
-
-EXPOSE 10000
-
-CMD ["sh", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-10000}"]
+# Start the Laravel development server
+CMD php artisan serve --host=0.0.0.0 --port=8000
