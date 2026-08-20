@@ -43,12 +43,12 @@
                                         @csrf @method('PATCH')
                                         <x-ui.input type="number" name="quantity" :value="$item->quantity" min="1"
                                                class="w-20 text-center" />
-                                        <x-ui.button type="submit" variant="link">Update</x-ui.button>
+                                        <x-ui.button type="submit" variant="text">Update</x-ui.button>
                                     </form>
 
                                     <form action="{{ route('cart-items.destroy', $item->product_id) }}" method="POST">
                                         @csrf @method('DELETE')
-                                        <x-ui.button type="submit" variant="link" class="text-red-600">Remove</x-ui.button>
+                                        <x-ui.button type="submit" variant="text" class="text-red-600">Remove</x-ui.button>
                                     </form>
                                 </div>
                             </div>
