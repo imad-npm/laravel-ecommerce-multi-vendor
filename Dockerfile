@@ -1,5 +1,5 @@
 # ============================================================
-# Frontend
+# 1. Frontend
 # ============================================================
 FROM node:20-alpine AS frontend
 
@@ -13,7 +13,7 @@ RUN npm run build
 
 
 # ============================================================
-# Composer dependencies
+# 2. Composer dependencies
 # ============================================================
 FROM php:8.2-cli-alpine AS dependencies
 
@@ -21,7 +21,22 @@ WORKDIR /app
 
 RUN apk add --no-cache \
     git \
-    unzip
+    unzip \
+    icu-dev \
+    libzip-dev \
+    oniguruma-dev \
+    postgresql-dev \
+    sqlite-dev
+
+RUN docker-php-ext-install \
+    bcmath \
+    intl \
+    mbstring \
+    pdo \
+    pdo_mysql \
+    pdo_pgsql \
+    pdo_sqlite \
+    zip
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
@@ -32,13 +47,18 @@ RUN composer install \
     --no-interaction \
     --no-progress \
     --prefer-dist \
-    --optimize-autoloader
+    --optimize-autoloader \
+    --no-scripts
+
+COPY . .
+
+RUN composer dump-autoload --optimize
 
 
 # ============================================================
-# Production
+# 3. Production
 # ============================================================
-FROM php:8.2-fpm-alpine
+FROM php:8.2-cli-alpine
 
 WORKDIR /var/www/html
 
@@ -62,7 +82,6 @@ RUN docker-php-ext-install \
 
 COPY --from=dependencies /app/vendor ./vendor
 COPY --from=frontend /app/public/build ./public/build
-
 COPY . .
 
 RUN mkdir -p \
