@@ -1,2 +1,6 @@
 *
 !.gitignore
+!products/
+!products/random_img.jpg
+!logos/
+!logos/store.avif
